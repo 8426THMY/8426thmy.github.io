@@ -21,17 +21,6 @@ const recent_posts = document.getElementById("recent_posts");
 const posts = [
 	[
 		POST_TYPE_RESEARCH,
-		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "haagerup-izumi", "matrix", "modules", "near-group", "objects", "ostrik", "pointed", "rings"],
-		"2025/05/29",
-		"Fusion Categories and Their Modules",
-		"./research/fusion_category_modules/icon.png",
-		"Fusion Categories and Their Modules (Notes)",
-		"Notes from a talk given for Anna Romanov's research group.",
-		"./research/fusion_category_modules/fusion_category_modules.pdf"
-	],
-
-	[
-		POST_TYPE_RESEARCH,
 		["categories", "category", "diagrammatics", "framed", "fusion", "graphs", "groups", "homflypt", "invariants", "jones", "kauffman", "knots", "links", "manifolds", "pivotal", "polynomials", "quantum", "reshetikhin", "ribbon", "turaev", "witten"],
 		"2025/06/16",
 		"Ribbon Categories and RT Invariants",
@@ -39,6 +28,17 @@ const posts = [
 		"Ribbon Categories and Reshetikhin-Turaev Invariants (Slides)",
 		"Slides from a short talk at the <a href='https://sites.google.com/view/dominic-matan/seminar/'>UNSW Maths PhD/Masters Seminar</a> organized by Dominic Matan and Joe Baine.",
 		"./research/ribbon_categories_rt_invariants/ribbon_categories_rt_invariants.pdf"
+	],
+
+	[
+		POST_TYPE_RESEARCH,
+		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "haagerup-izumi", "matrix", "modules", "near-group", "objects", "ostrik", "pointed", "rings"],
+		"2025/05/29",
+		"Fusion Categories and Their Modules",
+		"./research/fusion_category_modules/icon.png",
+		"Fusion Categories and Their Modules (Notes)",
+		"Notes from a talk given for Anna Romanov's research group.",
+		"./research/fusion_category_modules/fusion_category_modules.pdf"
 	]
 ];
 /*const posts = [
