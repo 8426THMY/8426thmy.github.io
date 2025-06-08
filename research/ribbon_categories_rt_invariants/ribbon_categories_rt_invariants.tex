@@ -1,0 +1,914 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                      %
+% Random LaTeX Beamer Template         %
+%                                      %
+% Created by Thomas Dunmore.           %
+% Last updated 2024/11/07.             %
+%                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%
+% SETUP %
+%%%%%%%%%
+
+\documentclass{beamer}
+\mode<presentation> {
+	\usetheme{Madrid}
+}
+\setbeamertemplate{frametitle continuation}[from second][]
+
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+% Title.
+
+\title[Ribbon Categories and RT Invariants]{Ribbon Categories and Reshetikhin-Turaev Invariants}%\title[MTCs and RT Invariants]{Modular Tensor Categories and Reshetikhin-Turaev Invariants}
+\author[Thomas Dunmore]{Thomas Dunmore}
+\institute[UNSW]{
+	University of New South Wales \\
+	\medskip
+	\textit{t.dunmore@unsw.edu.au}
+}
+\date{2025/06/16}
+
+% Bibliography.
+\usepackage[%
+	backend = biber,
+	% BibLaTeX-Math package: https://github.com/konn/biblatex-math
+	style = math-alphabetic,
+	giveninits = true,
+	dashed = false,
+	url = false,
+	doi = false,
+	sorting = anyvt,
+	minalphanames = 3,
+	maxalphanames = 4,
+	maxcitenames = 5,
+	maxbibnames = 5
+]{biblatex}
+% Use the default font size for the bibliography.
+\renewcommand*{\bibfont}{\normalsize}
+% Use title case rather than sentence case for references.
+\DeclareFieldFormat{titlecase}{#1}
+% Put last names before first names.
+\DeclareNameAlias{default}{family-given}
+% Used for articles with appendices written by other authors.
+\NewBibliographyString{bywithappendix}
+\DefineBibliographyStrings{english}{
+	bywithappendix = {with an appendix by}
+}
+% Specify the bibliography data file to use.
+\addbibresource{references.bib}
+% Automatically add every reference to the bibliography.
+\nocite{*}
+
+% Plotting.
+\usepackage{tikz-cd}
+\usepackage{spath3}
+\usetikzlibrary{arrows.meta, decorations.markings, decorations.pathreplacing, bending, knots}
+
+
+%%%%%%%%%%%%
+% NOTATION %
+%%%%%%%%%%%%
+
+\usepackage{mathrsfs}
+% Reduce spacing between script letters.
+\newcommand{\multiscr}[1]{\text{\usefont{U}{rsfs}{m}{n}#1}}
+
+% Adds integral notation like \oiint.
+\usepackage{esint}
+% Blackboard bold symbols.
+\usepackage{bbm}
+
+\usepackage{accents}
+% Tilde notation for vectors.
+\newcommand{\ut}[1]{\underaccent{\tilde}{#1}}
+% Arrow notation for vectors.
+\usepackage{harpoon}
+% Dirac bra-ket notation for quantum states.
+\usepackage{braket}
+
+% Differential formatting.
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\newcommand*{\ndiff}[1]{\mathrm{d}#1}
+\newcommand*{\sdiff}[1]{\mathop{}\!\ndiff{#1}}
+\newcommand{\rdiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+	{\frac{\mathrm{d}#2}{\mathrm{d}#3}}
+	{\frac{\mathrm{d}^{#1}#2}{\forcsvlist\ndiff{#3}}}
+}
+\newcommand*{\npiff}[1]{\mathrm{\partial}#1}
+\newcommand*{\spiff}[1]{\mathop{}\!\npiff{#1}}
+\newcommand{\rpiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+	{\frac{\mathrm{\partial}#2}{\mathrm{\partial}#3}}
+	{\frac{\mathrm{\partial}^{#1}#2}{\forcsvlist\npiff{#3}}}
+}
+% Inexact differential for physics.
+\newcommand*{\dbar}[1]{\mathop{}\!\mathrm{\dj}#1}
+
+% Metrics, inner products and norms.
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\inprod}{\langle}{\rangle}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% This is used if we want an empty norm. 
+\newcommand{\blank}{{}\cdot{}}
+
+% Function notation.
+\newcommand{\id}{\textup{id}}
+\newcommand{\coker}{\textup{coker}}
+\newcommand{\im}{\textup{im}}
+\newcommand{\ev}{\textup{ev}}
+\newcommand{\coev}{\textup{coev}}
+
+% Category font.
+\newcommand{\mathcat}[1]{\mathcal{#1}}
+
+% Category theory notation.
+\newcommand{\Ob}{\textup{Ob}}
+\newcommand{\Hom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+	{\textup{Hom}_{#1}}
+	{\textup{Hom}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntHom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+	{\underline{\textup{Hom}}_{#1}}
+	{\underline{\textup{Hom}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\End}[2][]{
+	\ifthenelse{\equal{#2}{}}
+	{\textup{End}_{#1}}
+	{\textup{End}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntEnd}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\underline{\textup{End}}_{#1}}
+		{\underline{\textup{End}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\Fun}[2][]{
+	\ifthenelse{\equal{#2}{}}
+	{\textcat{Fun}_{#1}}
+	{\textcat{Fun}_{#1}\!\left(#2\right)}
+}
+\newcommand{\opcat}[1]{{#1}^{\textup{op}}}
+\newcommand{\revcat}[1]{{#1}^{\textup{rev}}}
+\newcommand{\textcat}[1]{\textup{\textsf{#1}}}
+\newcommand{\rmodcat}[2][]{\textcat{Mod}_{#1}\textcat{-}#2}
+\newcommand{\lmodcat}[2][]{#2\textcat{-Mod}_{#1}}
+\newcommand{\bimodcat}[3][]{#2\textcat{-Mod}_{#1}\textcat{-}#3}
+
+% Special notation.
+\newcommand{\chr}{\textup{char}}
+\newcommand{\Tr}{\textup{Tr}}
+\newcommand{\trv}{\textup{tr}}
+\newcommand{\Irr}{\textup{Irr}}
+\newcommand{\Gr}{\textup{Gr}}
+\newcommand{\dimh}[2]{\left(#1, #2\right)}
+\newcommand{\Dim}{\textup{Dim}}
+\newcommand{\FPdim}{\textup{FPdim}}
+\newcommand{\Wr}{\textup{Wr}}
+\newcommand{\BrPic}[1][]{
+	\ifthenelse{\equal{#1}{}}
+	{\textup{BrPic}}
+	{\textup{BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+	{\underline{\BrPic}}
+	{\underline{\BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicCC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+	{\underline{\BrPicC}}
+	{\underline{\BrPicC}\!\left(#1\right)}
+}
+\newcommand{\Out}{\textup{Out}}
+\newcommand{\OutC}{\underline{\Out}}
+\newcommand{\OutCC}{\underline{\OutC}}
+
+% Hiragana "yo" for the Yoneda embeddings.
+\newcommand{\yo}{\text{\usefont{U}{min}{m}{n}\symbol{'210}}}
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}
+
+% Representation theory notation.
+\newcommand{\Sym}{\textup{Sym}}
+\newcommand{\Alt}{\textup{Alt}}
+
+
+%%%%%%%%%%%%
+% DOCUMENT %
+%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%
+% Overview %
+%%%%%%%%%%%%
+
+\begin{frame}
+\titlepage
+\noindent\\[-15pt]
+\begin{figure}[!ht]
+\includegraphics[width=2cm]{unsw-crest}
+\end{figure}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Overview}
+%\begin{center}
+%\begin{minipage}{\widthof{(1) Reshetikhin-Turaev Invariants}}
+%\setlength{\parskip}{4ex}
+%\tableofcontents
+%\end{minipage}
+%\end{center}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Reshetikhin-Turaev Invariants %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Reshetikhin-Turaev Invariants}
+
+%\begin{frame}
+%\centerline{\Huge\textcolor{structure}{\underline{Reshetikhin-Turaev Invariants}}}
+%\end{frame}
+
+\begin{frame}
+\frametitle{A Brief History}
+In 1984, Vaughan Jones stumbled upon a new polynomial invariant for knots. Somewhat unsatisfyingly, all known definitions were intrinsically 2-dimensional, despite links naturally being 3-dimensional objects.
+\newline\newline
+In 1989, Witten solved this ``problem'' by constructing the Jones polynomial (and other invariants of links and 3-manifolds) from special kinds of 2 + 1d topological quantum field theories.
+\newline\newline
+The following year, in 1990, Reshetikhin and Turaev gave a mathematical formulation of Witten's construction in terms of ribbon graphs coloured by representations of quantum groups.
+\end{frame}
+
+\begin{frame}
+\frametitle{Categories for the Working Mathematician}
+Remember from Victor's talk that a category is (loosely) a collection of objects along with a collection of arrows (morphisms) between them.
+\newline\newline
+Our running example will be \textcolor{structure}{$\textcat{Vec}$}, the category whose objects are \textcolor{structure}{finite-dimensional} vector spaces (say, over $\mathbb{C}$), and whose morphisms are linear maps (morphisms $\mathbb{C}^m \to \mathbb{C}^n$ are $n \times m$ complex matrices).
+\newline\newline
+Note that $\textcat{Vec}$ has some nice properties that will be important to us.
+\begin{itemize}
+	\item It has finitely many simple objects, and every object is a finite direct sum of them. In $\textcat{Vec}$, only the one-dimensional vector space $\mathbb{C}$ has no non-trivial subspaces.
+	\item The morphisms between any two objects form a finite-dimensional vector space.
+\end{itemize}
+We will ask that all of our categories satisfy these properties.
+\end{frame}
+
+\begin{frame}
+\frametitle{The Most Useless Graphical Calculus Ever}
+In any category, we can represent morphisms using diagrams. Great!
+\begin{center}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 0);
+\node at (0, 0.75) [left] {$\id_X =\ $};
+\node at (0, 1.5) [above] {$X$};
+\node at (0, 0) [below] {$X$};
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 1);
+\draw[thick] (-0.5, 1) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\draw[thick, arrows = {-Latex}] (0, 0.5) to (0, 0);
+\node at (-0.5, 0.75) [left] {$f =\ $};
+\node at (0, 1.5) [above] {$X$};
+\node at (0, 0) [below] {$Y$};
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 2.5) to (0, 2);
+\draw[thick] (-0.5, 2) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 1);
+\draw[thick] (-0.5, 1) rectangle ++(1, -0.5) node[pos = 0.5] {$g$};
+\draw[thick, arrows = {-Latex}] (0, 0.5) to (0, 0);
+\node at (-0.5, 1.25) [left] {$g \circ f =\ $};
+\end{tikzpicture}
+\end{center}
+Unfortunately, they tend to be rather boring. If we want to draw knots and links, we're going to need a bit more structure...
+\begin{center}
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick, postaction = {decorate}] (0, 0.5) to (0, 2);
+\draw[thick, postaction = {decorate}] (1, 2) to (1, 0.5);
+\draw[thick] (0, 0.5) arc(180:360:0.5);
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick] (1, 1.5) arc(0:180:0.5);
+\draw[thick, postaction = {decorate}] (0, 1.5) to (0, 0);
+\draw[thick, postaction = {decorate}] (1, 0) to (1, 1.5);
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 2) .. controls +(0.1, -1) and +(-0.1, 1) .. (1, 0.2);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (1, 2) .. controls +(-0.1, -1) and +(0.1, 1) .. (0, 0.2);
+\end{knot}
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{scope}[blend group = darken]
+\begin{scope}[blend group = normal]
+\fill[lightgray] (0.5, 1.5) .. controls +(-0.45, -0.25) .. (0, 1) .. controls +(0.05, -0.25) .. (0.5, 0.5) .. controls +(0.45, 0.25) .. (1, 1) .. controls +(-0.05, 0.25) .. (0.5, 1.5);
+\end{scope}
+\begin{scope}[blend group = normal]
+\draw[thick] (0, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0);
+\draw[thick] (1, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 0);
+\end{scope}
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Enter: The Second Dimension}
+To place strings side by side, we define a \textcolor{structure}{monoidal structure}. That is, we have a product $\otimes$ with unit $\mathbbm{1}$, where $X \otimes Y$ denotes the object whose strands are the strands of $X$ and $Y$ placed parallel. Isotopy invariance implies that we must be able to ignore parentheses\textsuperscript{$\dagger$} and strands of $\mathbbm{1}$, and that morphisms should be able to freely move vertically along strands.
+\begin{center}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 0);
+\node at (0, 1.5) [above] {$X \otimes Y$};
+\node at (0, 0) [below] {$X \otimes Y$};
+
+\node at (0.625, 0.75) {$=$};
+
+\draw[thick, arrows = {-Latex}] (1.25, 1.5) to (1.25, 0);
+\draw[thick, arrows = {-Latex}] (2, 1.5) to (2, 0);
+\node at (1.25, 1.5) [above] {$X$};
+\node at (1.25, 0) [below] {$X$};
+\node at (2, 1.5) [above] {$Y$};
+\node at (2, 0) [below] {$Y$};
+\end{tikzpicture}%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 2.5) to (0, 2);
+\draw[thick] (-0.5, 2) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 0);
+\draw[thick, arrows = {-Latex}] (1, 2.5) to (1, 1);
+\draw[thick] (0.5, 1) rectangle ++(1, -0.5) node[pos = 0.5] {$g$};
+\draw[thick, arrows = {-Latex}] (1, 0.5) to (1, 0);
+
+\node at (1.75, 1.25) {$=$};
+
+\draw[thick, arrows = {-Latex}] (2.5, 2.5) to (2.5, 1.5);
+\draw[thick, arrows = {-Latex}] (3.5, 2.5) to (3.5, 1.5);
+\draw[thick] (2, 1.5) rectangle ++(2, -0.5) node[pos = 0.5] {$f \otimes g$};
+\draw[thick, arrows = {-Latex}] (2.5, 1) to (2.5, 0);
+\draw[thick, arrows = {-Latex}] (3.5, 1) to (3.5, 0);
+
+\node at (4.25, 1.25) {$=$};
+
+\draw[thick, arrows = {-Latex}] (5, 2.5) to (5, 1);
+\draw[thick] (4.5, 1) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\draw[thick, arrows = {-Latex}] (5, 0.5) to (5, 0);
+\draw[thick, arrows = {-Latex}] (6, 2.5) to (6, 2);
+\draw[thick] (5.5, 2) rectangle ++(1, -0.5) node[pos = 0.5] {$g$};
+\draw[thick, arrows = {-Latex}] (6, 1.5) to (6, 0);
+\end{tikzpicture}
+\end{center}
+The usual tensor product gives $\textcat{Vec}$ a monoidal structure, where $\mathbbm{1} = \mathbb{C}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Wiggling Strings}
+To reproduce even the unknot, we're going to need cups and caps. Our strings are oriented though, so we'll be going up after passing through one!
+\newline\newline
+Let $X^{*}$ denote $X$ with its orientation reversed. Then our cups and caps may be represented by morphisms $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:-190:0.25);\end{tikzpicture} : X^{*} \otimes X \to \mathbbm{1}$, $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:190:0.25);\end{tikzpicture} : \mathbbm{1} \to X \otimes X^{*}$. To be invariant under isotopy, the following \textcolor{structure}{zig-zag identities} must hold:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick, postaction = {decorate}] (2, 1.5) to (2, 0.5);
+\draw[thick] (2, 0.5) arc(0:-180:0.5);
+\draw[thick, postaction = {decorate}] (1, 0.5) to (1, 1);
+\draw[thick] (1, 1) arc(0:180:0.5);
+\draw[thick, arrows = {-Latex}] (0, 1) to (0, 0);
+\node at (2, 1.5) [above] {$V$};
+\node at (0, 0) [below] {$V$};
+\end{tikzpicture} = \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick, arrows = {-Latex}] (3, 1.5) to (3, 0);
+\node at (3, 1.5) [above] {$V$};
+\node at (3, 0) [below] {$V$};
+\end{tikzpicture},%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick, arrows = {-Latex}] (0, 0.5) to (0, 1.5);
+\draw[thick] (1, 0.5) arc(0:-180:0.5);
+\draw[thick, postaction = {decorate}] (1, 1) to (1, 0.5);
+\draw[thick] (2, 1) arc(0:180:0.5);
+\draw[thick, postaction = {decorate}] (2, 0) to (2, 1);
+\node at (0, 1.5) [above] {$V^{*}$};
+\node at (2, 0) [below] {$V^{*}$};
+\end{tikzpicture} = \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.5 with {\arrow{Latex}}
+}]
+\draw[thick, arrows = {-Latex}] (3, 0) to (3, 1.5);
+\node at (3, 1.5) [above] {$V^{*}$};
+\node at (3, 0) [below] {$V^{*}$};
+\end{tikzpicture}.
+\end{equation*}
+We call $X^{*}$ a \textcolor{structure}{left dual} for $X$. Swapping the orientations of cups and caps defines \textcolor{structure}{right duals}, ${^{*}X}$. A category is called \textcolor{structure}{rigid} if every object has both left and right duals, and \textcolor{structure}{pivotal} if these duals coincide in a ``natural'' way.
+\end{frame}
+
+\begin{frame}
+\frametitle{Our First (Boring) Knot}
+In a pivotal category, we can draw oriented circles:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (1, 2) arc(0:185:0.5);
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 1);
+\draw[thick, arrows = {-Latex}] (1, 1) to (1, 1.5);
+\draw[thick, arrows = {-Latex}] (0, 0.5) arc(-180:5:0.5);
+\node at (0, 1.5) [above] {$X$};
+\node at (1, 1.5) [above] {$X^{*}$};
+\node at (0, 0.5) [above] {$X$};
+\node at (1, 0.5) [above] {${^{*}X}$};
+\end{tikzpicture} =\ \begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, postaction = {decorate}, decoration = {markings, mark = at position 0 with {\arrow{Latex}}}] (4, 1.25) arc(0:360:1);
+\end{tikzpicture}.
+\end{equation*}
+We will ask that $\End{\mathbbm{1}} \cong \mathbb{C}$ so we can identify links with numbers.
+\newline\newline
+In $\textcat{Vec}$, the duals of $V$ are given by the \textcolor{structure}{dual space}, $V^{*} \coloneqq \Hom{V, \mathbb{C}}$. Given a basis $\{v_i\}_{i=1}^{n}$ for $V$ with dual basis $\{v_i^{*}\}_{i=1}^{n}$ for $V^{*}$, we have $\ev_V(v^{*} \otimes v) = v^{*}(v)$ and $\coev_V(1) = \sum_{i=1}^{n}{v_i \otimes v_i^{*}}$.
+\newline\newline
+The pivotal structure in $\textcat{Vec}$ is given by the canonical isomorphism between a vector space and its double dual, $v \mapsto (v^{*} \mapsto v^{*}(v))$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Enter: The Third Dimension}
+Alexander tells us that every link is given by a braid capped off on both ends. To get the other knots, all we need to do now is define crossings.
+\newline\newline
+A \textcolor{structure}{braiding} is a collection of isomorphisms $X \otimes Y \to Y \otimes X$ that are compatible with the monoidal structure (object ``pairings'' don't matter) and which allow morphisms to be transported through them. For instance:
+\begin{center}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 3) .. controls +(0.1, -0.5) and +(-0.1, 0.5) .. (1, 2.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (1, 3) .. controls +(-0.1, -0.5) and +(0.1, 0.5) .. (0, 2.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (1, 1.5) .. controls +(0.1, -0.5) and +(-0.1, 0.5) .. (2, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (2, 1.5) .. controls +(-0.1, -0.5) and +(0.1, 0.5) .. (1, 0.775);
+\end{knot}
+\draw[thick, arrows = {-Latex}] (2, 3) to (2, 2);
+\draw[thick, arrows = {-Latex}] (0, 1.5) to (0, 0.5);
+\node at (0, 3) [above] {$X$};
+\node at (1, 3) [above] {$Y$};
+\node at (2, 3) [above] {$Z$};
+\node at (0, 1.5) [above] {$Y$};
+\node at (1, 1.5) [above] {$X$};
+\node at (2, 1.5) [above] {$Z$};
+\node at (0, 0) [above] {$Y$};
+\node at (1, 0) [above] {$Z$};
+\node at (2, 0) [above] {$X$};
+
+\node at (2.5, 1.75) {$=$};
+
+\begin{knot}[clip width = 5]
+%\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (3.5, 3) .. controls +(0.1, -1) and +(-0.1, 1) .. (5, 0.775);
+%\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (5, 3) .. controls +(-0.1, -1) and +(0.1, 1) .. (3.5, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (3, 3) .. controls +(0.125, -1) and +(-0.125, 1) .. (5, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (4, 3) .. controls +(-0.075, -1) and +(0.075, 1) .. (3, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (5, 3) .. controls +(-0.075, -1) and +(0.075, 1) .. (4, 0.775);
+\end{knot}
+%\node at (3.5, 3) [above] {$X$};
+%\node at (5, 3) [above] {$Y \otimes Z$};
+%\node at (3.5, 0) [above] {$Y \otimes Z$};
+%\node at (5, 0) [above] {$X$};
+\node at (3, 3) [above] {$X$};
+\node at (4, 3) [above] {$Y$};
+\node at (5, 3) [above] {$Z$};
+\node at (3, 0) [above] {$Y$};
+\node at (4, 0) [above] {$Z$};
+\node at (5, 0) [above] {$X$};
+\end{tikzpicture},%
+\qquad\quad
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (-0.5, 3.5) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\draw[thick] (1, 3.5) rectangle ++(1, -0.5) node[pos = 0.5] {$g$};
+\begin{knot}[clip width = 5]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 3) .. controls +(0.1, -1) and +(-0.1, 1) .. (1.5, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (1.5, 3) .. controls +(-0.1, -1) and +(0.1, 1) .. (0, 0.775);
+\end{knot}
+
+\node at (2, 1.75) {$=$};
+
+\begin{knot}[clip width = 5]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (2.5, 3) .. controls +(0.1, -1) and +(-0.1, 1) .. (4, 0.775);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (4, 3) .. controls +(-0.1, -1) and +(0.1, 1) .. (2.5, 0.775);
+\end{knot}
+\draw[thick] (2, 0.5) rectangle ++(1, -0.5) node[pos = 0.5] {$g$};
+\draw[thick] (3.5, 0.5) rectangle ++(1, -0.5) node[pos = 0.5] {$f$};
+\end{tikzpicture}.
+\end{center}
+The category $\textcat{Vec}$ is braided using the map $u \otimes v \mapsto v \otimes u$.
+\end{frame}
+
+\begin{frame}
+\frametitle{The Reidemeister Moves}
+Two knots are equivalent if and only if they are related by a sequence of {\em Reidemeister moves}. Does our graphical calculus give invariants of knots? 
+\begin{center}
+\begin{tabular}{rl}
+Type \textrm{II}: & \begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5]
+\strand[thick] (0, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 1);
+\strand[thick] (1, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 1);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (1, 1) .. controls +(-0.1, -0.5) and +(0.1, 0.5) .. (0, 0.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.1, -0.5) and +(-0.1, 0.5) .. (1, 0.275);
+\end{knot}
+
+\node at (1.5, 1) {$=$};
+
+\draw[thick, arrows = {-Latex}] (2, 2) to (2, 0);
+\draw[thick, arrows = {-Latex}] (3, 2) to (3, 0);
+\end{tikzpicture}\\[4em]
+Type \textrm{III}: & \begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5]
+\strand[thick] (0.5, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 2);
+\strand[thick] (0, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 2);
+\strand[thick] (0.5, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 1);
+\strand[thick] (1, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 1);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (0.5, 0.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0.5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (0, 0.275);
+\end{knot}
+\draw[thick] (1, 3) to (1, 2);
+\draw[thick] (0, 2) to (0, 1);
+\draw[thick, arrows = {-Latex}] (1, 1) to (1, 0);
+
+\node at (1.5, 1.5) {$=$};
+
+\begin{knot}[clip width = 5]
+\strand[thick] (2.5, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (2, 2);
+\strand[thick] (2, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (2.5, 2);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (2, 2) .. controls +(0.05, -1) and +(-0.05, 1) .. (2.5, 0.225);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (2.5, 2) .. controls +(0.05, -1) and +(-0.05, 1) .. (3, 0.225);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (3, 2) .. controls +(-0.05, -1) and +(0.05, 1) .. (2, 0.225);
+\end{knot}
+\draw[thick] (3, 3) to (3, 2);
+
+\node at (3.5, 1.5) {$=$};
+
+\begin{knot}[clip width = 5]
+\strand[thick] (4, 3) .. controls +(0, -1) and +(0, 1) .. (4.5, 1);
+\strand[thick] (4.5, 3) .. controls +(0, -1) and +(0, 1) .. (5, 1);
+\strand[thick] (5, 3) .. controls +(0, -1) and +(0, 1) .. (4, 1);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (4.5, 0.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (4.5, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (5, 0.275);
+\end{knot}
+\draw[thick, arrows = {-Latex}] (4, 1) to (4, 0);
+
+\node at (5.5, 1.5) {$=$};
+
+\begin{knot}[clip width = 5]
+\strand[thick] (6.5, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (7, 2);
+\strand[thick] (7, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (6.5, 2);
+\strand[thick] (6, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (6.5, 1);
+\strand[thick] (6.5, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (6, 1);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (7, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (6.5, 0.275);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (6.5, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (7, 0.275);
+\end{knot}
+\draw[thick] (6, 3) to (6, 2);
+\draw[thick] (7, 2) to (7, 1);
+\draw[thick, arrows = {-Latex}] (6, 1) to (6, 0);
+\end{tikzpicture}
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Twists and Ribbons}
+Unfortunately, the type \textrm{I} move does not hold in general. The reason is clear if we think of our strands as \textcolor{structure}{ribbons} rather than strings:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[
+	clip width = 5,
+	only when rendering/.style = {
+		draw = black,
+		double = white,
+		double distance = 6pt
+	}
+]
+\strand[thick] (0, 2) -- (0, 1.5);
+\strand[thick] (2, 1.5) arc (0:180:0.5);
+\strand[thick] (0, 1.5) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 0.5);
+\strand[thick] (1, 1.5) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0.5);
+\strand[thick] (2, 0.5) -- (2, 1.5);
+\strand[thick] (0, 0.5) -- (0, 0);
+\strand[thick] (1, 0.5) arc (180:360:0.5);
+\end{knot}
+\end{tikzpicture}\ =\ \begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{scope}[blend group = darken]
+\begin{scope}[blend group = normal]
+\fill[lightgray] (3, 1.5) .. controls +(-2.7pt, -0.25) .. (3cm - 3pt, 1) .. controls +(0.3pt, -0.25) .. (3, 0.5) .. controls +(2.7pt, 0.25) .. (3cm + 3pt, 1) .. controls +(-0.3pt, 0.25) .. (3, 1.5);
+\end{scope}
+\begin{scope}[blend group = normal]
+\draw[thick] (3cm - 3pt, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (3cm + 3pt, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (3cm - 3pt, 0);
+\draw[thick] (3cm + 3pt, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (3cm - 3pt, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (3cm + 3pt, 0);
+\end{scope}
+\end{scope}
+\end{tikzpicture}\ \neq\ \begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (4cm - 3pt, 2) -- (4cm - 3pt, 0);
+\draw[thick] (4cm + 3pt, 2) -- (4cm + 3pt, 0);
+\end{tikzpicture}.
+\end{equation*}
+In a pivotal braided category, the diagram above defines a \textcolor{structure}{twist} $X \to X$. We call it a \textcolor{structure}{ribbon structure} if we can pull it out of zig-zags:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.75 with {\arrow{Latex}}
+}]
+\draw[thick] (3, 0) -- (3, 1.125);
+\draw[thick] (3, 1.125) arc (0:180:1.125);
+\draw[thick] (2.25, 1.125) arc (0:180:0.375);
+\begin{knot}[clip width = 5]
+\strand[thick] (0.75, 1.125) .. controls +(0, -0.375) and +(0, 0.375) .. (1.5, 0.375);
+\strand[thick] (1.5, 1.125) .. controls +(0, -0.375) and +(0, 0.375) .. (0.75, 0.375);
+\end{knot}
+\draw[thick, postaction = {decorate}] (2.25, 0.375) -- (2.25, 1.125);
+\draw[thick] (1.5, 0.375) arc (180:360:0.375);
+\draw[thick] (0, 0.375) arc (180:360:0.375);
+\draw[thick, arrows = {-Latex}] (0, 0.375) -- (0, 2.25);
+\end{tikzpicture}\ =\ \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.75 with {\arrow{Latex}}
+}]
+\draw[thick] (4, 0) -- (4, 0.75);
+\draw[thick] (5.5, 0.75) arc (360:180:0.375);
+\draw[thick, postaction = {decorate}] (5.5, 1.5) -- (5.5, 0.75);
+\begin{knot}[clip width = 5]
+\strand[thick] (4, 1.5) .. controls +(0, -0.375) and +(0, 0.375) .. (4.75, 0.75);
+\strand[thick] (4.75, 1.5) .. controls +(0, -0.375) and +(0, 0.375) .. (4, 0.75);
+\end{knot}
+\draw[thick] (4.75, 1.5) arc (180:0:0.375);
+\draw[thick, arrows = {-Latex}] (4, 1.5) -- (4, 2.25);
+\end{tikzpicture}.
+\end{equation*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Invariants of Knots and 3-Manifolds}
+Note that twists satisfy the following \textcolor{structure}{modified} type \textrm{I} Reidemeister move:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.75 with {\arrow{Latex}}
+}]
+\draw[thick] (0, 3.375) -- (0, 3);
+\draw[thick] (1.5, 3) arc (0:180:0.375);
+\begin{knot}[clip width = 5]
+\strand[thick] (0, 3) .. controls +(0, -0.375) and +(0, 0.375) .. (0.75, 2.25);
+\strand[thick] (0.75, 3) .. controls +(0, -0.375) and +(0, 0.375) .. (0, 2.25);
+\end{knot}
+\draw[thick, postaction = {decorate}] (1.5, 2.25) -- (1.5, 3);
+\draw[thick] (0.75, 2.25) arc (180:360:0.375);
+\draw[thick, postaction = {decorate}] (0, 2.25) -- (0, 1.125);
+\draw[thick] (1.5, 1.125) arc (0:180:0.375);
+\begin{knot}[clip width = 5]
+\strand[thick] (0.75, 1.125) .. controls +(0, -0.375) and +(0, 0.375) .. (0, 0.375);
+\strand[thick] (0, 1.125) .. controls +(0, -0.375) and +(0, 0.375) .. (0.75, 0.375);
+\end{knot}
+\draw[thick, postaction = {decorate}] (1.5, 0.375) -- (1.5, 1.125);
+\draw[thick] (0.75, 0.375) arc (180:360:0.375);
+\draw[thick, arrows = {-Latex}] (0, 0.375) -- (0, 0);
+\end{tikzpicture}\ =\ \begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (4, 3.375) -- (4, 0);
+\end{tikzpicture}.
+\end{equation*}
+The numbers associated to link diagrams coloured by any object give invariants of \textcolor{structure}{framed, oriented links}. This also gives invariants of closed, orientable, connected 3-manifolds by a theorem of Lickorish and Wallace: all such manifolds can be obtained by Dehn surgery on a framed link in $S^3$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Forgetting the Framing}
+It turns out that ribbon twists of simple objects are scalings of the identity:
+\begin{equation*}
+\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+	markings,
+	mark = at position 0.75 with {\arrow{Latex}}
+}]
+\draw[thick] (0, 2.25) -- (0, 1.5);
+\draw[thick] (1.5, 1.5) arc (0:180:0.375);
+\begin{knot}[clip width = 5]
+\strand[thick] (0, 1.5) .. controls +(0, -0.375) and +(0, 0.375) .. (0.75, 0.75);
+\strand[thick] (0.75, 1.5) .. controls +(0, -0.375) and +(0, 0.375) .. (0, 0.75);
+\end{knot}
+\draw[thick, postaction = {decorate}] (1.5, 0.75) -- (1.5, 1.5);
+\draw[thick] (0.75, 0.75) arc (180:360:0.375);
+\draw[thick, arrows = {-Latex}] (0, 0.75) -- (0, 0);
+\node at (0, 2.25) [above] {$X$};
+\node at (0, 0) [below] {$X$};
+\end{tikzpicture}\ =\ \theta_X\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 2.25) -- (0, 0);
+\node at (0, 2.25) [above] {$X$};
+\node at (0, 0) [below] {$X$};
+\end{tikzpicture}.
+\end{equation*}
+For any link diagram $L$ coloured by $X$, $\theta_X^{-\Wr(L)}L$ gives an invariant of $L$ as an \textcolor{structure}{unframed link}. Here, $\Wr(L)$ is the \textcolor{structure}{writhe} of $L$ (the number of overcrossings minus the number of undercrossings).
+\newline\newline
+While one can always forget the framing, forgetting the orientation is trickier. It is not actually sufficient for the object to be self-dual!
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modular Tensor Categories %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Modular Tensor Categories}
+%
+%\begin{frame}
+%\centerline{\Huge\textcolor{structure}{\underline{Modular Tensor Categories}}}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Modular Tensor Categories}
+%In a ribbon fusion category, we can define two matrices that together have quite remarkable properties. For any simple objects $X$ and $Y$, define
+%\begin{equation*}
+%s_{X,Y} = \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+%	markings,
+%	mark = at position 0.5 with {\arrow{Latex}}
+%}]
+%%\draw[thick, arrows = {-Latex}] ([shift = (312.5:0.75)] -0.5625, 0.75) arc (312.5:-35.5:0.75);
+%%\draw[thick, arrows = {-Latex}] ([shift = (-215.5:0.75)] 0.5625, 0.75) arc (-215.5:132.5:0.75);
+%%\node at (-0.5625, 1.75) {$X$};
+%%\node at (0.5625, 1.75) {$Y$};
+%
+%\draw[thick] (0, 3.5) arc (180:0:0.5);
+%\draw[thick] (3, 3.5) arc (0:180:0.5);
+%\draw[thick, postaction = {decorate}] (0, 0.5) -- (0, 3.5);
+%\draw[thick, postaction = {decorate}] (3, 0.5) -- (3, 3.5);
+%\begin{knot}[clip width = 4]
+%\strand[thick] (1, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (2, 2);
+%\strand[thick] (2, 3) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 2);
+%\strand[thick] (1, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (2, 1);
+%\strand[thick] (2, 2) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 1);
+%\end{knot}
+%\draw[thick] (1, 0.5) arc (0:-180:0.5);
+%\draw[thick] (2, 0.5) arc (180:360:0.5);
+%\node at (1, 3) [above] {$X$};
+%\node at (2, 3) [above] {$Y$};
+%\node at (1, 1) [below] {$X$};
+%\node at (2, 1) [below] {$Y$};
+%\end{tikzpicture},%
+%\qquad\quad
+%\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+%	markings,
+%	mark = at position 0.6 with {\arrow{Latex}}
+%}]
+%\draw[thick] (0, 2) -- (0, 1.5);
+%\draw[thick] (2, 1.5) arc (0:180:0.5);
+%\begin{knot}[clip width = 5]
+%\strand[thick] (0, 1.5) .. controls +(0, -0.5) and +(0, 0.5) .. (1, 0.5);
+%\strand[thick] (1, 1.5) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0.5);
+%\end{knot}
+%\draw[thick, postaction = {decorate}] (2, 0.5) -- (2, 1.5);
+%\draw[thick, arrows = {-Latex}] (0, 0.5) -- (0, 0);
+%\draw[thick] (1, 0.5) arc (180:360:0.5);
+%\node at (0, 2) [above] {$X$};
+%\node at (0, 0) [below] {$X$};
+%\end{tikzpicture} = t_X\begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
+%	markings,
+%	mark = at position 0.6 with {\arrow{Latex}}
+%}]
+%\draw[thick, arrows = {-Latex}] (3.5, 2) -- (3.5, 0);
+%\node at (3.5, 2) [above] {$X$};
+%\node at (3.5, 0) [below] {$X$};
+%\end{tikzpicture}.
+%\end{equation*}
+%The $S$- and $T$-matrices have rows and columns indexed by simple objects and entries $s_{X,Y}, t_X$
+%\end{frame}
+
+\begin{frame}
+\frametitle{Examples at Long Last}
+\begin{example}[Vector Spaces]
+For $\mathbb{C}^n$ in $\textcat{Vec}$, we get $L \mapsto n^c$ for a link $L$ with $c$ components. Wow!!
+\end{example}
+\begin{example}[Graded Vector Spaces]
+Consider the category $\textcat{Vec}_G$ of vector spaces \textcolor{structure}{graded} by $G$. This category has a 1D simple object $\mathbb{C}_g$ for each $g \in G$ which satisfy $\mathbb{C}_g \otimes \mathbb{C}_h = \mathbb{C}_{gh}$ and $\mathbb{C}_g^{*} = \mathbb{C}_{g^{-1}}$. The braidings are given by \textcolor{structure}{quadratic forms} on $G$. For instance, if $G = \mathbb{Z}/2\mathbb{Z} = \{\mathbbm{1}, g\}$, we can define $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:-190:0.25);\end{tikzpicture} = i \cdot \id_{\mathbb{C}_{\mathbbm{1}}} = \begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:190:0.25);\end{tikzpicture}$ and
+\begin{align*}
+\begin{split}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (0.5, 0);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0.5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (0, 0);
+\end{knot}
+\end{tikzpicture} = i \cdot \id_{\mathbb{C}_{\mathbbm{1}}}, \quad \begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (0, 1.5) -- (0, 1.25);
+\draw[thick] (1, 1.25) arc (0:180:0.25);
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick] (0, 1.25) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 0.25);
+\strand[thick] (0.5, 1.25) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0.25);
+\end{knot}
+\draw[thick] (1, 0.25) -- (1, 1.25);
+\draw[thick, arrows = {-Latex}] (0, 0.25) -- (0, 0);
+\draw[thick] (0.5, 0.25) arc (180:360:0.25);
+\end{tikzpicture} = i \cdot \id_{\mathbb{C}_g}.
+\end{split}
+\end{align*}
+The framed link invariant is $L \mapsto i^{\Wr(L)}$, so the unframed invariant is trivial. In this example, $\mathbb{C}_g$ is self-dual, but the orientation cannot be removed!
+\end{example}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Important Example}
+\begin{example}[Jones Polynomial]
+The category $\textcat{Rep}(U_q(\mathfrak{sl}_2))$ for $q \neq \pm 1$ a root of unity is ribbon. It has a 2D simple object $V$ that is self-dual with $\begin{tikzpicture}\draw[thick] (0, 0) arc(0:-180:0.25);\end{tikzpicture} = \begin{bmatrix}
+0 & 1 & -q^{-1} & 0
+\end{bmatrix}$ and $\begin{tikzpicture}\draw[thick] (0, 0) arc(0:180:0.25);\end{tikzpicture} = \begin{bmatrix}
+0 & -q & 1 & 0
+\end{bmatrix}^T$. The braiding and ribbon twist for $V$ are given by
+\begin{align*}
+\begin{split}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick] (0, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 0);
+\strand[thick] (0.5, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0);
+\end{knot}
+\end{tikzpicture} = q^{-1/2}\begin{bmatrix}
+q & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & q - q^{-1} & 0 \\
+0 & 0 & 0 & q
+\end{bmatrix}, \quad \begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (0, 1.5) -- (0, 1.25);
+\draw[thick] (1, 1.25) arc (0:180:0.25);
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick] (0, 1.25) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 0.25);
+\strand[thick] (0.5, 1.25) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0.25);
+\end{knot}
+\draw[thick] (1, 0.25) -- (1, 1.25);
+\draw[thick] (0, 0.25) -- (0, 0);
+\draw[thick] (0.5, 0.25) arc (180:360:0.25);
+\end{tikzpicture} = -q^{-3/2} \cdot \id_V.
+\end{split}
+\end{align*}
+It's an easy exercise to show that this satisfies the following \textcolor{structure}{skein relation}:
+\begin{align*}
+\begin{split}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick] (0, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (0.5, 0);
+\strand[thick] (0.5, 1) .. controls +(0, -0.5) and +(0, 0.5) .. (0, 0);
+\end{knot}
+\end{tikzpicture} = q^{1/2}\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (0, 1) -- (0, 0);
+\draw[thick] (0.5, 1) -- (0.5, 0);
+\end{tikzpicture} + q^{-1/2}\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick] (0.5, 1) arc(0:-180:0.25);
+\draw[thick] (0.5, 0) arc(0:180:0.25);
+\end{tikzpicture}.
+\end{split}
+\end{align*}
+I've implicitly chosen here the structure that removes the orientation.
+\end{example}
+\end{frame}
+
+\begin{frame}
+\frametitle{The Jones Polynomial Generalized}
+We can play this game for other simple representations and Lie algebras $\mathfrak{g}$.
+\begin{example}[Coloured Jones Polynomial]
+If $\mathfrak{g} = \mathfrak{sl}_2$, the simple $n$-dimensional representations for $n > 2$ give coloured Jones polynomials.
+\end{example}
+\begin{example}[HOMFLYPT Polynomial]
+If $\mathfrak{g} = \mathfrak{sl}_n$, the fundamental representations give the HOMFLYPT polynomial.
+\end{example}
+\begin{example}[Kauffman Polynomial]
+If $\mathfrak{g} = \mathfrak{so}_n$, the fundamental representations give the Kauffman polynomial.
+\end{example}
+\end{frame}
+
+%%%%%%%%%%%%%%
+% References %
+%%%%%%%%%%%%%%
+
+\section*{References}
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\footnotesize{
+\printbibliography[heading = none]
+}
+\end{frame}
+
+%%%%%%%%%%%%%
+% Thank you %
+%%%%%%%%%%%%%
+
+\begin{frame}
+\centerline{\Huge\textcolor{structure}{\underline{Thank you for listening!}}}
+\end{frame}
+
+\end{document} 

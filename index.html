@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" href="./styles.css">
+		<script src="./scripts/math_webgl.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas_background"></canvas>
+		
+		<div id="container">
+			<header>
+				8426THMY.github.io
+			</header>
+			<div id="topbar"></div>
+			<div id="locationbar"><div id="titlebar">&#187; <a href="./index.html">Home</a></div></div>
+
+			<nav id="left_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Navigation</div>
+					<ul class="window_content">
+						<li><a href="./index.html">Home</a></li>
+						<li><a href="./blog.html">Blog</a></li>
+						<li><a href="./research.html">Research</a></li>
+					</ul>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Links</div>
+					<ul class="window_content">
+						<li><a href="https://github.com/8426THMY">Github</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<nav id="right_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Search</div>
+					<div class="window_content">
+						<form onsubmit="return search_start();" action="./search.html">
+							<div class="search_row">
+								<input id="search_text" class="search_cell search_cell_grow" type="search" placeholder="Search...">
+							</div>
+							<div class="search_row">
+								<label class="search_cell"><input id="search_blog" type="checkbox" checked>Blog</label>
+								<label class="search_cell"><input id="search_research" type="checkbox" checked>Research</label>
+							</div>
+							<div class="search_row">
+								<select id="search_sort" class="search_cell search_cell_grow">
+									<option id="search_sort_newest">Newest</option>
+									<option id="search_sort_oldest">Oldest</option>
+									<!--<option value="2">Relevance</option>-->
+								</select>
+								<input class="search_cell" type="submit" value="Search">
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Recent Posts</div>
+					<ul id="recent_posts" class="window_content">
+						<!--<li>Blah</li>
+						<li>I Won the Race!</li>
+						<li>Hello World!</li>-->
+					</ul>
+				</div>
+			</nav>
+
+			<main class="window_container">
+				<section id="main_window" class="window">
+					<div class="window_header">Welcome to my webpage!</div>
+					<div class="window_content">
+						<p>This page is currently under construction, so certain pages might not work correctly. If you're here, you're probably looking for the notes from a talk I just gave. Check the "Recent Posts" on the right, or use the search bar if the item you're looking for isn't there.</p>
+						<p>Thanks for stopping by!</p>
+						<!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et pretium ex. In libero sem, ultrices ut scelerisque vel, cursus id risus. Sed eu nisl fermentum, posuere enim sed, dictum dolor. Nulla a mi at dolor congue pellentesque non quis ligula. Vestibulum non ullamcorper nulla. Etiam vestibulum quis tortor eget semper. Pellentesque laoreet enim at magna tristique varius. Nullam porttitor, ante sit amet rutrum viverra, leo lectus dictum lectus, vel vulputate orci leo vel tortor. Aliquam arcu lacus, vulputate vitae purus id, gravida tristique nunc. Donec volutpat ante eu lectus consectetur facilisis. Etiam quis elementum felis. Quisque sed purus interdum, convallis dolor quis, luctus leo. Nam sed scelerisque eros. Pellentesque fermentum non purus id semper.</p>
+						<p>Morbi posuere convallis massa, sed fringilla nisl faucibus ac. Vestibulum cursus nisi at vehicula laoreet. Sed viverra ipsum et leo viverra, quis maximus nulla consequat. Proin porta urna lacus, at pellentesque ex volutpat vel. Vivamus dignissim mollis sollicitudin. Suspendisse in tellus sed libero pharetra consectetur. Maecenas ultricies risus non sem pellentesque luctus.</p>
+						<p>Sed vel enim venenatis, porta nisl et, auctor libero. Proin fermentum orci tortor, nec porttitor velit eleifend quis. Sed ac lobortis augue, quis vehicula purus. Aenean posuere semper ligula ac consectetur. Donec eu urna posuere, sodales arcu in, feugiat tellus. Aenean non dolor vel libero imperdiet placerat. Sed lectus neque, fringilla nec vestibulum id, tristique nec eros. Donec sit amet feugiat lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin leo ante, consequat at rhoncus sit amet, consectetur quis orci. Nam volutpat eros quis tortor rutrum, eu gravida ex mattis. Proin mattis molestie imperdiet. Nam a sapien id nulla interdum imperdiet non vitae tellus.</p>
+						<p>Vivamus pellentesque posuere lorem, id consectetur turpis semper non. Phasellus lorem massa, cursus vitae consectetur ac, venenatis eu nunc. In turpis purus, suscipit pulvinar pulvinar quis, convallis quis velit. Donec eget mauris risus. Fusce vitae lacus ante. Nulla vitae neque laoreet, sollicitudin nibh sed, dictum massa. Cras vehicula at quam ac pulvinar. Aliquam pharetra in mauris rhoncus sollicitudin. Donec vitae fringilla odio. Ut id tortor nec urna suscipit efficitur ut eu mi. Cras id tortor libero. Nunc semper velit vitae volutpat pulvinar. Ut cursus pretium eleifend. Vivamus efficitur turpis nunc, eu dapibus turpis blandit ac. Sed nec lacus sed mi tempus pulvinar. Morbi laoreet eros erat.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor porttitor tellus eu placerat. Maecenas lacus dolor, dignissim non commodo sollicitudin, ornare id augue. Sed ut est non nisi sagittis mattis et eu risus. In eu justo odio. Quisque aliquam, purus eget malesuada consectetur, quam erat blandit felis, in venenatis nunc urna non elit. Suspendisse potenti. Suspendisse porta volutpat mi, et semper nibh mattis eu. Suspendisse vulputate lobortis ullamcorper. Suspendisse a vehicula diam. Pellentesque quis cursus tortor.</p>-->
+					</div>
+				</section>
+			</main>
+
+			<div id="liminal"></div>
+			<footer>
+				Last updated on 2025/06/08.
+			</footer>
+		</div>
+
+		<script src="./scripts/posts.js"></script>
+		<script src="./scripts/search.js"></script>
+		<!-- These scripts are used for the fancy background. -->
+		<script src="./scripts/context.js"></script>
+		<script src="./scripts/background_update.js"></script>
+		<script src="./scripts/background_render_webgl.js"></script>
+		<script src="./scripts/background.js"></script>
+	</body>
+</html>

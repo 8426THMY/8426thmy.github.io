@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" href="../../styles.css">
+		<script src="../../scripts/math_webgl.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas_background"></canvas>
+		
+		<div id="container">
+			<header>
+				8426THMY.github.io
+			</header>
+			<div id="topbar"></div>
+			<div id="locationbar"><div id="titlebar">&#187; <a href="../../blog.html">Blog</a> &#187; <a href="./post.html">Short Content Title 1</a></div></div>
+
+			<nav id="left_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Navigation</div>
+					<ul class="window_content">
+						<li><a href="../../index.html">Home</a></li>
+						<li><a href="../../blog.html">Blog</a></li>
+						<li><a href="../../research.html">Research</a></li>
+					</ul>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Links</div>
+					<ul class="window_content">
+						<li><a href="https://github.com/8426THMY">Github</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<nav id="right_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Search</div>
+					<div class="window_content">
+						<form onsubmit="return search_start();" action="../../search.html">
+							<div class="search_row">
+								<input id="search_text" class="search_cell search_cell_grow" type="search" placeholder="Search...">
+							</div>
+							<div class="search_row">
+								<label class="search_cell"><input id="search_blog" type="checkbox" checked>Blog</label>
+								<label class="search_cell"><input id="search_research" type="checkbox" checked>Research</label>
+							</div>
+							<div class="search_row">
+								<select id="search_sort" class="search_cell search_cell_grow">
+									<option id="search_sort_newest">Newest</option>
+									<option id="search_sort_oldest">Oldest</option>
+									<!--<option value="2">Relevance</option>-->
+								</select>
+								<input class="search_cell" type="submit" value="Search">
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Recent Posts</div>
+					<ul class="window_content">
+						<li>Blah</li>
+						<li>I Won the Race!</li>
+						<li>Hello World!</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="window_container">
+				<section id="main_window" class="window">
+					<div class="window_header">Welcome to my webpage!</div>
+					<div class="window_content">
+						<p>This is a test entry to see what a blog post might look like. I think it looks a little silly, personally...</p>
+					</div>
+				</section>
+			</main>
+
+			<div id="liminal"></div>
+			<footer>
+				Footer
+			</footer>
+		</div>
+
+		<script src="../../scripts/posts.js"></script>
+		<script src="../../scripts/search.js"></script>
+		<!-- These scripts are used for the fancy background. -->
+		<script src="../../scripts/context.js"></script>
+		<script src="../../scripts/background_update.js"></script>
+		<script src="../../scripts/background_render_webgl.js"></script>
+		<script src="../../scripts/background.js"></script>
+	</body>
+</html>

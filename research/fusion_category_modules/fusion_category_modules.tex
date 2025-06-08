@@ -1,0 +1,741 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                      %
+% Random LaTeX Template                %
+%                                      %
+% Created by Thomas Dunmore.           %
+% Last updated 2025/10/02.             %
+%                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%
+% SETUP %
+%%%%%%%%%
+
+\documentclass[12pt, reqno]{amsart}
+\usepackage[a4paper, total={18cm, 22cm}, centering]{geometry}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath, amsfonts, amsthm, amssymb, mathrsfs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[usenames, dvipsnames]{color}
+
+% Center title.
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+% Title block on first page.
+\title{
+	\normalfont \fontsize{10.95}{13.14}
+	%\textsc{UNSW School of Mathematics \& Statistics} \\
+	\rule{.9\linewidth}{1pt} \\[0.5cm]
+	\LARGE Fusion Categories and Their Modules
+	\rule{0.9\linewidth}{1pt} \\[0.5cm]
+	\large Thomas Dunmore \\[12pt]
+	\small\today
+}
+
+% Custom headers and footers.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{}
+\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\setlength{\headsep}{36pt}
+\setlength{\footskip}{14pt}
+
+% Bibliography.
+\usepackage[%
+	backend = biber,
+	% BibLaTeX-Math package: https://github.com/konn/biblatex-math
+	style = math-alphabetic,
+	giveninits = true,
+	dashed = false,
+	url = false,
+	doi = false,
+	sorting = anyvt,
+	minalphanames = 3,
+	maxalphanames = 4
+]{biblatex}
+% Use the default font size for the bibliography.
+\renewcommand*{\bibfont}{\normalsize}
+% Use title case rather than sentence case for references.
+\DeclareFieldFormat{titlecase}{#1}
+% Put last names before first names.
+\DeclareNameAlias{default}{family-given}
+% Used for articles with appendices written by other authors.
+\NewBibliographyString{bywithappendix}
+\DefineBibliographyStrings{english}{
+	bywithappendix = {with an appendix by}
+}
+% Specify the bibliography data file to use.
+\addbibresource{references.bib}
+
+
+%%%%%%%%%%%%%%
+% FORMATTING %
+%%%%%%%%%%%%%%
+
+% Add dotted lines after table of contents entries.
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+	\ifnum #1>\c@tocdepth
+	\else
+		\par \addpenalty\@secpenalty\addvspace{#2}
+		\begingroup \hyphenpenalty\@M
+		\@ifempty{#4}{
+			\@tempdima\csname r@tocindent\number#1\endcsname\relax
+		}{
+			\@tempdima#4\relax
+		}
+		\parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+		\rightskip\@pnumwidth plus4em \parfillskip-\@pnumwidth
+		#5\leavevmode\hskip-\@tempdima #6\nobreak\relax
+		\ifnum#1<0\hfill\else\dotfill\fi\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+		\nobreak
+		\endgroup
+\fi}
+\makeatother
+% Align table of contents items horizontally.
+\makeatletter
+\renewcommand{\l@section}{\@tocline{1}{0pt}{0pt}{}{}}
+\renewcommand{\l@subsection}{\@tocline{2}{0pt}{10pt}{}{}}
+\let\tocsubsection\tocsection
+\renewcommand{\l@subsubsection}{\@tocline{3}{0pt}{20pt}{}{}}
+\let\tocsubsubsection\tocsection
+\makeatother
+
+% Section formatting.
+\makeatletter
+\def\section{\@startsection{section}{1}\z@{0pt}{0.5\linespacing}{\LARGE\scshape}}
+\def\subsection{\@startsection{subsection}{2}\z@{0pt}{0.5\linespacing}{\large}}
+\def\subsubsection{\@startsection{subsubsection}{3}\z@{0pt}{0.5\linespacing}{\itshape}}
+\makeatother
+
+% Apply section formatting to numbers.
+\makeatletter
+\def\@seccntformat#1{
+	\protect\@secnumfont
+	\expandafter\protect\csname format#1\endcsname
+	\csname the#1\endcsname
+	\protect\@secnumpunct
+}
+% The hack above doesn't work for boldface, so we need to specify it manually.
+%\newcommand{\formatsection}{\bfseries\boldmath}
+%\newcommand{\formatsubsection}{\bfseries\boldmath}
+%\newcommand{\formatsubsubsection}{\bfseries\boldmath}
+\makeatother
+
+% Add fake sections and subsections to table of contents.
+\newcommand{\fakesection}[1]{%
+	\par\refstepcounter{section} % Increase section counter
+	\sectionmark{#1} % Add section mark (header)
+	\addcontentsline{toc}{section}{\protect\numberline{\thesection}#1} % Add section to ToC
+}
+\newcommand{\fakesubsection}[1]{%
+	\par\refstepcounter{subsection} % Increase subsection counter
+	\subsectionmark{#1} % Add subsection mark (header)
+	\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1} % Add subsection to ToC
+}
+
+% Remove unspecified periods in section titles.
+\makeatletter
+\let\@addpunct\@gobble
+\makeatother
+
+% Number equations according to the sections they appear in.
+\numberwithin{equation}{section}
+%\numberwithin{equation}{subsection}
+%\numberwithin{equation}{subsubsection}
+
+% More space between equations.
+%\AtBeginDocument{\addtolength{\jot}{10pt}}
+% Remove the ugly random spacing that LaTeX likes to add.
+\raggedbottom
+
+% More table spacing.
+% Don't use this if you want piecewise functions.
+%\setlength{\extrarowheight}{5pt}
+
+% Better double horizontal ruling for tables.
+\usepackage{hhline}
+
+% Allows for table cells that contain line breaks.
+\newcommand{\specialcell}[2][c]{
+    \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}
+}
+
+% Table colours.
+\usepackage[table, xcdraw]{xcolor}
+\usepackage{colortbl}
+\definecolor{ColourBlack}{HTML}{000000}
+\definecolor{ColourWhite}{HTML}{FFFFFF}
+\definecolor{ColourTableGrey}{HTML}{EDEDED}
+\definecolor{Grey}{gray}{0.92}
+
+
+%%%%%%%%%%%%%%%%
+% ENVIRONMENTS %
+%%%%%%%%%%%%%%%%
+
+% Define commands for sections that support equation numbering.
+\newcommand*{\problem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\section*{#2}\refstepcounter{section}}
+		{\section*{\texorpdfstring{#2}{#1}}\refstepcounter{section}}
+}
+\newcommand*{\subproblem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\subsection*{#2}\refstepcounter{subsection}}
+		{\subsection*{\texorpdfstring{#2}{#1}}\refstepcounter{subsection}}
+}
+\newcommand*{\subsubproblem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\subsubsection*{#2}\refstepcounter{subsubsection}}
+		{\subsubsection*{\texorpdfstring{#2}{#1}}\refstepcounter{subsubsection}}
+}
+
+% Customizable enumerate list labels.
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+
+% Theorem environments.
+\newtheoremstyle{plainspace}{-\topsep}{-\topsep}{\itshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{plainspace}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newtheoremstyle{definitionspace}{-\topsep}{-\topsep}{}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{definitionspace}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+
+\newtheoremstyle{remarkspace}{-\topsep}{-\topsep}{}{}{\itshape}{.}{0.5em}{}
+\theoremstyle{remarkspace}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+% Proof environment formatting.
+\renewenvironment{proof}{{\noindent\textbf{Proof.}}}{\null\hfill\qedsymbol}
+
+% Modified matrix environments for augmented matrices.
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}
+}
+\makeatother
+
+% Modified cases environment for column alignment.
+\makeatletter
+\renewenvironment{cases}[1][l]{\matrix@check\cases\env@cases{#1}}{\endarray\right.}
+\def\env@cases#1{%
+	\let\@ifnextchar\new@ifnextchar
+	\left\lbrace\def\arraystretch{1.2}%
+	\array{@{}#1@{\quad}l@{}}}
+\makeatother
+
+
+%%%%%%%%%%%%
+% COMMANDS %
+%%%%%%%%%%%%
+
+% Section title bar.
+\newcommand{\sectionbar}[4]{
+	\noindent\\[#3\linespacing] \rule{#1\linewidth}{#2} \\[#4\linespacing]
+}
+\newcommand{\sectiondiv}[4]{
+	\begin{center}
+	\noindent\\[#3\linespacing] \rule{#1\linewidth}{#2} \\[#4\linespacing]
+	\end{center}
+}
+
+% Negative horizontal phantom.
+\newcommand{\nhphantom}[1]{\sbox0{#1}\hspace{-\the\wd0}}
+
+
+%%%%%%%%%%%%
+% NOTATION %
+%%%%%%%%%%%%
+
+% Adds integral notation like \oiint.
+\usepackage{esint}
+% Blackboard bold symbols.
+\usepackage{bbm}
+
+\usepackage{accents}
+% Tilde notation for vectors.
+\newcommand{\ut}[1]{\underaccent{\tilde}{#1}}
+% Arrow notation for vectors.
+\usepackage{harpoon}
+% Dirac bra-ket notation for quantum states.
+\usepackage{braket}
+
+% Differential formatting.
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\newcommand*{\ndiff}[1]{\mathrm{d}#1}
+\newcommand*{\sdiff}[1]{\mathop{}\!\ndiff{#1}}
+\newcommand{\rdiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+		{\frac{\mathrm{d}#2}{\mathrm{d}#3}}
+		{\frac{\mathrm{d}^{#1}#2}{\forcsvlist\ndiff{#3}}}
+}
+\newcommand*{\npiff}[1]{\mathrm{\partial}#1}
+\newcommand*{\spiff}[1]{\mathop{}\!\npiff{#1}}
+\newcommand{\rpiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+		{\frac{\mathrm{\partial}#2}{\mathrm{\partial}#3}}
+		{\frac{\mathrm{\partial}^{#1}#2}{\forcsvlist\npiff{#3}}}
+}
+% Inexact differential for physics.
+\newcommand*{\dbar}[1]{\mathop{}\!\mathrm{\dj}#1}
+
+% Metrics, inner products and norms.
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\inprod}{\langle}{\rangle}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% This is used if we want an empty norm. 
+\newcommand{\blank}{{}\cdot{}}
+
+% Function notation.
+\newcommand{\id}{\textup{id}}
+\newcommand{\coker}{\textup{coker}}
+\newcommand{\im}{\textup{im}}
+\newcommand{\ev}{\textup{ev}}
+\newcommand{\coev}{\textup{coev}}
+
+% Category font.
+\newcommand{\mathcat}[1]{\mathcal{#1}}
+
+% Category theory notation.
+\newcommand{\Ob}{\textup{Ob}}
+\newcommand{\Hom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textup{Hom}_{#1}}
+		{\textup{Hom}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntHom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\underline{\textup{Hom}}_{#1}}
+		{\underline{\textup{Hom}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\End}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textup{End}_{#1}}
+		{\textup{End}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntEnd}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\underline{\textup{End}}_{#1}}
+		{\underline{\textup{End}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\Fun}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textcat{Fun}_{#1}}
+		{\textcat{Fun}_{#1}\!\left(#2\right)}
+}
+\newcommand{\opcat}[1]{{#1}^{\textup{op}}}
+\newcommand{\revcat}[1]{{#1}^{\textup{rev}}}
+\newcommand{\textcat}[1]{\textup{\textsf{#1}}}
+\newcommand{\rmodcat}[2][]{\textcat{Mod}_{#1}\textcat{-}#2}
+\newcommand{\lmodcat}[2][]{#2\textcat{-Mod}_{#1}}
+\newcommand{\bimodcat}[3][]{#2\textcat{-Mod}_{#1}\textcat{-}#3}
+\newcommand{\moreq}{\stackrel{\textup{m.e.}}{\cong}}
+
+% Special notation.
+\newcommand{\chr}{\textup{char}}
+\newcommand{\Tr}{\textup{Tr}}
+\newcommand{\trv}{\textup{tr}}
+\newcommand{\Irr}{\textup{Irr}}
+\newcommand{\Gr}{\textup{Gr}}
+\newcommand{\dimh}[2]{\left(#1, #2\right)}
+\newcommand{\Dim}{\textup{Dim}}
+\newcommand{\FPdim}{\textup{FPdim}}
+\newcommand{\BrPic}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\textup{BrPic}}
+		{\textup{BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\underline{\BrPic}}
+		{\underline{\BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicCC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\underline{\BrPicC}}
+		{\underline{\BrPicC}\!\left(#1\right)}
+}
+\newcommand{\Aut}{\textup{Aut}}
+\newcommand{\Inn}{\textup{Inn}}
+\newcommand{\Out}{\textup{Out}}
+
+% Hiragana "yo" for the Yoneda embeddings.
+\newcommand{\yo}{\text{\usefont{U}{min}{m}{n}\symbol{'210}}}
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}
+
+% Representation theory notation.
+\newcommand{\Sym}{\textup{Sym}}
+\newcommand{\Alt}{\textup{Alt}}
+
+
+%%%%%%%%%%%%
+% PLOTTING %
+%%%%%%%%%%%%
+
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usepackage{spath3}
+\usetikzlibrary{arrows.meta, decorations.markings, decorations.pathreplacing, knots}
+
+% TikZ macro for inclusions and projections.
+\def\fusioninclusion[#1]#2(#3, #4, #5, #6)#7(#8){
+	\draw[#1] ({#3 + #5/2}, {#4}) arc(0:180:{#5/2} and {#6/2});
+	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4});
+	% Label the node.
+	\node at ({#3}, {#4 - 1/8}) {#8};
+}
+\def\fusionprojection[#1]#2(#3, #4, #5, #6)#7(#8){
+	\draw[#1] ({#3 - #5/2}, {#4}) arc(180:360:{#5/2} and {#6/2});
+	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4});
+	% Label the node.
+	\node at ({#3}, {#4}) {#8};
+}
+
+
+%%%%%%%%%%%%
+% DOCUMENT %
+%%%%%%%%%%%%
+
+\begin{document}
+
+%\begin{titlingpage}
+%\maketitle
+%\end{titlingpage}
+%\newpage
+
+
+\thispagestyle{fancy}
+
+
+\section{Fusion Categories and Their Modules}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent The purpose of these notes is to bring the reader up to speed on some of the basics of fusion categories and their module categories. Throughout these notes, $\mathbbm{k}$ will typically denote an algebraically closed field of characteristic zero unless otherwise stated. I'll also use $\Irr(\mathcat{C})$ to denote the set of (representatives of the isomorphism classes of) irreducible objects of a category $\mathcat{C}$.
+\newline
+
+\begin{definition}\label{def:fusion_category}{\em (Fusion Category).} \cite[Definition 4.1.1]{Etingof_2016}
+A {\em fusion category} is a semisimple, indecomposable, $\mathbbm{k}$-linear, locally finite, rigid monoidal category with finitely many isomorphism classes of simple objects and whose monoidal product $\otimes$ is $\mathbbm{k}$-bilinear on morphisms.
+\end{definition}
+\leavevmode
+
+\noindent Let's have a look at some examples of fusion categories. The following two, although arguably some of the simplest, are probably the most important for our work. It's also very easy to directly verify that they satisfy the definition above.
+\newline
+
+\begin{example}\label{ex:fusion_category_rep}
+Let $G$ be a finite group and $\mathbbm{k}$ a field with $\chr(\mathbbm{k}) \nmid \abs{G}$. Then $\textcat{Rep}_{\mathbbm{k}}(G)$, the category of finite-dimensional representations of $G$ over $\mathbbm{k}$, is a fusion category. Note that the condition $\chr(\mathbbm{k}) \mid \abs{G}$ guarantees that $\textcat{Rep}_{\mathbbm{k}}(G)$ is semisimple by Maschke's theorem, and the Wedderburn-Artin theorem tells us that there are only finitely many simple objects.
+\end{example}
+\leavevmode
+
+\begin{example}\label{ex:fusion_category_graded_vect}
+Let $\textcat{Vec}_G$ be the category of vector spaces graded by a finite group $G$. This category has simple objects given by distinct copies $\mathbbm{k}_g$ of the one-dimensional vector space $\mathbbm{k}$ for each $g \in G$. The fusion rules are given by $\mathbbm{k}_g \otimes \mathbbm{k}_h \cong \mathbbm{k}_{gh}$ for all $g, h \in G$, and the object $\mathbbm{k}_g$ has dual $\mathbbm{k}_{g^{-1}}$.
+\end{example}
+\leavevmode
+
+\begin{remark}\label{rem:non-trivial_associativity}
+One should be a bit more careful when defining $\textcat{Vec}_G$, as this category can often be made into a monoidal category in multiple non-distinct ways. The different monoidal structures are enumerated by the third cohomology group, $H^3(G, \mathbbm{k}^{\times})$. We will always assume the unique structure that makes this category both strict and skeletal, for reasons which will become clear later.
+\end{remark}
+\leavevmode
+
+\noindent Something I'd like to stress here is that it's very hard to come up with new fusion categories. The examples I've given above are easy, because they don't really have any extra data that isn't present in the underlying Grothendieck ring $\Gr(\mathcat{C})$. There are a few programs for finding new fusion categories, although they all have limitations. One such program involves looking at their module categories.
+\newline
+
+\begin{definition}\label{def:fusion_module}{\em (Fusion Module Category).}
+A {\em fusion module category} is a module category $\mathcat{M}$ over fusion category $\mathcat{C}$ that is semisimple, indecomposable, $\mathbbm{k}$-linear, locally finite, has finitely many isomorphism classes of simple objects and whose module action bifunctor is biexact and $\mathbbm{k}$-bilinear.
+\end{definition}
+\leavevmode
+
+\noindent Let $\mathcat{M}$ be a left fusion $\mathcat{C}$-module category. Then there is a right fusion $\mathcat{C}$-module category $\opcat{\mathcat{M}}$ with the same objects as $\mathcat{M}$, but with action $M \opcat{\otimes} X \coloneqq X^{*} \otimes M$ for $X \in \Ob(\mathcat{C})$, $M \in \Ob(\opcat{\mathcat{M}})$. Unsurprisingly, $\opcat{(\opcat{\mathcat{M}})} \cong \mathcat{M}$. Surprisingly, $\opcat{\mathcat{M}} \boxtimes_{\mathcat{C}} \mathcat{M} \cong \Fun[\mathcat{C}]{\mathcat{M}, \mathcat{M}}$ is a fusion category, which we call the {\em dual fusion category} of $\mathcat{M}$, and denote by $\mathcat{C}_{\mathcat{M}}^{*}$. Essentially, what we're saying here is that every left fusion $\mathcat{C}$-module category is actually an invertible fusion $(\mathcat{C}, \mathcat{C}_{\mathcat{M}}^{*})$-bimodule category, and defines a Morita equivalence between $\mathcat{C}$ and $\mathcat{C}_{\mathcat{M}}^{*}$.
+\newpage
+
+\begin{example}\label{ex:module_category_graded_vect}
+The fusion module categories over $\textcat{Vec}_G$ are enumerated by pairs $(H, \psi)$ of a subgroup $H \leq G$ and a 2-cocycle $\psi \in H^2(H, \mathbbm{k}^{\times})$. The corresponding module category has simple objects given by distinct copies $\mathbbm{k}_g$ of the one-dimensional vector space $\mathbbm{k}$ for each coset $gH \in G/H$. The module action is given by $\mathbbm{k}_g \otimes \mathbbm{k}_{g'H} \cong \mathbbm{k}_{gg'H}$ for all $g \in G$, $g'H \in G/H$.
+\end{example}
+\leavevmode
+
+\begin{example}\label{ex:module_category_graded_vect_rep}
+The category $\textcat{Vec}$ is always a $\textcat{Vec}_G$-module category corresponding to the subgroup $G$ with trivial cohomology. What is the dual fusion category? Well, suppose $F$ is a $\textcat{Vec}_G$-module endofunctor of $\textcat{Vec}$. Such a functor is determined by a vector space $V \coloneqq F(\mathbbm{k})$ and isomorphisms $s_g : F(\mathbbm{k}_g \otimes \mathbbm{k}) \to \mathbbm{k}_g \otimes F(\mathbbm{k})$ for all $g \in G$ satisfying certain commutative diagrams. Noting that $\Hom[\textcat{Vec}]{F(\mathbbm{k}_g \otimes \mathbbm{k}), \mathbbm{k}_g \otimes F(\mathbbm{k})} \cong \End[\textcat{Vec}]{V}$, if we identify $s_g^{-1}$ with $S_g \in GL(V)$, our diagrams are equivalent to $S_e = \id_V$ and $S_{gh} = S_g S_h$ for all $g, h \in G$. That is, the data of an element of $\Fun[\textcat{Vec}_G]{\textcat{Vec}, \textcat{Vec}}$ is exactly the same as that of a representations of $G$. Thus, $(\textcat{Vec}_G)_{\textcat{Vec}}^{*} \cong \textcat{Rep}(G)$.
+\end{example}
+\leavevmode
+
+\begin{example}\label{ex:module_category_Z4}
+In $\textcat{Vec}_{\mathbb{Z}/4\mathbb{Z}}$, the module category corresponding to $\mathbb{Z}/2\mathbb{Z}$ with trivial cohomology is $\textcat{Vec}_{\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}}^{\omega}$. Here, $\omega$ denotes a non-trivial twisting of the associativity structure (as per \hyperref[rem:non-trivial_associativity]{Remark \ref*{rem:non-trivial_associativity}}). In other words, categories of graded vector spaces with trivial associativity can be Morita equivalent to ones with non-trivial associativity.
+\end{example}
+\leavevmode
+
+\noindent To a fusion category (or a fusion module category), one attaches an important numerical invariant known as the Frobenius-Perron dimension. This allows us to make combinatorial statements about fusion categories and their modules, and will be crucial in our analysis later on.
+\newline
+
+\begin{definition}\label{def:frobenius-perron_dimension}{\em (Frobenius-Perron Dimension (Fusion Category)).} \cite[Section 8.1]{Etingof_2005}
+Let $\mathcat{C}$ be a fusion category. The {\em Frobenius-Perron dimension} of an object in $\mathcat{C}$ is the value of the unique ring homomorphism $\FPdim : \Gr(\mathcat{C}) \to \mathbb{R}$ with $\FPdim(X) > 0$ for all $X \in \Irr(\mathcat{C})$. The Frobenius-Perron dimension of $\mathcat{C}$ is defined by $\FPdim(\mathcat{C}) \coloneqq \sum_{X \in \Irr(\mathcat{C})}{\FPdim(X)^2}$.
+\end{definition}
+\leavevmode
+
+\begin{definition}\label{def:frobenius-perron_dimension_module}{\em (Frobenius-Perron Dimension (Module Category)).} \cite[Section 2.5]{Etingof_2010}
+Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a fusion $\mathcat{C}$-module category. The {\em Frobenius-Perron dimension} of an object in $\mathcat{M}$ is the value of the the unique $\Gr(\mathcat{C})$-module homomorphism $\FPdim : \Gr(\mathcat{M}) \to \mathbb{R}$ satisfying
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item $\FPdim(M) > 0$, for all $M \in \Irr(\mathcat{M})$;
+\item $\FPdim(X \otimes M) = \FPdim(X)\FPdim(M)$, for all $X \in \Ob(\mathcat{C})$, $M \in \Ob(\mathcat{M})$;
+\item $\FPdim(\IntHom{M, N}) = \FPdim(M)\FPdim(N)$, for all $M, N \in \Ob(\mathcat{M})$;
+\item $\FPdim(\mathcat{M}) \coloneqq \sum_{M \in \Irr(\mathcat{M})}{\FPdim(M)^2} = \FPdim(\mathcat{C})$.
+\end{enumerate}
+\noindent Here, we regard $\mathbb{R}$ as a $\Gr(\mathcat{C})$-module with $[X] \otimes x \coloneqq \FPdim(X)x$ for all $[X] \in \Gr(\mathcat{C})$ and $x \in \mathbb{R}$.
+\end{definition}
+\leavevmode
+
+\begin{example}\label{ex:frobenius-perron_dimension_rep}
+As we know from linear algebra, the dimension function is a ring homomorphism on the level of isomorphism classes, where the ring multiplication and addition is taken to be the tensor product and direct sum respectively. This observation also applies to the ring of representations of a finite group $G$, so by uniqueness, the Frobenius-Perron dimension on $\textcat{Rep}(G)$ must be $\dim_{\mathbbm{k}}$.
+\end{example}
+\leavevmode
+
+\begin{example}\label{ex:frobenius-perron_dimension_graded_vect}
+Consider the case of $\textcat{Vec}_G$ for a finite group $G$. For every simple object $\mathbbm{k}_g$, there exists an integer $n \in \mathbb{Z}_{>0}$ such that $\mathbbm{k}_g^{\otimes n} \cong \mathbbm{1}$, so $\FPdim(\mathbbm{k}_g)^n = \FPdim(\mathbbm{1}) = 1$. Of course, since $\FPdim(\mathbbm{k}_g) \in \mathbb{R}_{>0}$, we require that $\FPdim(\mathbbm{k}_g) = 1$ for all $g \in G$.
+\end{example}
+\newpage
+
+
+\section{Algebra Objects and Ostrik's Theorem}\label{chp:algebra_objects}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Constructing module categories from first principles is quite difficult in general, and at this point probably feels just as hopeless as trying to construct fusion categories. Even the simplest cases, such as $\textcat{Vec}_G$ and $\textcat{Rep}(G)$, seem to be fairly non-trivial. Problematically, just as not every fusion ring categorifies to a fusion category, not every module over a fusion ring categorifies to a fusion module category. Luckily, there is actually a lot more one can say about the structure and existence of fusion module categories without having to dig into the nasty categorical details: this is most visible through the study of algebra objects.
+\newline
+
+\begin{definition}\label{def:algebra_object}{\em (Algebra Object).} \cite[Definition 8(i)]{Ostrik_2003}
+An algebra object in a monoidal category $\mathcat{C}$ is a triple $(A, m, u)$ consisting of an object $A \in \Ob(\mathcat{C})$, a multiplication morphism $m : A \otimes A \to A$ and a unit morphism $u : \mathbbm{1} \to A$ satisfying certain compatibility diagrams.
+\end{definition}
+\leavevmode
+
+\begin{definition}\label{def:module_object}{\em (Module Object).} \cite[Definition 8(ii)]{Ostrik_2003}
+A right module object over an algebra $(A, m, u)$ in a monoidal category $\mathcat{C}$ is a pair $(M, a)$ consisting of an object $M \in \Ob(\mathcat{C})$ and an action morphism $a : M \otimes A \to M$ satisfying certain compatibility diagrams.
+\end{definition}
+\leavevmode
+
+%\begin{example}\label{ex:algebra_object_vect}
+%The algebra objects in $\textcat{Vec}$ are simply associative, unital $\mathbbm{k}$-algebras. This is why we call them algebra objects, even though it is probably more correct to call them monoid objects.
+%\end{example}
+%\leavevmode
+
+\begin{example}\label{ex:algebra_object_graded_vect}
+We can generalize the example above to $\textcat{Vec}_G$ quite easily. In this case, the (simple) algebra objects are given by pairs $(H, \psi)$ for some subgroup $H \leq G$ and 2-cocycle $\psi \in H^2(H, \mathbbm{k}^{\times})$. That is, we have $A = \mathbbm{k}[H]$, $u(e) = e$ and $m(u \otimes v) = \sum_{h, h' \in H}{\psi(h, h')u_h v_{h'} hh'}$ for $u, v \in \mathbbm{k}[H]$. In the case where $\psi$ is cohomologically trivial, we recover the usual group algebra.
+\end{example}
+\leavevmode
+
+\noindent Note that the simple algebra objects in \hyperref[ex:algebra_object_graded_vect]{Example \ref*{ex:algebra_object_graded_vect}} are enumerated by the exact same data as the fusion module categories in \hyperref[ex:module_category_graded_vect]{Example \ref*{ex:module_category_graded_vect}}. Of course, this is no coincidence, as we will now see.
+\newline
+
+\noindent Suppose $A$ is an algebra object in a fusion category $\mathcat{C}$. Then the {\em right} $A$-module objects form a {\em left} $\mathcat{C}$-module category $\rmodcat[\mathcat{C}]{A}$. The action of $\mathcat{C}$ is given by $X \otimes (M, a) \cong (X \otimes M, (\id_X \otimes a) \circ \alpha_{X,M,A})$, where $\alpha_{X,M,A} : (X \otimes M) \otimes A \to X \otimes (M \otimes A)$ is the monoidal associativity isomorphism from $\mathcat{C}$. While this module category is finite, Abelian and $\mathbbm{k}$-linear in general, it may not be semisimple or indecomposable. If it is both semisimple and indecomposable though, we call $A$ a {\em simple} algebra object.
+\newline
+
+\noindent Conversely, suppose that $\mathcat{M}$ is a {\em left} fusion $\mathcat{C}$-module category. Then for any $M, N \in \Ob(\mathcat{M})$, the internal hom $\IntHom{M, M}$ is an algebra object in $\mathcat{C}$, and $\IntHom{M, N}$ is a {\em right} $\IntHom{M, M}$-module object. This leads us to the following central result of Ostrik.
+\newline
+
+\begin{theorem}\label{thm:modules_from_algebras} \cite[Theorem 1]{Ostrik_2003}
+Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a fusion $\mathcat{C}$-module category. Then for any non-zero $M \in \Ob(\mathcat{M})$, the $\mathcat{C}$-module functor $\IntHom{M, -}$ is an equivalence of $\mathcat{C}$-module categories, with $\IntHom{M, M}$ a simple algebra object.
+\end{theorem}
+\leavevmode
+
+\noindent This theorem tells us that every fusion $\mathcat{C}$-module category is equivalent to $\rmodcat[\mathcat{C}]{A}$ for some simple algebra object $A \in \Ob(\mathcat{C})$. Fortunately, we don't lose access to the dual fusion category either, as $\mathcat{C}_{\mathcat{M}}^{*} \cong \lmodcat[\mathcat{C}]{A} \boxtimes_{\mathcat{C}} \rmodcat[\mathcat{C}]{A} \cong \bimodcat[\mathcat{C}]{A}{A}$. Therefore, if we wish to classify the fusion module categories over a fusion category, it is sufficient to classify its simple algebra objects.
+\newpage
+
+
+\section{Classifying Algebra Objects}\label{chp:finding_algebra_objects}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Currently, it's not obvious how algebra objects can improve our quality of life. The main advantage that they offer is the ability to tackle certain problems combinatorially through the use of the Frobenius-Perron dimension. The following proposition aims to give a taste for how this can work.
+\newline
+
+\begin{proposition}\label{prop:algebra_multiplicity_bound} \cite[Lemma 3.8]{Grossman_2012}
+Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a fusion $\mathcat{C}$-module category. Then there exists a simple algebra object $A \in \Ob(\mathcat{C})$ such that $\mathcat{M} \cong \rmodcat[\mathcat{C}]{A}$ and, for all $X \in \Ob(\mathcat{C})$, $\dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{A, X}) \leq \FPdim(X)$.
+\end{proposition}
+\leavevmode\newline
+\begin{proof}
+By \hyperref[thm:modules_from_algebras]{Theorem \ref*{thm:modules_from_algebras}}, let $A = \IntHom{M, M}$ for any simple $M \in \Ob(\mathcat{M})$. Recall that by definition of the internal hom, we have a natural isomorphism $\Hom[\mathcat{C}]{X, \IntHom{M, M}} \cong \Hom[\mathcat{M}]{X \otimes M, M}$. In particular, these spaces have the same dimension over $\mathbbm{k}$. However, since $M$ is simple and $\mathcat{M}$ is semisimple, the dimension of the right-hand side counts the multiplicity $m \in \mathbb{Z}_{\geq 0}$ of $M$ in $X \otimes M$. That is, $\dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, A}) = m$. Now, because $\FPdim$ is a $\textcat{Gr}(\mathcat{C})$-module homomorphism,
+\begin{gather*}
+\FPdim(X \otimes M) \geq \FPdim(M^{\oplus m}) = m\FPdim(M) \\
+\implies \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, A}) \leq \FPdim(X \otimes M)/\FPdim(M) = \FPdim(X),
+\end{gather*}
+\noindent where we have used the fact that $\FPdim(M) \neq 0$. This completes the proof.
+\end{proof}
+\newline
+
+\begin{remark}\label{rem:algebra_morita_equivalence}
+Note that only the internal ends of simple objects in our module category satisfy the condition of this proposition! Hence, this only tells us what the simple algebra objects look like up to {\em Morita equivalence}. Two algebra objects are said to be Morita equivalent if their categories of module objects are equivalent.
+\end{remark}
+\leavevmode
+
+\noindent An important corollary of \hyperref[prop:algebra_multiplicity_bound]{Proposition \ref*{prop:algebra_multiplicity_bound}} (and our ulterior motive for mentioning it) is that any fusion category $\mathcat{C}$ has only finitely many fusion module categories up to equivalence. Even better, it tells us exactly which objects we need to check for algebra structures. Ideally though, we would like to be able to rule out candidates purely algebraically, without delving into abstract nonsense. Here is another tool to help us do just that.
+\newline
+
+\begin{definition}\label{def:fusion_matrix}{\em (Fusion Matrix).} \cite[Definition 3.2]{Grossman_2012}
+Let $\mathcat{M}$ be a fusion module category over a fusion category $\mathcat{C}$ with representatives of isomorphism classes of simple objects $\{M_i\}_{i=1}^{m}$ and $\{X_i\}_{i=1}^{n}$ respectively. We define the {\em fusion matrix} of $M \in \Ob(\mathcat{M})$ to be the matrix $F^M$ with components $(F^M)_{ij} \coloneqq \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X_i \otimes M, M_j})$ for all $i \in \{1, \dots, n\}$ and $j \in \{1, \dots, m\}$.
+\end{definition}
+\leavevmode
+
+\begin{remark}\label{rem:fusion_matrix_trivial_module}
+Note that any fusion category $\mathcat{C}$ is a fusion module category over itself in the obvious way (this corresponds to the algebra object $\mathbbm{1}$). Therefore, it makes sense to talk about fusion matrices of objects in $\mathcat{C}$.
+\end{remark}
+\newpage
+
+\begin{proposition}\label{prop:symmetric_fusion_matrix} \cite[Lemma 3.4]{Grossman_2012}
+Let $\mathcat{M}$ be a fusion module category over a fusion category $\mathcat{C}$, and let $A \cong \IntHom{M, M}$ for some $M \in \Ob(\mathcat{M})$. Then $F^A = F^M (F^M)^T$, and $F^A$ is symmetric.
+\end{proposition}
+\leavevmode\newline
+\begin{proof}
+Let $\{M_i\}_{i=1}^{m}$ and $\{X_i\}_{i=1}^{n}$ denote representatives of the isomorphism classes of simple objects in $\mathcat{M}$ and $\mathcat{C}$ respectively. For any $i \in \{1, \dots, n\}$, $j \in \{1, \dots, m\}$,
+\begin{align*}
+\begin{split}
+(F^A)_{ij} &= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X_i \otimes \IntHom{M, M}, X_j}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X_i^{*} \otimes X_j, \IntHom{M, M}}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X_i^{*} \otimes X_j \otimes M, M}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X_i \otimes M, X_j \otimes M}) \\
+&= \dim_{\mathbbm{k}}(\bigoplus_{l=1}^{m}{\Hom[\mathcat{M}]{X_i \otimes M, M_l} \otimes_{\mathbbm{k}} \Hom[\mathcat{M}]{M_l, X_j \otimes M}}) \\
+&= \sum_{l=1}^{m}{\dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X_i \otimes M, M_l})\dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{M_l, X_j \otimes M})} \\
+&= (F^M (F^M)^T)_{ij}.
+\end{split}
+\end{align*}
+\noindent The second and fourth equalities follow from the adjoint property of the dual, while the fifth equality is exactly the isomorphism given in \cite[Lemma VI.1.1.1]{Turaev_2016}. Finally, $F^A$ is symmetric since it is the product of a matrix and its transpose.
+\end{proof}
+\newline
+
+\begin{example}\label{ex:fusion_matrix_graded_vect_candidates}
+Consider $\textcat{Vec}_G$ for a finite group $G$. By itself, \hyperref[prop:algebra_multiplicity_bound]{Proposition \ref*{prop:algebra_multiplicity_bound}} tells us that every simple algebra object $A$ has at most one copy of each simple object (in fact, the entries $F^A$ are either $0$ or $1$). Of course, we know that the simple objects appearing in $A$ must form a subgroup of $G$ by \hyperref[ex:algebra_object_graded_vect]{Example \ref*{ex:algebra_object_graded_vect}}. Let's try and use the fusion matrix to recover this fact. Suppose $A \cong \bigoplus_{s \in S}{\mathbbm{k}_s}$ for some $S \subseteq G$ that is not a subgroup. Well, $G$ is finite, so there exist $s, t \in S$ such that $ts \notin S$. Moreover, since $A$ is an algebra object, $S$ contains the group identity $e$. However, this implies that $(F^A)_{t,t} = 1 = (F^A)_{e,t}$, but $(F^A)_{t,ts} = 1$, $(F^A)_{e,ts} = 0$. That is, $F^A$ has two rows that are not equal, but share a $1$ in the same column. This means that $F^M$ must have a row that has at least two $1$'s on it, so $F^M (F^M)^T$ contains an entry greater than $1$: a contradiction. Thus, $S \leq G$.
+\end{example}
+\leavevmode
+
+\noindent As the example above demonstrates, the fusion matrix is quite handy for ruling out algebra object candidates. However, the benefits don't stop there: in many cases, it is also enough to tell us what the corresponding fusion module category looks like on the level of objects.
+\newline
+
+\begin{example}\label{ex:fusion_matrix_graded_vect_modules}
+Let $A = \IntHom{M, M}$ be a simple algebra object in $\textcat{Vec}_G$ corresponding to the subgroup $H \leq G$, with $M$ a simple object in $\rmodcat[\textcat{Vec}_G]{A}$. Then $(F^A)_{g,g'} = 1$ if $g' \in gH$ and is zero otherwise, so the distinct rows of $F^A$ (and hence the columns of $F^M$) correspond to the left cosets of $H$. It follows from the definition of $F^M$ that $\rmodcat[\textcat{Vec}_G]{A}$ has a simple object $M_g$ for each $gH \in G/H$. Letting $M = M_h$ for some $hH \in G/H$, $\dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{\mathbbm{k}_g \otimes M_h, M_k}) = 1$ if $ghH = kH$ and is zero otherwise. This is exactly what we saw in \hyperref[ex:module_category_graded_vect]{Example \ref*{ex:module_category_graded_vect}}!
+\end{example}
+\newpage
+
+
+\section{Near-Group Fusion Categories}\label{chp:near-group_fusion_categories}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Now that we've explained the setup (phew!), I can actually talk a bit about what I'm doing. My project aims to classify the fusion module categories over a certain class of fusion categories, known as {\em quadratic} fusion categories. These categories are characterized by having exactly two orbits under their groups of invertible objects (objects $X$ for which $X^{*} \otimes X \cong \mathbbm{1} \cong X \otimes X^{*}$).
+\newline
+
+\begin{example}\label{ex:near-group_category}
+Let $G$ be a finite group and $m \in \mathbb{Z}_{\geq 0}$. A {\em near-group} category of type $(G, m)$ is a quadratic category with group $G$ of invertible objects and one additional simple object $X$ satisfying
+\begin{gather*}
+\textnormal{$g \otimes X \cong X \cong X \otimes g$, for all $g \in G$}; \quad\quad X \otimes X \cong \bigoplus_{g \in G}{g} \oplus X^{\oplus m}.
+\end{gather*}
+For example, the category $\textcat{Rep}(S_3)$ is near-group of type $(\mathbb{Z}/2\mathbb{Z}, 1)$ and the Fibonacci category $\textcat{Fib}$ is near-group of type $(\{e\}, 1)$.
+\end{example}
+\leavevmode
+
+\begin{example}\label{ex:haagerup_izumi_category}
+Let $G$ be a finite group. A {\em Haagerup-Izumi} category of type $G$ is a quadratic category with group $G$ of invertible objects and a set $\{gX\}_{g \in G}$ of non-invertible simple objects satisfying
+\begin{gather*}
+\textnormal{$g \otimes X \cong gX \cong X \otimes g^{-1}$, for all $g \in G$}; \quad\quad X \otimes X \cong \mathbbm{1} \oplus \bigoplus_{g \in G}{gX}.
+\end{gather*}
+These categories were originally discovered from the Haagerup subfactor, which yields two Haagerup-Izumi categories of type $\mathbb{Z}/3\mathbb{Z}$.
+\end{example}
+\leavevmode
+
+\noindent Currently, I am looking at the simpler near-group fusion categories. These categories were first discovered by Izumi in \cite{Izumi_2001} and were later studied by Siehler in \cite{Siehler_2002}, who showed that the multiplicity parameter satisfies either $m = 0$ or $m \geq \abs{G} - 1$ in general. In \cite{Izumi_2015}, Izumi showed that in the unitary setting, the multiplicity parameter $m$ is quite restrictive.
+\newline
+
+\begin{theorem}\label{thm:near-group_multiplicity} \cite[Theorem 1.1]{Izumi_2015}
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m)$, and let $X$ denote the non-invertible simple object. If $\FPdim(X)$ is rational, then either
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item $\mathcat{C}$ is a {\em Tambara-Yamagami} category ($m = 0$);
+\item $G$ is Abelian and $m = \abs{G} - 1$; or
+\item $G$ is an extra-special $2$-group of order $2^{2a+1}$ and $m = 2^a$ for some $a \in \mathbb{Z}_{\geq 0}$.
+\end{enumerate}
+Otherwise, if $\FPdim(X)$ is irrational, then $G$ is Abelian and $m \in \mathbb{Z}_{\geq 0}\abs{G}$.
+\end{theorem}
+\leavevmode
+
+\noindent The three cases where $\FPdim(X)$ is rational have been completely classified by \cite{Tambara_1998}, \cite{Evans_2014} and \cite{Izumi_2015} respectively. When $\FPdim(X)$ is irrational, the situation is trickier, however: while a handful of examples exist for $m = \abs{G}$, there is to my knowledge only one for $m > \abs{G}$ ($G = \mathbb{Z}/3\mathbb{Z}$, $m = 6$).
+\newline
+
+\noindent If $\mathcat{C}$ is a fusion category with group $G$ of invertibles, then it contains $\textcat{Vec}_G^{\omega}$ as a full subcategory, and we have a strict monoidal inclusion functor $\textcat{Vec}_G^{\omega} \to \mathcat{C}$ which preserves monoid objects. One can also show that any algebra object in $\mathcat{C}$ restricts to one in $\textcat{Vec}_G^{\omega}$. This is useful for quadratic fusion categories (which typically contain many invertible objects), since the classification of algebra objects in $\textcat{Vec}_G$ can give us a head start on finding algebra objects in $\mathcat{C}$!
+\newpage
+
+\noindent If $\mathcat{C}$ is a near-group fusion category, then it necessarily contains $\textcat{Vec}_G$ with trivial associativity as a full subcategory (this is true of any fusion category with a simple object that is fixed under the action of its group of invertibles). Therefore, the classification given in \hyperref[ex:algebra_object_graded_vect]{Example \ref*{ex:algebra_object_graded_vect}} tells us that the invertible summands of simple algebra objects in $\mathcat{C}$ form a subgroup.
+\newline
+
+\noindent I would like to conclude these notes with an example of how we can apply the technology we've introduced so far in the near-group setting. 
+\newline
+
+\begin{example}\label{ex:near-group_algebras}
+Let $\mathcat{C}$ be a near-group category of type $(G, m)$ with $m \in \mathbb{Z}_{>0}\abs{G}$ and $A \in \Ob(\mathcat{C})$ a simple algebra object. Then $A \cong \bigoplus_{h \in H}{h} \oplus X^{\oplus a}$ for some $a \in \{0, 1, \dots, \lfloor\FPdim(X)\rfloor = \abs{G}\}$. Suppose $H = \{e\}$, the trivial subgroup. Looking to the fusion matrix of $A$, we find (up to permutation)
+\begin{align*}
+\begin{split}
+F^A = \begin{bmatrix}
+I_{\abs{G}} & a \\
+a & \abs{G}a + 1
+\end{bmatrix} \implies F^M = \begin{bmatrix}
+I_{\abs{G}} & 0 & 0 & \dots & 0 \\
+a & x_1 & x_2 & \dots & x_k
+\end{bmatrix}.
+\end{split}
+\end{align*}
+Here, $I_{\abs{G}}$ is the $\abs{G}$-dimensional identity matrix, $x_1, x_2, \dots, x_k \in \mathbb{Z}_{>0}$ and we abuse notation by writing $a$ and $0$ to denote rows and columns of these values. Note that for $F^A = F^M (F^M)^T$, we need
+\begin{align*}
+\begin{split}
+\abs{G}a^2 + \sum_{i=1}^{k}{x_i^2} = \abs{G}a + 1,
+\end{split}
+\end{align*}
+which is only possible if $a = k = x_1 = 1$. If $A$ is indeed a simple algebra object, there must exist a fusion module category $\mathcat{M}$ and simple object $M \in \Ob(\mathcat{M})$ such that $A \cong \IntHom{M, M}$. Moreover, the fusion matrix tells us that $\mathcat{M}$ has simple objects $\{M_g\}_{g \in G} \sqcup \{M_X\}$ (where $M = M_e$) and action
+\begin{align*}
+\begin{split}
+\textnormal{$g \otimes M_h \cong M_{gh}$ for all $g, h \in G$}, \quad\quad \textnormal{$X \otimes M_g \cong \bigoplus_{h \in G}{M_h} \oplus M_X$, for all $g \in G$}.
+\end{split}
+\end{align*}
+Now, recall that $\IntHom{M_X, M_X}$ and $\IntHom{M_g, M_g}$, for all $g \in G$, are simple algebra objects in $\mathcat{C}$. Are they all isomorphic to $A$? Well, the definition of the Frobenius-Perron dimension on $\mathcat{M}$ tells us
+\begin{align*}
+\begin{split}
+\FPdim(\IntHom{M_g, M_g}) = \FPdim(M_g)^2 = (\FPdim(g)\FPdim(M_e))^2 = \FPdim(M_e)^2 = \FPdim(A),
+\end{split}
+\end{align*}
+for all $g \in G$. Since no other object in $\mathcat{C}$ has the same Frobenius-Perron dimension as $A$ (by irrationality of $\FPdim(X)$), we see that $\IntHom{M_g, M_g} \cong A$ for all $g \in G$. However, note that
+\begin{align*}
+\begin{split}
+\FPdim(\IntHom{M_X, M_X}) = \FPdim(M_X)^2 = ((\FPdim(X) - \abs{G})\FPdim(M_e))^2 = \abs{G}.
+\end{split}
+\end{align*}
+Irrationality of $\FPdim(X)$ tells us that $\IntHom{M_X, M_X}$ contains only group elements, which forces $\IntHom{M_X, M_X} \cong \bigoplus_{g \in G}{g}$. We know this is an algebra object (it lifts from $\textcat{Vec}_G$), so if $A$ is a simple algebra object, it must be Morita equivalent to $\bigoplus_{g \in G}{g}$.
+\end{example}
+\leavevmode
+
+\noindent The argument above doesn't tell us whether $\mathbbm{1} \oplus X$ is an algebra object, but it does still give us a lot of information. The main result is that it would have to be Morita equivalent to $\bigoplus_{g \in G}{g}$, and we know exactly how many distinct algebra structures this object has from the classification in $\textcat{Vec}_G$. We can then check the possible fusion matrices for $\bigoplus_{g \in G}{g}$ to see if any give a Morita equivalence to $\mathbbm{1} \oplus X$. As a spoiler, if $\abs{G}$ contains no square factors, then this is indeed the case. Otherwise, it is not obvious whether every algebra structure on $\bigoplus_{g \in G}{g}$ is Morita equivalent to one on $\mathbbm{1} \oplus X$. This is what I am investigating at the moment.
+\newpage
+
+\section{References}
+\sectionbar{1}{1pt}{-2}{0}
+
+\printbibliography[heading = none]
+
+\end{document}

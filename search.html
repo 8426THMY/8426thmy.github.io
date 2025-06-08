@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Search</title>
+		<link rel="stylesheet" href="./styles.css">
+		<script src="./scripts/math_webgl.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas_background"></canvas>
+
+		<div id="container">
+			<header>
+				8426THMY.github.io
+			</header>
+			<div id="topbar"></div>
+			<div id="locationbar"><div id="titlebar">&#187; <a href="./search.html">Search</a></div></div>
+
+			<nav id="left_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Navigation</div>
+					<ul class="window_content">
+						<li><a href="./index.html">Home</a></li>
+						<li><a href="./blog.html">Blog</a></li>
+						<li><a href="./research.html">Research</a></li>
+					</ul>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Links</div>
+					<ul class="window_content">
+						<li><a href="https://github.com/8426THMY">Github</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<nav id="right_sidebar" class="window_container">
+				<div class="window">
+					<div class="window_header">Search</div>
+					<div class="window_content">
+						<form onsubmit="return search_start();" action="./search.html">
+							<div class="search_row">
+								<input id="search_text" class="search_cell search_cell_grow" type="search" placeholder="Search...">
+							</div>
+							<div class="search_row">
+								<label class="search_cell"><input id="search_blog" type="checkbox" checked>Blog</label>
+								<label class="search_cell"><input id="search_research" type="checkbox" checked>Research</label>
+							</div>
+							<div class="search_row">
+								<select id="search_sort" class="search_cell search_cell_grow">
+									<option id="search_sort_newest">Newest</option>
+									<option id="search_sort_oldest">Oldest</option>
+									<!--<option value="2">Relevance</option>-->
+								</select>
+								<input class="search_cell" type="submit" value="Search">
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="window">
+					<div class="window_header">Recent Posts</div>
+					<ul id="recent_posts" class="window_content">
+						<!--<li>Blah</li>
+						<li>I Won the Race!</li>
+						<li>Hello World!</li>-->
+					</ul>
+				</div>
+			</nav>
+
+			<main id="post_container" class="window_container">
+				<!--<article class="window">
+					<div class="window_header">Short Content Title 1</div>
+					<div class="window_content">
+						<img class="post_image" src="./resource/sun.png">
+						<div class="post_title">Content Title 1</div>
+						<hr>
+						<div class="post_date">Posted: yyyy/mm/dd</div>
+						<div class="post_tags">Tags: tag1, tag2</div>
+						<hr>
+						<div class="post_desc">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et pretium ex. In libero sem, ultrices ut scelerisque vel, cursus id risus. Sed eu nisl fermentum, posuere enim sed, dictum dolor. Nulla a mi at dolor congue pellentesque non quis ligula. Vestibulum non ullamcorper nulla. Etiam vestibulum quis tortor eget semper. Pellentesque laoreet enim at magna tristique varius. Nullam porttitor, ante sit amet rutrum viverra, leo lectus dictum lectus, vel vulputate orci leo vel tortor. Aliquam arcu lacus, vulputate vitae purus id, gravida tristique nunc. Donec volutpat ante eu lectus consectetur facilisis. Etiam quis elementum felis. Quisque sed purus interdum, convallis dolor quis, luctus leo. Nam sed scelerisque eros. Pellentesque fermentum non purus id semper. Etiam vestibulum quis tortor eget semper. Pellentesque laoreet enim at magna tristique varius.</p>
+						</div>
+						<div class="post_more"><a href="./blog/article1.html">Read more</a></div>
+					</div>
+				</article>
+				<article class="window">
+					<div class="window_header">Short Content Title 2</div>
+					<div class="window_content">
+						<img class="post_image" src="./resource/moon.png">
+						<div class="post_title">Content Title 2</div>
+						<hr>
+						<div class="post_date">Posted: yyyy/mm/dd</div>
+						<div class="post_tags">Tags: tag1, tag2</div>
+						<hr>
+						<div class="post_desc"></div>
+						<div class="post_more"><a href="./blog/article2.html">Read more</a></div>
+					</div>
+				</article>-->
+			</main>
+
+			<div id="liminal"></div>
+			<footer>
+				Last updated on 2025/06/08.
+			</footer>
+		</div>
+
+		<script src="./scripts/posts.js"></script>
+		<script src="./scripts/search.js"></script>
+		<!-- These scripts are used for the fancy background. -->
+		<script src="./scripts/context.js"></script>
+		<script src="./scripts/background_update.js"></script>
+		<script src="./scripts/background_render_webgl.js"></script>
+		<script src="./scripts/background.js"></script>
+	</body>
+</html>
