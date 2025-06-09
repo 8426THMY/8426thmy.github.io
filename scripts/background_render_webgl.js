@@ -344,7 +344,7 @@ function load_shader_mist_texture(){
 		}
 		`,
 		`
-		precision mediump float;
+		precision highp float;
 
 		#define MIST_WIDTH      ${framebuffer_mist.width.toFixed(0)}.0
 		#define MIST_HEIGHT     ${framebuffer_mist.height.toFixed(0)}.0
@@ -366,9 +366,10 @@ function load_shader_mist_texture(){
 
 		uniform float time;
 
-		// Classic but terrible hash from https://www.shadertoy.com/view/4djSRW.
+		// Simple hash function from https://github.com/FarazzShaikh/glNoise.
+		// The "classic" hash implicitly requires high precision floats!
 		float hash(in vec2 v){
-			return fract(sin(dot(v, vec2(12.9898,78.233))) * 43758.5453123);
+			return fract(1e4 * sin(17.0 * v.x + v.y * 0.1) * (0.1 + abs(sin(v.y * 13.0 + v.x))));
 		}
 		// Fast Perlin-like noise from https://www.shadertoy.com/view/4dS3Wd.
 		float noise(vec2 v) {

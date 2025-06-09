@@ -24,10 +24,10 @@ const posts = [
 		["categories", "category", "diagrammatics", "framed", "fusion", "graphs", "groups", "homflypt", "invariants", "jones", "kauffman", "knots", "links", "manifolds", "pivotal", "polynomials", "quantum", "reshetikhin", "ribbon", "turaev", "witten"],
 		"2025/06/16",
 		"Ribbon Categories and RT Invariants",
-		"./research/ribbon_categories_rt_invariants/icon.png",
+		"/research/ribbon_categories_rt_invariants/icon.png",
 		"Ribbon Categories and Reshetikhin-Turaev Invariants (Slides)",
 		"Slides from a short talk at the <a href='https://sites.google.com/view/dominic-matan/seminar/'>UNSW Maths PhD/Masters Seminar</a> organized by Dominic Matan and Joe Baine.",
-		"./research/ribbon_categories_rt_invariants/ribbon_categories_rt_invariants.pdf"
+		"/research/ribbon_categories_rt_invariants/ribbon_categories_rt_invariants.pdf"
 	],
 
 	[
@@ -35,10 +35,10 @@ const posts = [
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "haagerup-izumi", "matrix", "modules", "near-group", "objects", "ostrik", "pointed", "rings"],
 		"2025/05/29",
 		"Fusion Categories and Their Modules",
-		"./research/fusion_category_modules/icon.png",
+		"/research/fusion_category_modules/icon.png",
 		"Fusion Categories and Their Modules (Notes)",
 		"Notes from a talk given for Anna Romanov's research group.",
-		"./research/fusion_category_modules/fusion_category_modules.pdf"
+		"/research/fusion_category_modules/fusion_category_modules.pdf"
 	]
 ];
 /*const posts = [
@@ -47,10 +47,10 @@ const posts = [
 		["tag1", "long_tag2", "very_long_tag3", "absurdly_annoyingly_long_tag4"],
 		"2025/05/09",
 		"Short Content Title 1",
-		"./resource/sun.png",
+		"/resource/sun.png",
 		"Content Title 1",
 		"This is a temporary description for a temporary post!",
-		"./blog/test_entry_1/post.html"
+		"/blog/test_entry_1/post.html"
 	],
 
 	[
@@ -58,10 +58,10 @@ const posts = [
 		["tag1", "long_tag2", "very_long_tag3", "absurdly_annoyingly_long_tag4"],
 		"2025/05/09",
 		"Short Content Title 2",
-		"./resource/moon.png",
+		"/resource/moon.png",
 		"Content Title 2",
 		"This is a temporary description for a temporary post!",
-		"./research/test_entry_2/post.html"
+		"/research/test_entry_2/post.html"
 	],
 
 	[
@@ -69,10 +69,10 @@ const posts = [
 		["tag1"],
 		"2025/05/09",
 		"Short Content Title 3",
-		"./resource/sun.png",
+		"/resource/sun.png",
 		"Content Title 3",
 		"This is a temporary description for a temporary post!",
-		"./blog/test_entry_3/post.html"
+		"/blog/test_entry_3/post.html"
 	],
 
 	[
@@ -80,10 +80,10 @@ const posts = [
 		["tag1"],
 		"2025/05/09",
 		"Short Content Title 4",
-		"./resource/moon.png",
+		"/resource/moon.png",
 		"Content Title 4",
 		"This is a temporary description for a temporary post!",
-		"./research/test_entry_4/post.html"
+		"/research/test_entry_4/post.html"
 	],
 
 	[
@@ -91,10 +91,10 @@ const posts = [
 		["long_tag2"],
 		"2025/05/09",
 		"Short Content Title 5",
-		"./resource/sun.png",
+		"/resource/sun.png",
 		"Content Title 5",
 		"This is a temporary description for a temporary post!",
-		"./blog/test_entry_5/post.html"
+		"/blog/test_entry_5/post.html"
 	],
 
 	[
@@ -102,10 +102,10 @@ const posts = [
 		["long_tag2"],
 		"2025/05/09",
 		"Short Content Title 6",
-		"./resource/moon.png",
+		"/resource/moon.png",
 		"Content Title 6",
 		"This is a temporary description for a temporary post!",
-		"./research/test_entry_6/post.html"
+		"/research/test_entry_6/post.html"
 	],
 
 	[
@@ -113,10 +113,10 @@ const posts = [
 		["very_long_tag3"],
 		"2025/05/09",
 		"Short Content Title 7",
-		"./resource/sun.png",
+		"/resource/sun.png",
 		"Content Title 7",
 		"This is a temporary description for a temporary post!",
-		"./blog/test_entry_7/post.html"
+		"/blog/test_entry_7/post.html"
 	],
 
 	[
@@ -124,10 +124,10 @@ const posts = [
 		["very_long_tag3"],
 		"2025/05/09",
 		"Short Content Title 8",
-		"./resource/moon.png",
+		"/resource/moon.png",
 		"Content Title 8",
 		"This is a temporary description for a temporary post!",
-		"./research/test_entry_8/post.html"
+		"/research/test_entry_8/post.html"
 	],
 
 	[
@@ -135,10 +135,10 @@ const posts = [
 		["absurdly_annoyingly_long_tag4"],
 		"2025/05/09",
 		"Short Content Title 9",
-		"./resource/sun.png",
+		"/resource/sun.png",
 		"Content Title 9",
 		"This is a temporary description for a temporary post!",
-		"./blog/test_entry_9/post.html"
+		"/blog/test_entry_9/post.html"
 	],
 
 	[
@@ -146,10 +146,10 @@ const posts = [
 		["absurdly_annoyingly_long_tag4"],
 		"2025/05/09",
 		"Short Content Title 10",
-		"./resource/moon.png",
+		"/resource/moon.png",
 		"Content Title 10",
 		"This is a temporary description for a temporary post!",
-		"./research/test_entry_10/post.html"
+		"/research/test_entry_10/post.html"
 	]
 ];*/
 
