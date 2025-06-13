@@ -720,7 +720,7 @@ It turns out that ribbon twists of simple objects are scalings of the identity:
 \end{equation*}
 For any link diagram $L$ coloured by $X$, $\theta_X^{-\Wr(L)}L$ gives an invariant of $L$ as an \textcolor{structure}{unframed link}. Here, $\Wr(L)$ is the \textcolor{structure}{writhe} of $L$ (the number of overcrossings minus the number of undercrossings).
 \newline\newline
-While one can always forget the framing, forgetting the orientation is trickier. It is not actually sufficient for the object to be self-dual!
+While one can always forget the framing, forgetting the orientation is trickier. It is necessary but not sufficient for the object to be self-dual!
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -797,7 +797,7 @@ While one can always forget the framing, forgetting the orientation is trickier.
 For $\mathbb{C}^n$ in $\textcat{Vec}$, we get $L \mapsto n^c$ for a link $L$ with $c$ components. Wow!!
 \end{example}
 \begin{example}[Graded Vector Spaces]
-Consider the category $\textcat{Vec}_G$ of vector spaces \textcolor{structure}{graded} by $G$. This category has a 1D simple object $\mathbb{C}_g$ for each $g \in G$ which satisfy $\mathbb{C}_g \otimes \mathbb{C}_h = \mathbb{C}_{gh}$ and $\mathbb{C}_g^{*} = \mathbb{C}_{g^{-1}}$. The braidings are given by \textcolor{structure}{quadratic forms} on $G$. For instance, if $G = \mathbb{Z}/2\mathbb{Z} = \{\mathbbm{1}, g\}$, we can define $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:-190:0.25);\end{tikzpicture} = i \cdot \id_{\mathbb{C}_{\mathbbm{1}}} = \begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:190:0.25);\end{tikzpicture}$ and
+Consider the category $\textcat{Vec}_G$ of vector spaces \textcolor{structure}{graded} by $G$. This category has 1D simple objects $\mathbb{C}_g$ for each $g \in G$, which satisfy $\mathbb{C}_g \otimes \mathbb{C}_h = \mathbb{C}_{gh}$ and $\mathbb{C}_g^{*} = \mathbb{C}_{g^{-1}}$. The braidings are given by \textcolor{structure}{quadratic forms} on $G$. For instance, if $G = \mathbb{Z}/2\mathbb{Z} = \{\mathbbm{1}, g\}$, we can define $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:-190:0.25);\end{tikzpicture} = i \cdot \id_{\mathbb{C}_{\mathbbm{1}}} = \begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:190:0.25);\end{tikzpicture}$ and
 \begin{align*}
 \begin{split}
 \begin{tikzpicture}[baseline = (current bounding box.east)]
@@ -878,16 +878,53 @@ I've implicitly chosen here the structure that removes the orientation.
 
 \begin{frame}
 \frametitle{The Jones Polynomial Generalized}
-We can play this game for other simple representations and Lie algebras $\mathfrak{g}$.
-\begin{example}[Coloured Jones Polynomial]
-If $\mathfrak{g} = \mathfrak{sl}_2$, the simple $n$-dimensional representations for $n > 2$ give coloured Jones polynomials.
-\end{example}
 \begin{example}[HOMFLYPT Polynomial]
-If $\mathfrak{g} = \mathfrak{sl}_n$, the fundamental representations give the HOMFLYPT polynomial.
+More generally, $\textcat{Rep}(U_q(\mathfrak{sl}_n))$ is ribbon. The standard ($n$-dimensional) representation $V_n$ has the same evaluation and coevaluation as $\textcat{Vec}$, but letting $v_{n-1}, v_{n-3}, \dots, v_{3-n}, v_{1-n}$ be a basis for $V_n$, its braiding is given by
+\begin{align*}
+\begin{split}
+\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (0.5, 0);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0.5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (0, 0);
+\end{knot}
+\end{tikzpicture} : v_i \otimes v_j \mapsto q^{-1/n}\begin{cases}
+qv_i \otimes v_j, & \textnormal{if $i = j$;} \\
+v_j \otimes v_i, & \textnormal{if $i > j$;} \\
+v_j \otimes v_i + (q - q^{-1})v_i \otimes v_j, & \textnormal{if $i < j$.}
+\end{cases}
+\end{split}
+\end{align*}
+The ribbon structure is $q^{1/n - n} \cdot \id_{V_2}$. This time, we have skein relation
+\begin{align*}
+\begin{split}
+q^n\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (0.5, 0);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0.5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (0, 0);
+\end{knot}
+\end{tikzpicture} - q^{-1/n}\begin{tikzpicture}[baseline = (current bounding box.east)]
+\begin{knot}[clip width = 5, background color = bg]
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0.5, 1) .. controls +(-0.05, -0.5) and +(0.05, 0.5) .. (0, 0);
+\strand[thick, arrows = {-Latex}, spath/arrow shortening = false] (0, 1) .. controls +(0.05, -0.5) and +(-0.05, 0.5) .. (0.5, 0);
+\end{knot}
+\end{tikzpicture} = (q - q)^{-1}\begin{tikzpicture}[baseline = (current bounding box.east)]
+\draw[thick, arrows = {-Latex}] (0, 1) -- (0, 0);
+\draw[thick, arrows = {-Latex}] (0.5, 1) -- (0.5, 0);
+\end{tikzpicture}.
+\end{split}
+\end{align*}
+This is the \textcolor{structure}{$n$-specialization} of the HOMFLYPT polynomial.
 \end{example}
-\begin{example}[Kauffman Polynomial]
-If $\mathfrak{g} = \mathfrak{so}_n$, the fundamental representations give the Kauffman polynomial.
-\end{example}
+%We can play this game for other simple representations and Lie algebras $\mathfrak{g}$.
+%\begin{example}[Coloured Jones Polynomial]
+%If $\mathfrak{g} = \mathfrak{sl}_2$, the simple $n$-dimensional representations for $n > 2$ give coloured Jones polynomials.
+%\end{example}
+%\begin{example}[HOMFLYPT Polynomial]
+%If $\mathfrak{g} = \mathfrak{sl}_n$, the fundamental representations give the HOMFLYPT polynomial.
+%\end{example}
+%\begin{example}[Kauffman Polynomial]
+%If $\mathfrak{g} = \mathfrak{so}_n$, the fundamental representations give the Kauffman polynomial.
+%\end{example}
 \end{frame}
 
 %%%%%%%%%%%%%%
