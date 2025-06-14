@@ -395,15 +395,15 @@ Let $X^{*}$ denote $X$ with its orientation reversed. Then our cups and caps may
 \draw[thick, postaction = {decorate}] (1, 0.5) to (1, 1);
 \draw[thick] (1, 1) arc(0:180:0.5);
 \draw[thick, arrows = {-Latex}] (0, 1) to (0, 0);
-\node at (2, 1.5) [above] {$V$};
-\node at (0, 0) [below] {$V$};
+\node at (2, 1.5) [above] {$X$};
+\node at (0, 0) [below] {$X$};
 \end{tikzpicture} = \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
 	markings,
 	mark = at position 0.5 with {\arrow{Latex}}
 }]
 \draw[thick, arrows = {-Latex}] (3, 1.5) to (3, 0);
-\node at (3, 1.5) [above] {$V$};
-\node at (3, 0) [below] {$V$};
+\node at (3, 1.5) [above] {$X$};
+\node at (3, 0) [below] {$X$};
 \end{tikzpicture},%
 \qquad\quad
 \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
@@ -415,15 +415,15 @@ Let $X^{*}$ denote $X$ with its orientation reversed. Then our cups and caps may
 \draw[thick, postaction = {decorate}] (1, 1) to (1, 0.5);
 \draw[thick] (2, 1) arc(0:180:0.5);
 \draw[thick, postaction = {decorate}] (2, 0) to (2, 1);
-\node at (0, 1.5) [above] {$V^{*}$};
-\node at (2, 0) [below] {$V^{*}$};
+\node at (0, 1.5) [above] {$X^{*}$};
+\node at (2, 0) [below] {$X^{*}$};
 \end{tikzpicture} = \begin{tikzpicture}[baseline = (current bounding box.east), decoration = {
 	markings,
 	mark = at position 0.5 with {\arrow{Latex}}
 }]
 \draw[thick, arrows = {-Latex}] (3, 0) to (3, 1.5);
-\node at (3, 1.5) [above] {$V^{*}$};
-\node at (3, 0) [below] {$V^{*}$};
+\node at (3, 1.5) [above] {$X^{*}$};
+\node at (3, 0) [below] {$X^{*}$};
 \end{tikzpicture}.
 \end{equation*}
 We call $X^{*}$ a \textcolor{structure}{left dual} for $X$. Swapping the orientations of cups and caps defines \textcolor{structure}{right duals}, ${^{*}X}$. A category is called \textcolor{structure}{rigid} if every object has both left and right duals, and \textcolor{structure}{pivotal} if these duals coincide in a ``natural'' way.
@@ -448,7 +448,7 @@ In a pivotal category, we can draw oriented circles:
 \end{equation*}
 We will ask that $\End{\mathbbm{1}} \cong \mathbb{C}$ so we can identify links with numbers.
 \newline\newline
-In $\textcat{Vec}$, the duals of $V$ are given by the \textcolor{structure}{dual space}, $V^{*} \coloneqq \Hom{V, \mathbb{C}}$. Given a basis $\{v_i\}_{i=1}^{n}$ for $V$ with dual basis $\{v_i^{*}\}_{i=1}^{n}$ for $V^{*}$, we have $\ev_V(v^{*} \otimes v) = v^{*}(v)$ and $\coev_V(1) = \sum_{i=1}^{n}{v_i \otimes v_i^{*}}$.
+In $\textcat{Vec}$, the duals of $V$ are given by the \textcolor{structure}{dual space}, $V^{*} \coloneqq \Hom{V, \mathbb{C}}$. Given a basis $\{v_i\}_{i=1}^{n}$ for $V$ with dual basis $\{v_i^{*}\}_{i=1}^{n}$ for $V^{*}$, we have $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:-190:0.25);\end{tikzpicture} : v^{*} \otimes v \mapsto v^{*}(v)$ and $\begin{tikzpicture}\draw[thick, arrows = {-Latex[length = 1mm, width = 1.5mm]}] (0, 0) arc(0:190:0.25);\end{tikzpicture} : 1 \mapsto \sum_{i=1}^{n}{v_i \otimes v_i^{*}}$.
 \newline\newline
 The pivotal structure in $\textcat{Vec}$ is given by the canonical isomorphism between a vector space and its double dual, $v \mapsto (v^{*} \mapsto v^{*}(v))$.
 \end{frame}
@@ -718,7 +718,7 @@ It turns out that ribbon twists of simple objects are scalings of the identity:
 \node at (0, 0) [below] {$X$};
 \end{tikzpicture}.
 \end{equation*}
-For any link diagram $L$ coloured by $X$, $\theta_X^{-\Wr(L)}L$ gives an invariant of $L$ as an \textcolor{structure}{unframed link}. Here, $\Wr(L)$ is the \textcolor{structure}{writhe} of $L$ (the number of overcrossings minus the number of undercrossings).
+For any link diagram $L$ coloured by $X$, $\theta_X^{-\Wr(L)}L$ gives an invariant of $L$ as an \textcolor{structure}{unframed link}. Here, $\Wr(L)$ is the \textcolor{structure}{writhe} of $L$ (the number of positive crossings minus the number of negative crossings).
 \newline\newline
 While one can always forget the framing, forgetting the orientation is trickier. It is necessary but not sufficient for the object to be self-dual!
 \end{frame}
@@ -879,7 +879,7 @@ I've implicitly chosen here the structure that removes the orientation.
 \begin{frame}
 \frametitle{The Jones Polynomial Generalized}
 \begin{example}[HOMFLYPT Polynomial]
-More generally, $\textcat{Rep}(U_q(\mathfrak{sl}_n))$ is ribbon. The standard ($n$-dimensional) representation $V_n$ has the same evaluation and coevaluation as $\textcat{Vec}$, but letting $v_{n-1}, v_{n-3}, \dots, v_{3-n}, v_{1-n}$ be a basis for $V_n$, its braiding is given by
+More generally, $\textcat{Rep}(U_q(\mathfrak{sl}_n))$ is ribbon. The standard ($n$-dimensional) representation $V_n$ has the same caps and cups as $\textcat{Vec}$, but letting $v_{n-1}, v_{n-3}, \dots, v_{3-n}, v_{1-n}$ be a basis for $V_n$, its braiding is given by
 \begin{align*}
 \begin{split}
 \begin{tikzpicture}[baseline = (current bounding box.east)]
