@@ -35,7 +35,7 @@ const posts = [
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
 		"2025/07/26",
 		"Ph.D. Notes",
-		"./resource/shared/sun.png",
+		"./resource/shared/unsw-crest.png",
 		"Notes on Fusion Categories and Their Modules",
 		"Random notes on fusion categories and fusion module categories, with a focus on some new results for near-group fusion categories. These will probably end up being a \"director's cut\" for my Ph.D. thesis.",
 		"./research/fusion_category_modules_phd/phd_notes.pdf"
