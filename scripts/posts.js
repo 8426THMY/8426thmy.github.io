@@ -22,9 +22,20 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
+		"2025/08/04",
+		"Some Results on Modules over Near-Groups",
+		"./resource/shared/unsw-crest.png",
+		"Some Results on Modules over Near-Groups (Slides)",
+		"Slides for a short talk on module categories over near-group fusion categories for UNSW's postgraduate conference.",
+		"./research/near-group_results_postgrad/near-group_module_results.pdf"
+	],
+
+	[
+		POST_TYPE_RESEARCH,
+		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
 		"2025/07/26",
 		"Ph.D. Notes",
-		"./resource/sun.png",
+		"./resource/shared/sun.png",
 		"Notes on Fusion Categories and Their Modules",
 		"Random notes on fusion categories and fusion module categories, with a focus on some new results for near-group fusion categories. These will probably end up being a \"director's cut\" for my Ph.D. thesis.",
 		"./research/fusion_category_modules_phd/phd_notes.pdf"
@@ -33,7 +44,7 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["categories", "category", "diagrammatics", "framed", "fusion", "graphs", "groups", "homflypt", "invariants", "jones", "kauffman", "knots", "links", "manifolds", "pivotal", "polynomials", "quantum", "reshetikhin", "ribbon", "slides", "turaev", "witten"],
-		"2025/06/16",
+		"2025/06/15",
 		"Ribbon Categories and RT Invariants",
 		"./research/ribbon_categories_rt_invariants/icon.png",
 		"Ribbon Categories and Reshetikhin-Turaev Invariants (Slides)",
@@ -44,7 +55,7 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "haagerup-izumi", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "pointed", "rings"],
-		"2025/05/29",
+		"2025/06/08",
 		"Fusion Categories and Their Modules",
 		"./research/fusion_category_modules_anna/icon.png",
 		"Fusion Categories and Their Modules (Notes)",

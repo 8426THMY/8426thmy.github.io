@@ -133,7 +133,7 @@ function search_display(results){
 					' + (post[POST_ICON] ? ('<img class="post_image" src="' + post[POST_ICON] + '">') : '') + '\
 					<div class="post_title">' + post[POST_FULL_TITLE] + '</div> \
 					<hr> \
-					<div class="post_date">Posted: ' + post[POST_DATE] + '</div> \
+					<div class="post_date">Last updated: ' + post[POST_DATE] + '</div> \
 					<div class="post_tags">Tags: ' + tags_string + '</div> \
 					<hr> \
 					<div class="post_desc">' + post[POST_DESC] + '</div> \
