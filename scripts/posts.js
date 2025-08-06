@@ -33,7 +33,7 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
-		"2025/07/26",
+		"2025/08/06",
 		"Ph.D. Notes",
 		"./resource/shared/unsw-crest.png",
 		"Notes on Fusion Categories and Their Modules",
