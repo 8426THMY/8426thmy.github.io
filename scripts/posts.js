@@ -22,7 +22,7 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
-		"2025/08/04",
+		"2025/08/10",
 		"Some Results on Modules over Near-Groups",
 		"./resource/shared/unsw-crest.png",
 		"Some Results on Modules over Near-Groups (Slides)",

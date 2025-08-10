@@ -277,7 +277,7 @@ A category with these adjectives is called a \textcolor{structure}{fusion catego
 The category \textcolor{structure}{$\textcat{Vec}_G$} of finite-dimensional vector spaces (over $\mathbb{C}$, say) graded by a finite group $G$ is a fusion category. This category has a simple object for each $g \in G$, monoidal product $g \otimes h \cong gh$ and duals $g^{*} = g^{-1}$. One obtains distinct fusion categories by ``twisting'' $\otimes$ by \textcolor{structure}{3-cocycles} of $G$.
 \end{example}
 \begin{example}[Quantum $\mathfrak{sl}_2$]
-Given a Lusztig quantum group $U_q^L(\mathfrak{g})$ for some finite-dimensional simple Lie algebra $\mathfrak{g}$ and root of unity $q$, one builds a fusion category by taking a certain quotient of its category of representations. For $\mathfrak{g} = \mathfrak{sl}_2$, we have simple objects $\{W_i\}_{i=0}^{\ell-2}$ satisfying the \textcolor{structure}{truncated Clebsch-Gordon rules},
+Given a Lusztig quantum group $U_q^L(\mathfrak{g})$ for some finite-dimensional simple Lie algebra $\mathfrak{g}$ and $2\ell$-th root of unity $q$, one builds a fusion category by taking a certain quotient of its category of representations. For $\mathfrak{g} = \mathfrak{sl}_2$, we get simple objects $\{W_i\}_{i=0}^{\ell-2}$ satisfying the \textcolor{structure}{truncated Clebsch-Gordon rules},
 \begin{align*}
 \begin{split}
 W_i \otimes W_j \cong \bigoplus\nolimits_{k=\max\{i+j-\ell+2, 0\}}^{\min\{i, j\}}{W_{i+j-2k}}.
@@ -288,7 +288,7 @@ W_i \otimes W_j \cong \bigoplus\nolimits_{k=\max\{i+j-\ell+2, 0\}}^{\min\{i, j\}
 
 \begin{frame}
 \frametitle{Near-Group Fusion Categories}
-Almost all known examples come from these via some kind of construction. One notable class of exceptions is the \textcolor{structure}{near-group fusion categories}.
+In general, new fusion categories are very hard to find! Almost all known examples come from these via some kind of construction. One notable class of exceptions is the \textcolor{structure}{near-group fusion categories}.
 \begin{definition}[Near-Group Fusion Categories]
 A fusion category with only one non-invertible object $X$ (so $X^{*} \otimes X \ncong \mathbbm{1}$) is called \textcolor{structure}{near-group}. Then $X \otimes X \cong \bigoplus_{g \in G}{g} \oplus X^{\oplus m}$, where $G$ is its group of invertibles and $m \in \mathbb{Z}_{\geq 0}$. We say such a near-group has \textcolor{structure}{type $(G, m)$}.
 \end{definition}
@@ -310,14 +310,14 @@ The category $\textcat{Rep}(S_3)$ is near-group of type $(\mathbb{Z}/2\mathbb{Z}
 
 \begin{frame}
 \frametitle{What Is a Module Category?}
-All fusion categories define a ring with summation $\oplus$ and multiplication $\otimes$. One can similarly categorify the notion of modules over these rings.
+All fusion categories define a ring with addition $\oplus$ and multiplication $\otimes$. One can similarly categorify the notion of modules over these rings.
 \begin{definition}[Fusion Module Category]
 A \textcolor{structure}{module category} over a fusion category $\mathcat{C}$ is a linear, semisimple, finite, category $\mathcat{M}$ with a linear monoidal functor $\mathcat{C} \to \End{\mathcat{M}}$. If $\mathcat{M}$ is not a direct sum of non-trivial module categories, I will call it \textcolor{structure}{fusion}.
 \end{definition}
 This is nice, but why bother? Well, there are several reasons...
 \medskip
 \begin{itemize}
-	\item Knowing which modules must and must not exist can place additional combinatorial constraints on the existence of a fusion category.
+	\item Knowing which modules can and can't exist can place additional combinatorial constraints on the existence of a fusion category.
 	\item The \textcolor{structure}{dual category $\mathcat{C}_{\mathcat{M}}^{*} \coloneqq \Fun[\mathcat{C}]{\mathcat{M}, \mathcat{M}}$} of $\mathcat{C}$-module endofunctors of a fusion module category $\mathcat{M}$ is always a fusion category.
 \end{itemize}
 \medskip
@@ -359,12 +359,12 @@ More interestingly, in $\textcat{Vec}_{\mathbb{Z}/4\mathbb{Z}}$, the algebra obj
 
 \begin{frame}
 \frametitle{Setting the Stage}
-Let $\mathcat{C}$ be a near-group of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$. To help classify its fusion module categories, we have a few tricks at our disposal.
+Let $\mathcat{C}$ be a near-group of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$. To help classify its fusion module categories, we can make some observations.
 \medskip
 \begin{itemize}
 	\item Any near-group contains (untwisted!) $\textcat{Vec}_G$ as a fusion subcategory.
 	\item Any fusion module category over $\mathcat{C}$ restricts to a (not necessarily indecomposable) $\textcat{Vec}_G$-module category.
-	\item Any simple algebra object in $\textcat{Vec}_G$ lifts to a simple algebra object in $\mathcat{C}$.
+	\item Any simple algebra object in $\mathcat{C}$ restricts to one in $\textcat{Vec}_G$, and simple algebra objects in $\textcat{Vec}_G$ lift to ones in $\mathcat{C}$.
 \end{itemize}
 \medskip
 The upshot is that our classification of simple algebra objects in $\textcat{Vec}_G$ tells us that every simple algebra object in $\mathcat{C}$ is $H \oplus X^{\oplus a}$ for some $a \in \mathbb{Z}_{\geq 0}$.%
@@ -374,16 +374,16 @@ Question: For a given integer $a$, does $H \oplus X^{\oplus a}$ admit an algebra
 
 \begin{frame}
 \frametitle{Counting Orbits}
-There are a few immediate bounds we can place on the integer $a$.
+On the algebra object side, there are a few bounds we can place on $a$.
 \begin{lemma}
 If $H \oplus X^{\oplus a}$ is a simple algebra object, then $a \leq m\abs{H}$, and $\abs{H} \mid \abs{G/H}a^2$.
 \end{lemma}
-Recall that fusion $\mathcat{C}$-module categories restrict to $\textcat{Vec}_G$-module categories. Although the restriction may not be fusion itself, it will be a direct sum of fusion module categories. How many of these ``$G$-orbits'' can we have?
+On the module category side, while a fusion $\mathcat{C}$-module category may not restrict to a fusion $\textcat{Vec}_G$-module category, it will restrict to a direct sum of them, and the summands tell us what the action of $G$ is. How many of these ``$G$-orbits'' can we have?
 \begin{proposition}
 The category of modules over $H \oplus X^{\oplus a}$ has exactly two $G$-orbits, with the second corresponding to a simple algebra object $H' \oplus X^{\oplus a'}$ satisfying
 \begin{enumerate}
-\item $\frac{a}{\abs{H}} + \frac{a'}{\abs{H'}} = m$;
-\item $\sqrt{\frac{\abs{H'}}{\abs{H}}(\abs{H} + m\abs{G}a - \abs{G/H}a^2)} \in \mathbb{Z}_{>0}$.
+	\item $\frac{a}{\abs{H}} + \frac{a'}{\abs{H'}} = m$;
+	\item $\sqrt{\frac{\abs{H'}}{\abs{H}}(\abs{H} + m\abs{G}a - \abs{G/H}a^2)} \in \mathbb{Z}_{>0}$.
 \end{enumerate}
 \end{proposition}
 \end{frame}
@@ -404,7 +404,7 @@ Let $G = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ and $m = 1$. Then
 \frametitle{A Small Classification}
 I don't want everyone to leave frightened, so let's conclude with a case where these problems vanish.
 \begin{proposition}
-Let $m = 1$ and $G$ be a finite cyclic group whose order is square-free. Then the fusion module categories of $\mathcat{C}$ correspond bijectively to subgroups of $G$.
+Let $m = 1$ and $G$ be a finite cyclic group whose order is square-free. Then the fusion module categories of $\mathcat{C}$ correspond bijectively to those in $\textcat{Vec}_G$.
 \end{proposition}
 We have yet to find a near-group category with a simple algebra object that doesn't fit this pattern. Thus, we have the following conjecture.
 \begin{conjecture}
