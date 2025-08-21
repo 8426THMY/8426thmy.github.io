@@ -22,23 +22,23 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
+		"2025/08/21",
+		"Ph.D. Notes",
+		"./resource/shared/unsw-crest.png",
+		"Notes on Fusion Categories and Their Modules",
+		"Random notes on fusion categories and fusion module categories, with a focus on some new results for near-group fusion categories. These will probably end up being a \"director's cut\" for my Ph.D. thesis.",
+		"./research/fusion_category_modules_phd/phd_notes.pdf"
+	],
+
+	[
+		POST_TYPE_RESEARCH,
+		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
 		"2025/08/10",
 		"Some Results on Modules over Near-Groups",
 		"./resource/shared/unsw-crest.png",
 		"Some Results on Modules over Near-Groups (Slides)",
 		"Slides for a short talk on module categories over near-group fusion categories for UNSW's postgraduate conference.",
 		"./research/near-group_results_postgrad/near-group_module_results.pdf"
-	],
-
-	[
-		POST_TYPE_RESEARCH,
-		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
-		"2025/08/06",
-		"Ph.D. Notes",
-		"./resource/shared/unsw-crest.png",
-		"Notes on Fusion Categories and Their Modules",
-		"Random notes on fusion categories and fusion module categories, with a focus on some new results for near-group fusion categories. These will probably end up being a \"director's cut\" for my Ph.D. thesis.",
-		"./research/fusion_category_modules_phd/phd_notes.pdf"
 	],
 
 	[
