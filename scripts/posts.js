@@ -21,6 +21,17 @@ const recent_posts = document.getElementById("recent_posts");
 const posts = [
 	[
 		POST_TYPE_RESEARCH,
+		["categories", "category", "fusion", "near-group", "notes"],
+		"2025/11/17",
+		"\\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) Near-Group Notes",
+		"./research/z2xz2_near-group/annoying_algebra.png",
+		"Notes on the \\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) Near-Group Fusion Category",
+		"Random notes documenting our current troubles and thoughts with classifying the algebra objects of the (unitary) \\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) near-group fusion category.",
+		"./research/z2xz2_near-group/z2xz2_near-group.pdf"
+	],
+
+	[
+		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
 		"2025/08/21",
 		"Ph.D. Notes",

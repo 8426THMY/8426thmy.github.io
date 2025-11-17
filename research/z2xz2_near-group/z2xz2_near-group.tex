@@ -1,0 +1,562 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                      %
+% Random LaTeX Template                %
+%                                      %
+% Created by Thomas Dunmore.           %
+% Last updated 2025/10/02.             %
+%                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%
+% SETUP %
+%%%%%%%%%
+
+\documentclass[12pt, reqno]{amsart}
+\usepackage[a4paper, total={18cm, 22cm}, centering]{geometry}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath, amsfonts, amsthm, amssymb, mathrsfs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[usenames, dvipsnames]{color}
+
+% Center title.
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+% Title block on first page.
+\title{
+	\normalfont \fontsize{10.95}{13.14}
+	\LARGE Formal Codegrees in Multifusion Categories \\[-\linespacing]
+	\rule{0.9\linewidth}{1pt} \\[0.5cm]
+	\large Thomas Dunmore z5256305 \\[12pt]
+	\small\today
+}
+
+% Custom headers and footers.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{}
+\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\setlength{\headsep}{36pt}
+\setlength{\footskip}{14pt}
+
+% Bibliography.
+\usepackage[%
+	backend = biber,
+	% BibLaTeX-Math package: https://github.com/konn/biblatex-math
+	style = math-alphabetic,
+	giveninits = true,
+	dashed = false,
+	url = false,
+	doi = false,
+	sorting = anyvt,
+	minalphanames = 3,
+	maxalphanames = 4
+]{biblatex}
+% Use the default font size for the bibliography.
+\renewcommand*{\bibfont}{\normalsize}
+% Use title case rather than sentence case for references.
+\DeclareFieldFormat{titlecase}{#1}
+% Put last names before first names.
+\DeclareNameAlias{default}{family-given}
+% Used for articles with appendices written by other authors.
+\NewBibliographyString{bywithappendix}
+\DefineBibliographyStrings{english}{
+	bywithappendix = {with an appendix by}
+}
+% Specify the bibliography data file to use.
+%\addbibresource{references.bib}
+
+
+%%%%%%%%%%%%%%
+% FORMATTING %
+%%%%%%%%%%%%%%
+
+% Add dotted lines after table of contents entries.
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+	\ifnum #1>\c@tocdepth
+	\else
+		\par \addpenalty\@secpenalty\addvspace{#2}
+		\begingroup \hyphenpenalty\@M
+		\@ifempty{#4}{
+			\@tempdima\csname r@tocindent\number#1\endcsname\relax
+		}{
+			\@tempdima#4\relax
+		}
+		\parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+		\rightskip\@pnumwidth plus4em \parfillskip-\@pnumwidth
+		#5\leavevmode\hskip-\@tempdima #6\nobreak\relax
+		\ifnum#1<0\hfill\else\dotfill\fi\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+		\nobreak
+		\endgroup
+\fi}
+\makeatother
+% Align table of contents items horizontally.
+\makeatletter
+\renewcommand{\l@section}{\@tocline{1}{0pt}{0pt}{}{}}
+\renewcommand{\l@subsection}{\@tocline{2}{0pt}{10pt}{}{}}
+\let\tocsubsection\tocsection
+\renewcommand{\l@subsubsection}{\@tocline{3}{0pt}{20pt}{}{}}
+\let\tocsubsubsection\tocsection
+\makeatother
+
+% Section formatting.
+\makeatletter
+\def\section{\@startsection{section}{1}\z@{0pt}{0.5\linespacing}{\LARGE\scshape}}
+\def\subsection{\@startsection{subsection}{2}\z@{0pt}{0.5\linespacing}{\large}}
+\def\subsubsection{\@startsection{subsubsection}{3}\z@{0pt}{0.5\linespacing}{\itshape}}
+\makeatother
+
+% Apply section formatting to numbers.
+\makeatletter
+\def\@seccntformat#1{
+	\protect\@secnumfont
+	\expandafter\protect\csname format#1\endcsname
+	\csname the#1\endcsname
+	\protect\@secnumpunct
+}
+% The hack above doesn't work for boldface, so we need to specify it manually.
+%\newcommand{\formatsection}{\bfseries\boldmath}
+%\newcommand{\formatsubsection}{\bfseries\boldmath}
+%\newcommand{\formatsubsubsection}{\bfseries\boldmath}
+\makeatother
+
+% Add fake sections and subsections to table of contents.
+\newcommand{\fakesection}[1]{%
+	\par\refstepcounter{section} % Increase section counter
+	\sectionmark{#1} % Add section mark (header)
+	\addcontentsline{toc}{section}{\protect\numberline{\thesection}#1} % Add section to ToC
+}
+\newcommand{\fakesubsection}[1]{%
+	\par\refstepcounter{subsection} % Increase subsection counter
+	\subsectionmark{#1} % Add subsection mark (header)
+	\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1} % Add subsection to ToC
+}
+
+% Remove unspecified periods in section titles.
+\makeatletter
+\let\@addpunct\@gobble
+\makeatother
+
+% Automatically add a blank line between paragraphs.
+%\setlength{\parskip}{\baselineskip}
+
+% Number equations according to the sections they appear in.
+\numberwithin{equation}{section}
+%\numberwithin{equation}{subsection}
+%\numberwithin{equation}{subsubsection}
+
+% More space between equations.
+%\AtBeginDocument{\addtolength{\jot}{10pt}}
+% Remove the ugly random spacing that LaTeX likes to add.
+\raggedbottom
+
+% More table spacing.
+% Don't use this if you want piecewise functions.
+%\setlength{\extrarowheight}{5pt}
+
+% Better double horizontal ruling for tables.
+\usepackage{hhline}
+
+% Allows for table cells that contain line breaks.
+\newcommand{\specialcell}[2][c]{
+    \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}
+}
+
+% Table colours.
+\usepackage[table, xcdraw]{xcolor}
+\usepackage{colortbl}
+\definecolor{ColourBlack}{HTML}{000000}
+\definecolor{ColourWhite}{HTML}{FFFFFF}
+\definecolor{ColourTableGrey}{HTML}{EDEDED}
+\definecolor{Grey}{gray}{0.92}
+
+
+%%%%%%%%%%%%%%%%
+% ENVIRONMENTS %
+%%%%%%%%%%%%%%%%
+
+% Define commands for sections that support equation numbering.
+\newcommand*{\problem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\section*{#2}\refstepcounter{section}}
+		{\section*{\texorpdfstring{#2}{#1}}\refstepcounter{section}}
+}
+\newcommand*{\subproblem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\subsection*{#2}\refstepcounter{subsection}}
+		{\subsection*{\texorpdfstring{#2}{#1}}\refstepcounter{subsection}}
+}
+\newcommand*{\subsubproblem}[2][]{
+	\ifthenelse{\equal{#1}{}}
+		{\subsubsection*{#2}\refstepcounter{subsubsection}}
+		{\subsubsection*{\texorpdfstring{#2}{#1}}\refstepcounter{subsubsection}}
+}
+
+% Customizable enumerate list labels.
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+
+% Theorem environments.
+\newtheoremstyle{plainspace}{-\topsep}{-\topsep}{\itshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{plainspace}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\newtheoremstyle{definitionspace}{-\topsep}{-\topsep}{}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{definitionspace}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+
+\newtheoremstyle{remarkspace}{-\topsep}{-\topsep}{}{}{\itshape}{.}{0.5em}{}
+\theoremstyle{remarkspace}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+% Proof environment formatting.
+\renewenvironment{proof}{{\noindent\textbf{Proof.}}}{\null\hfill\qedsymbol}
+
+% Modified matrix environments for augmented matrices.
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{#1}
+}
+\makeatother
+
+% Modified cases environment for column alignment.
+\makeatletter
+\renewenvironment{cases}[1][l]{\matrix@check\cases\env@cases{#1}}{\endarray\right.}
+\def\env@cases#1{%
+	\let\@ifnextchar\new@ifnextchar
+	\left\lbrace\def\arraystretch{1.2}%
+	\array{@{}#1@{\quad}l@{}}}
+\makeatother
+
+
+%%%%%%%%%%%%
+% COMMANDS %
+%%%%%%%%%%%%
+
+% Section title bar.
+\newcommand{\sectionbar}[4]{
+	\noindent\\[#3\linespacing] \rule{#1\linewidth}{#2} \\[#4\linespacing]
+}
+\newcommand{\sectiondiv}[4]{
+	\noindent\\[#3\linespacing] \centerline{\rule{#1\linewidth}{#2}} \\[#4\linespacing]
+}
+
+% Negative horizontal phantom.
+\newcommand{\nhphantom}[1]{\sbox0{#1}\hspace{-\the\wd0}}
+
+
+%%%%%%%%%%%%
+% NOTATION %
+%%%%%%%%%%%%
+
+% Adds integral notation like \oiint.
+\usepackage{esint}
+% Blackboard bold symbols.
+\usepackage{bbm}
+
+\usepackage{accents}
+% Tilde notation for vectors.
+\newcommand{\ut}[1]{\underaccent{\tilde}{#1}}
+% Arrow notation for vectors.
+\usepackage{harpoon}
+% Dirac bra-ket notation for quantum states.
+\usepackage{braket}
+
+% Differential formatting.
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\newcommand*{\ndiff}[1]{\mathrm{d}#1}
+\newcommand*{\sdiff}[1]{\mathop{}\!\ndiff{#1}}
+\newcommand{\rdiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+		{\frac{\mathrm{d}#2}{\mathrm{d}#3}}
+		{\frac{\mathrm{d}^{#1}#2}{\forcsvlist\ndiff{#3}}}
+}
+\newcommand*{\npiff}[1]{\mathrm{\partial}#1}
+\newcommand*{\spiff}[1]{\mathop{}\!\npiff{#1}}
+\newcommand{\rpiff}[3][]{
+	\ifthenelse{\equal{#1}{}}
+		{\frac{\mathrm{\partial}#2}{\mathrm{\partial}#3}}
+		{\frac{\mathrm{\partial}^{#1}#2}{\forcsvlist\npiff{#3}}}
+}
+% Inexact differential for physics.
+\newcommand*{\dbar}[1]{\mathop{}\!\mathrm{\dj}#1}
+
+% Metrics, inner products and norms.
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\inprod}{\langle}{\rangle}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% This is used if we want an empty norm. 
+\newcommand{\blank}{{}\cdot{}}
+
+% Function notation.
+\newcommand{\id}{\textup{id}}
+\newcommand{\coker}{\textup{coker}}
+\newcommand{\im}{\textup{im}}
+\newcommand{\ev}{\textup{ev}}
+\newcommand{\coev}{\textup{coev}}
+
+% Category font.
+\newcommand{\mathcat}[1]{\mathcal{#1}}
+
+% Category theory notation.
+\newcommand{\Ob}{\textup{Ob}}
+\newcommand{\Hom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textup{Hom}_{#1}}
+		{\textup{Hom}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntHom}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\underline{\textup{Hom}}_{#1}}
+		{\underline{\textup{Hom}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\End}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textup{End}_{#1}}
+		{\textup{End}_{#1}\!\left(#2\right)}
+}
+\newcommand{\IntEnd}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\underline{\textup{End}}_{#1}}
+		{\underline{\textup{End}}_{#1}\!\left(#2\right)}
+}
+\newcommand{\Fun}[2][]{
+	\ifthenelse{\equal{#2}{}}
+		{\textcat{Fun}_{#1}}
+		{\textcat{Fun}_{#1}\!\left(#2\right)}
+}
+\newcommand{\opcat}[1]{{#1}^{\textup{op}}}
+\newcommand{\revcat}[1]{{#1}^{\textup{rev}}}
+\newcommand{\textcat}[1]{\textup{\textsf{#1}}}
+\newcommand{\rmodcat}[2][]{\textcat{Mod}_{#1}\textcat{-}#2}
+\newcommand{\lmodcat}[2][]{#2\textcat{-Mod}_{#1}}
+\newcommand{\bimodcat}[3][]{#2\textcat{-Mod}_{#1}\textcat{-}#3}
+\newcommand{\moreq}[1]{\overset{\textup{m.e.}}{#1}}
+
+% Special notation.
+\newcommand{\chr}{\textup{char}}
+\newcommand{\Tr}{\textup{Tr}}
+\newcommand{\trv}{\textup{tr}}
+\newcommand{\Irr}{\textup{Irr}}
+\newcommand{\Gr}{\textup{Gr}}
+\newcommand{\dimh}[2]{\left(#1, #2\right)}
+\newcommand{\Dim}{\textup{Dim}}
+\newcommand{\FPdim}{\textup{FPdim}}
+\newcommand{\BrPic}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\textup{BrPic}}
+		{\textup{BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\underline{\BrPic}}
+		{\underline{\BrPic}\!\left(#1\right)}
+}
+\newcommand{\BrPicCC}[1][]{
+	\ifthenelse{\equal{#1}{}}
+		{\underline{\BrPicC}}
+		{\underline{\BrPicC}\!\left(#1\right)}
+}
+\newcommand{\Aut}{\textup{Aut}}
+\newcommand{\Inn}{\textup{Inn}}
+\newcommand{\Out}{\textup{Out}}
+
+% Hiragana "yo" for the Yoneda embeddings.
+\newcommand{\yo}{\text{\usefont{U}{min}{m}{n}\symbol{'210}}}
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}
+
+% Representation theory notation.
+\newcommand{\Sym}{\textup{Sym}}
+\newcommand{\Alt}{\textup{Alt}}
+
+
+%%%%%%%%%%%%
+% PLOTTING %
+%%%%%%%%%%%%
+
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usepackage{spath3}
+\usetikzlibrary{arrows.meta, decorations.markings, decorations.pathreplacing, knots}
+
+% TikZ macro for inclusions and projections.
+\def\fusioninclusion[#1]#2(#3, #4, #5, #6)#7(#8){
+	\draw[#1] ({#3 + #5/2}, {#4}) arc(0:180:{#5/2} and {#6/2});
+	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4});
+	% Label the node.
+	\node at ({#3}, {#4 - 1/8}) {#8};
+}
+\def\fusionprojection[#1]#2(#3, #4, #5, #6)#7(#8){
+	\draw[#1] ({#3 - #5/2}, {#4}) arc(180:360:{#5/2} and {#6/2});
+	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4});
+	% Label the node.
+	\node at ({#3}, {#4}) {#8};
+}
+
+
+%%%%%%%%%%%%
+% DOCUMENT %
+%%%%%%%%%%%%
+
+\begin{document}
+
+%\begin{titlingpage}
+%\maketitle
+%\end{titlingpage}
+%\newpage
+
+%\setcounter{page}{2}
+%\tableofcontents
+%\newpage
+
+\thispagestyle{fancy}
+
+
+\section{The \texorpdfstring{$(\mathbbm{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}, 4)$}{Z/2ZxZ/2Z} Near-Group}\label{chp:introduction}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Let $\mathcat{C}$ denote the (unitary) near-group fusion category of type $(G, n)$, where $G \coloneqq \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ and $n = \abs{G}$. More precisely, we will denote $G = \{\mathbbm{1}, (g, 1), (1, g), (g, g)\}$ and $\Irr(\mathcat{C}) = G \sqcup \{X\}$. Note that $\FPdim(x) = 1$ for $x \in G$ and $\FPdim(X) = 2 + 2\sqrt{2}$. The aim of this document is to explain the current state of our attempt to classify the simple algebra objects in $\mathcat{C}$.
+\newline\newline
+\noindent It is easy to show (via the code or just checking manually) that the candidates for simple algebra objects in $\mathcat{C}$ are as follows:
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item $A_1^1 \coloneqq G \moreq{\sim} G \oplus X^{\oplus 4}$,
+\item $A_1^2 \coloneqq \langle{(1, g)}\rangle \oplus X \moreq{\sim} G \oplus X^{\oplus 2}$,
+\item $A_1^3 \coloneqq \langle{(g, 1)}\rangle \oplus X \moreq{\sim} G \oplus X^{\oplus 2}$,
+\item $A_1^4 \coloneqq \langle{(g, g)}\rangle \oplus X \moreq{\sim} G \oplus X^{\oplus 2}$,
+\item $A_1^5 \coloneqq \langle{(1, g)}\rangle \moreq{\sim} \langle{(1, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^6 \coloneqq \langle{(1, g)}\rangle \moreq{\sim} \langle{(g, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^7 \coloneqq \langle{(1, g)}\rangle \moreq{\sim} \langle{(g, 1)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^8 \coloneqq \langle{(g, g)}\rangle \moreq{\sim} \langle{(1, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^9 \coloneqq \langle{(g, g)}\rangle \moreq{\sim} \langle{(g, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^{10} \coloneqq \langle{(g, g)}\rangle \moreq{\sim} \langle{(g, 1)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^{11} \coloneqq \langle{(g, 1)}\rangle \moreq{\sim} \langle{(1, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^{12} \coloneqq \langle{(g, 1)}\rangle \moreq{\sim} \langle{(g, g)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^{13} \coloneqq \langle{(g, 1)}\rangle \moreq{\sim} \langle{(g, 1)}\rangle \oplus X^{\oplus 2}$,
+\item $A_1^{14} \coloneqq \mathbbm{1} \moreq{\sim} G \oplus X^{\oplus 4}$,
+\item $A_1^{15} \coloneqq G \moreq{\sim} \mathbbm{1} \oplus X$.
+\end{enumerate}
+\noindent Here, $\langle{(g, 1)}\rangle \coloneqq \mathbbm{1} \oplus (g, 1)$ for example, and we write $\moreq{\sim}$ to denote Morita equivalence of algebra objects. Note that all of these, except for $A_1^2$, $A_1^3$ and $A_1^4$, are Morita equivalent subgroups of $G$. The main question we are interested in is whether any of these three candidates admit a simple algebra structure, and if so, how many?
+\newline\newline
+\noindent I'll divide the rest of this document into three parts.
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\Roman*).}]
+\item \hyperref[chp:lifts_from_vecg]{Which candidates lifting from $\textcat{Vec}_G$ exist?}
+\item \hyperref[chp:dual_cats]{What are the dual fusion categories at play?}
+\item \hyperref[chp:z2_plus_x]{Under what circumstances does $\mathbb{Z}/2\mathbb{Z} \oplus X$ admit a simple algebra structure?}
+\end{enumerate}
+\newpage
+
+\section{Algebras Lifting from \texorpdfstring{$\textcat{Vec}_G$}{VecG}}\label{chp:lifts_from_vecg}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent We first try to answer the question of which candidates actually exist when the algebra object is a subgroup of $G$. Thanks to the classification of simple algebra objects in $\textcat{Vec}_G$, we know that $\langle{(g, 1)}\rangle$, $\langle{(1, g)}\rangle$ and $\langle{(g, g)}\rangle$ admit a single algebra structure, while $G$ admits two. By direct computation, one can show that $\mathbbm{1} \oplus X$ admits only a single algebra structure, so both $A_1^1$ and $A_1^{15}$ must exist. While $A_1^{15}$ is self-dual (by which we mean their dual fusion categories are not equivalent to $\mathcat{C}$), $A_1^1$ has many candidates for its dual fusion category.
+\newline\newline
+\noindent Determining which of the algebra structures on the copies of $\mathbb{Z}/2\mathbb{Z}$ exist is a bit trickier. Using the code's \texttt{findDualRings()} function, we find that candidates $A_1^5$, $A_1^9$ and $A_1^{13}$ cannot be self-dual. The other candidates lifting from copies of $\mathbb{Z}/2\mathbb{Z}$ must be self-dual, however. Checking bimodule compatibility using the code reveals that we have two potential cases.
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item All three of $A_1^5$, $A_1^9$, $A_1^{13}$ exist.
+\item Exactly two of $A_1^5$, $A_1^9$, $A_1^{13}$ exist, and the remaining $\mathbb{Z}/2\mathbb{Z}$ subgroup is self-dual.
+\end{enumerate}
+\noindent In both cases, the Morita equivalence class of $\mathcat{C}$ must contain at least one other fusion category.
+\newline\newline
+\noindent \textcolor{red}{Is there more we can say here? The Brauer-Picard group could probably help us figure out which case we're in.}
+\newpage
+
+\section{The Dual Fusion Categories}\label{chp:dual_cats}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent The code's \texttt{findDualRings()} function finds exactly two potential dual fusion categories to $A_1^5$, $A_1^9$ and $A_1^{13}$, which are defined as follows:
+\begin{gather*}
+\Irr(\mathcat{D}_1) = G \sqcup G\{X\}, \\
+(g, 1) \otimes X \cong X \otimes (g, 1), \quad (1, g) \otimes X \cong X \otimes (g, g), \quad (g, g) \otimes X \cong X \otimes (1, g), \\
+X \otimes X \cong \mathbbm{1} \oplus X \oplus (g, 1)X;
+\end{gather*}
+\begin{gather*}
+\Irr(\mathcat{D}_1') = G \sqcup G\{X\}, \\
+(g, 1) \otimes X \cong X \otimes (g, 1), \quad (1, g) \otimes X \cong X \otimes (g, g), \quad (g, g) \otimes X \cong X \otimes (1, g), \\
+X \otimes X \cong \mathbbm{1} \oplus (1, g)X \oplus (g, g)X.
+\end{gather*}
+\noindent Here, $\FPdim(X) = 1 + \sqrt{2}$. Note that the only difference in these rules is $X \otimes X$. We suspect that both of these are $\mathbb{Z}/2\mathbb{Z}$-graded extensions of the $\mathbb{Z}/2\mathbb{Z}$ Haagerup-Izumi fusion category, with $\mathcat{D}_1$ being quasi-trivial.
+\newline\newline
+\noindent Both $\mathcat{D}_1$ and $\mathcat{D}_1'$ have 6 simple algebra objects lifting from $\textcat{Vec}_G$. This completely classifies the simple algebra objects in $\mathcat{D}_1'$. For $\mathcat{D}_1$, however, there is an additional unique algebra structure on $\mathbbm{1} \oplus X$ lifting from the $\mathbb{Z}/2\mathbb{Z}$ Haagerup-Izumi subcategory $\langle{\mathbbm{1}, (g, 1), X}\rangle$. The algebra object $\mathbbm{1} \oplus X$ in $\mathcat{D}_1'$ has a unique candidate for its dual fusion category, which coincides with the unique dual fusion category candidate for $\mathbb{Z}/2\mathbb{Z} \oplus X$ in $\mathcat{C}$. This category is defined as follows:
+\begin{gather*}
+\Irr(\mathcat{D}_2) = \mathbb{Z}/2\mathbb{Z} \sqcup \{X\} \sqcup (\mathbb{Z}/2\mathbb{Z})\{Y\} \sqcup \{Z\}, \\
+g \otimes X \cong X \cong X \otimes g, \quad X \otimes X \cong \mathbbm{1} \oplus g, \\
+g \otimes Y \cong gY \cong Y \otimes g, \quad Y \otimes Y \cong \mathbbm{1} \oplus Y \oplus gY, \\
+g \otimes Z \cong Z \cong Z \otimes g, \quad Z \otimes Z \cong \mathbbm{1} \oplus g \oplus Y^{\oplus 2} \oplus gY^{\oplus 2}, \\
+X \otimes Y \cong X \otimes gY \cong Y \otimes X \cong gY \otimes X \cong Z, \\
+X \otimes Z \cong Z \otimes X \cong Y \oplus gY, \\
+Y \otimes Z \cong Z \otimes Y \cong X \oplus Z^{\oplus 2}.
+\end{gather*}
+\noindent We have denoted $\mathbb{Z}/2\mathbb{Z} = \{\mathbbm{1}, g\}$ here. Because this is a bit messy, we clarify that $\langle{\mathbbm{1}, g, X}\rangle$ is a Tambara-Yamagami fusion category, whereas $\langle{\mathbbm{1}, g, Y, gY}\rangle$ is a $\mathbb{Z}/2\mathbb{Z}$ Haagerup-Izumi fusion category. We also remark that $\FPdim(X) = \sqrt{2}$, $\FPdim(Y) = 1 + \sqrt{2}$ and $\FPdim(Z) = 2 + \sqrt{2}$.
+\newpage
+\noindent The simple algebra object candidates in $\mathcat{D}_2$ are a little tricky. It's perhaps worth mentioning what the simple algebra object candidates in these dual fusion categories are. The case of $\mathcat{D}_1'$ is easy: as previously mentioned, every candidate lifts from $\textcat{Vec}_G$. In particular, since the number of simple algebra objects is an invariant of Morita equivalence, this tells us that $\mathbb{Z}/2\mathbb{Z} \oplus X$ cannot have a simple algebra structure in $\mathcat{C}$ if $\mathcat{C} \moreq{\cong} \mathcat{D}_1'$. Conversely, if $\mathcat{C} \moreq{\cong} \mathcat{D}_1$, then we have 7 simple algebra objects \textcolor{red}{since $\mathbbm{1} \oplus X$ lifts uniquely in $\mathcat{D}_1$ (check)}, so there must be exactly one simple algebra structure on one of the copies of $\mathbb{Z}/2\mathbb{Z} \oplus X$ in $\mathcat{C}$.
+\newline\newline
+\noindent In $\mathcat{D}_2$, the simple algebra object candidates are less obvious:
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item $A_2^1 \coloneqq \mathbbm{1} \oplus Y \oplus Z \moreq{\sim} \mathbbm{1} \oplus g \oplus Y \oplus gY \oplus Z^{\oplus 2}$,
+\item $A_2^2 \coloneqq \mathbbm{1} \oplus gY \oplus Z \moreq{\sim} \mathbbm{1} \oplus g \oplus Y \oplus gY \oplus Z^{\oplus 2}$,
+\item $A_2^3 \coloneqq \mathbbm{1} \moreq{\sim} \mathbbm{1} \oplus g \moreq{\sim} \mathbbm{1} \oplus Y \oplus gY \moreq{\sim} \mathbbm{1} \oplus g \oplus Y^{\oplus 2} \oplus gY^{\oplus 2}$,
+\item $A_2^4 \coloneqq \mathbbm{1} \oplus gY \moreq{\sim} \mathbbm{1} \oplus g \oplus Y \oplus gY$,
+\item $A_2^5 \coloneqq \mathbbm{1} \oplus gY \moreq{\sim} \mathbbm{1} \oplus Y \moreq{\sim} \mathbbm{1} \oplus g \oplus Y \oplus gY$,
+\item $A_2^6 \coloneqq \mathbbm{1} \oplus Y \moreq{\sim} \mathbbm{1} \oplus g \oplus Y \oplus gY$.
+\end{enumerate}
+\noindent While most of these lift from the Haagerup-Izumi subcategory, $A_2^1$ and $A_2^2$ are exceptions. \textcolor{red}{Mention which of these give Morita equivalences to $\mathcat{C}$ and which give Morita equivalences to $\mathcat{D}_1$.}
+%Rep 1: 3458
+%	Near-group
+%	Lots of funky options (rank 8, so likely D_1)
+%
+%Rep 2: 31528
+%	Near-group
+%
+%Rep 3: 31885
+%	Near-group (exactly two copies of this algebra)
+%
+%Rep 4: 32242
+%	Lots of funky options (rank 8, so likely D_1)
+%
+%Rep 5: 34749
+%	Self-dual (does this lift uniquely from the near-group?)
+%
+%Rep 6: 35303
+%	Took too long to finish (there are only bimodules with D_1, though)
+\newpage
+
+\section{When Is \texorpdfstring{$\mathbb{Z}/2\mathbb{Z} \oplus X$}{Z/2Z + X} an Algebra Object?}\label{chp:z2_plus_x}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Recall that $\mathcat{C}$ is Morita equivalent either to $\mathcat{D}_1$ or $\mathcat{D}_1'$, where the former has 7 simple algebra objects and the latter has 6. Since the number of simple algebra objects is an invariant of Morita equivalence, we can state the following.
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
+\item There is a (unique) simple algebra structure on $\mathbb{Z}/2\mathbb{Z} \oplus X$ in $\mathcat{C}$ if and only if $\mathcat{C} \moreq{\cong} \mathcat{D}_1$.
+\end{enumerate}
+\noindent Recall that $\mathbb{Z}/2\mathbb{Z} \oplus X \moreq{\sim} G \oplus X^{\oplus 2}$. If we assume that $G \oplus X^{\oplus 2}$ contains $G$ as a subalgebra object, then the factoring argument tells us that the dual fusion category of $G$ contains a simple algebra object with Frobenius-Perron dimension $\FPdim(G \oplus X^{\oplus 2})/\FPdim(G) = 2 + \sqrt{2}$. Note that $\mathcat{C}$ has no object with this dimension, and $G \moreq{\sim} \mathbbm{1} \oplus X$ is self-dual. Thus, we obtain another condition on the existence of an algebra structure on $\mathbb{Z}/2\mathbb{Z} \oplus X$.
+\begin{enumerate}[start=2, leftmargin=1.5cm, label={(\arabic*).}]
+\item If there is a simple algebra structure on $\mathbb{Z}/2\mathbb{Z} \oplus X$ and it contains $G$ as a subalgebra object, then this subalgebra object is $A_1^1 \moreq{\sim} G \oplus X^{\oplus 4}$, and is not self-dual.
+\end{enumerate}
+\noindent The code finds several candidates for the dual fusion category of $A_1^1$, including both $\mathcat{C}$ and $\mathcat{D}_1$. Some of these fusion categories (like $\mathcat{D}_1$, as well as some others) admit an algebra object candidate of Frobenius-Perron dimension $2 + \sqrt{2}$.
+
+\end{document}
