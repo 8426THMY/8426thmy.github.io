@@ -26,7 +26,7 @@ const posts = [
 		"\\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) Near-Group Notes",
 		"./research/z2xz2_near-group/annoying_algebra.png",
 		"Notes on the \\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) Near-Group Fusion Category",
-		"Random notes documenting our current troubles and thoughts with classifying the algebra objects of the (unitary) \\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) near-group fusion category.",
+		"Random notes documenting our current troubles and thoughts classifying the algebra objects of the (unitary) \\(\\mathbb{Z}/2\\mathbb{Z} \\times \\mathbb{Z}/2\\mathbb{Z}\\) near-group fusion category.",
 		"./research/z2xz2_near-group/z2xz2_near-group.pdf"
 	],
 
