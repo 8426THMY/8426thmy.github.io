@@ -353,13 +353,16 @@
 \newcommand{\rmodcat}[2][]{\textcat{Mod}_{#1}\textcat{-}#2}
 \newcommand{\lmodcat}[2][]{#2\textcat{-Mod}_{#1}}
 \newcommand{\bimodcat}[3][]{#2\textcat{-Mod}_{#1}\textcat{-}#3}
-\newcommand{\moreq}{\stackrel{\textup{m.e.}}{\cong}}
+\newcommand{\moreq}[1]{\overset{\textup{m.e.}}{#1}}
 
 % Special notation.
 \newcommand{\chr}{\textup{char}}
+\newcommand{\tr}{\textup{tr}}
 \newcommand{\Tr}{\textup{Tr}}
 \newcommand{\trv}{\textup{tr}}
 \newcommand{\Irr}{\textup{Irr}}
+\newcommand{\Inv}{\textup{Inv}}
+\newcommand{\GL}{\textup{GL}}
 \newcommand{\Gr}{\textup{Gr}}
 \newcommand{\dimh}[2]{\left(#1, #2\right)}
 \newcommand{\Dim}{\textup{Dim}}
@@ -401,20 +404,6 @@
 \usepackage{tikz}
 \usepackage{spath3}
 \usetikzlibrary{arrows.meta, decorations.markings, decorations.pathreplacing, knots}
-
-% TikZ macro for inclusions and projections.
-\def\fusioninclusion[#1]#2(#3, #4, #5, #6)#7(#8){
-	\draw[#1] ({#3 + #5/2}, {#4}) arc(0:180:{#5/2} and {#6/2});
-	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4 - #6/2}) to ({#3 + #5/2}, {#4});
-	% Label the node.
-	\node at ({#3}, {#4 - 1/8}) {#8};
-}
-\def\fusionprojection[#1]#2(#3, #4, #5, #6)#7(#8){
-	\draw[#1] ({#3 - #5/2}, {#4}) arc(180:360:{#5/2} and {#6/2});
-	\draw[#1] ({#3 - #5/2}, {#4}) to ({#3 - #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4 + #6/2}) to ({#3 + #5/2}, {#4});
-	% Label the node.
-	\node at ({#3}, {#4}) {#8};
-}
 
 
 %%%%%%%%%%%%
@@ -595,7 +584,7 @@ Let $\mathcat{C}$ be a (multi)fusion category and $\mathcat{M}$ a (multi)fusion 
 \leavevmode
 
 \begin{definition}\label{def:morita_equivalence}{\em (Morita Equivalence).} \cite[Definition 7.12.17]{Etingof_2016}
-Two multifusion categories $\mathcat{C}$ and $\mathcat{D}$ are said to be {\em Morita equivalent}, denoted by $\mathcat{C} \moreq \mathcat{D}$, if there exists a multifusion $\mathcat{C}$-module category $\mathcat{M}$ such that $\revcat{\mathcat{D}} \cong \mathcat{C}_{\mathcat{M}}^{*}$ is a tensor equivalence.
+Two multifusion categories $\mathcat{C}$ and $\mathcat{D}$ are said to be {\em Morita equivalent}, denoted by $\mathcat{C} \moreq{\cong} \mathcat{D}$, if there exists a multifusion $\mathcat{C}$-module category $\mathcat{M}$ such that $\revcat{\mathcat{D}} \cong \mathcat{C}_{\mathcat{M}}^{*}$ is a tensor equivalence.
 \end{definition}
 \leavevmode
 
@@ -651,7 +640,7 @@ The {\em Brauer-Picard groupoid} of a multifusion category $\mathcat{C}$, denote
 \noindent In general, the problem of finding module categories over your favourite category is not an easy one to solve directly. Fortunately, if we restrict ourselves to (multi)fusion module categories over (multi)fusion categories, this problem admits an alternative perspective in terms of {\em algebra objects}. In this section, we outline the general theory and work towards the statement of Ostrik's theorem. We begin with the following central definition.
 \newline
 
-\begin{definition}\label{def:algebra_object}{\em (Algebra Object).} \cite[Definition 8(i)]{Ostrik_2003}
+\begin{definition}\label{def:algebra_object}{\em (Algebra Object).} \cite[Definition 3.1(i)]{Ostrik_2003}
 An algebra object in a monoidal category $\mathcat{C}$ is a triple $(A, m, u)$ consisting of an object $A \in \Ob(\mathcat{C})$, a multiplication morphism $m : A \otimes A \to A$ and a unit morphism $u : \mathbbm{1} \to A$ such that the following diagrams commute:
 \begin{equation}
 \begin{tikzcd}[column sep = 1.0em, row sep = 2.0em]
@@ -679,7 +668,7 @@ An algebra object in a monoidal category $\mathcat{C}$ is a triple $(A, m, u)$ c
 \noindent Note that some authors refer to these as {\em monoid objects}. While in some ways this name is more ``correct'' given the definition, our name is more suggestive of what these objects typically look like in sufficiently ``nice'' categories. To explain what we mean by this, we now offer some key examples.
 \newline
 
-\noindent \textcolor{red}{We should also talk about algebra object isomorphisms. I think I have something about them in my notebook.}
+\noindent \textcolor{red}{We should also talk about algebra object isomorphisms. I have some stuff on them in ``AlgebraIsomorphism.txt''.}
 \newline
 
 \begin{example}\label{ex:algebra_object_vect}
@@ -695,7 +684,7 @@ Consider instead the generalization to $\textcat{Vec}_G^{\omega}$, the category 
 \noindent Just as one defines modules over an algebra, one can also define module objects over an algebra object.
 \newline
 
-\begin{definition}\label{def:module_object}{\em (Module Object).} \cite[Definition 8(ii)]{Ostrik_2003}
+\begin{definition}\label{def:module_object}{\em (Module Object).} \cite[Definition 3.1(ii)]{Ostrik_2003}
 A right module object over an algebra $(A, m, u)$ in a monoidal category $\mathcat{C}$ is a pair $(M, a)$ consisting of an object $M \in \Ob(\mathcat{C})$ and an action morphism $a : M \otimes A \to M$ such that the following diagrams commute:
 \begin{equation}
 \begin{tikzcd}[column sep = 1.0em, row sep = 2.0em]
@@ -714,7 +703,7 @@ Left module objects are defined analogously.
 \end{definition}
 \leavevmode
 
-\begin{definition}\label{def:module_object_morphism}{\em (Module Object Morphism).} \cite[Definition 8(iii)]{Ostrik_2003}
+\begin{definition}\label{def:module_object_morphism}{\em (Module Object Morphism).} \cite[Definition 3.1(iii)]{Ostrik_2003}
 A morphism between two right $(A, m, u)$-module objects $(M, a_M), (N, a_N)$ is a morphism $f \in \Hom[\mathcat{C}]{M, N}$ such that the following diagram commutes:
 \begin{equation}
 \begin{tikzcd}[column sep = 3.0em, row sep = 2.0em]
@@ -765,7 +754,7 @@ The unit object $\mathbbm{1}$ of a fusion category $\mathcat{C}$ is always trivi
 \noindent Conversely, let $\mathcat{M}$ be a finite, Abelian, $\mathbbm{k}$-linear $\mathcat{C}$-module category with a bilinear and biexact module action. For any $M, N \in \Ob(\mathcat{M})$, $A \coloneqq \IntHom{M, M}$ has a canonical structure of an algebra object and $\IntHom{M, N}$ is a right module object over $A$. The assignment $\IntHom{M, -} : \mathcat{M} \to \rmodcat[\mathcat{C}]{A}$ is an exact $\mathcat{C}$-module functor. We refer the reader to \cite[Section 7.9]{Etingof_2016} for details on these facts.
 \newline
 
-\begin{theorem}\label{thm:modules_from_algebras} \cite[Theorem 1]{Ostrik_2003}
+\begin{theorem}\label{thm:modules_from_algebras} \cite[Theorem 3.1]{Ostrik_2003}
 Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a left fusion $\mathcat{C}$-module category. Then for any non-zero $M \in \Ob(\mathcat{M})$, the $\mathcat{C}$-module functor $\IntHom{M, -}$ is an equivalence of $\mathcat{C}$-module categories, with $\IntHom{M, M}$ an algebra object. In particular, any algebra object $A \in \Ob(\mathcat{C})$ with $\rmodcat[\mathcat{C}]{A} \cong \mathcat{M}$ is of the form $A = \IntHom{M, M}$ for some object $M \in \Ob(\mathcat{M})$.
 \end{theorem}
 \leavevmode
@@ -887,7 +876,7 @@ Let $\mathcat{C}$ be a fusion category and $\mathcat{D}$ a full Abelian monoidal
 \Hom[\mathcat{D}]{-, B} \cong \Hom[\mathcat{C}]{-, A} \cong \Hom[\mathcat{M}]{- \otimes A, A} = \Hom[\mathcat{N}]{- \otimes A, A}.
 \end{split}
 \end{align*}
-\noindent That is, $B \cong \IntHom[\mathcat{D}]{A, A}$, so $B$ is indeed an algebra object in $\mathcat{D}$. Now, suppose that $A$ is a simple connected algebra object, so $B$ is trivially connected. We know that $\mathcat{N}$ is necessarily semisimple because $\mathcat{M}$ is, but it need not be indecomposable. However, since $A$ is connected, the trivial $A$-module object is simple, so there exists an indecomposable summand of $\mathcat{N}$ containing $A$. This summand is a fusion $\mathcat{D}$-module category which still satisfies $\IntHom[\mathcat{D}]{A, A} \cong B$ by \hyperref[lem:hom_isomorphism]{Lemma \ref*{lem:hom_isomorphism}}, whence \hyperref[thm:modules_from_algebras]{Theorem \ref*{thm:modules_from_algebras}} implies that it is equivalent to $\rmodcat[\mathcat{D}]{B}$. That is, $B$ is a simple connected algebra object.
+\noindent That is, $B \cong \IntHom[\mathcat{D}]{A, A}$, so $B$ is indeed an algebra object in $\mathcat{D}$. Now, suppose that $A$ is a simple connected algebra object. Then $B$ is trivially connected, and $\mathcat{N}$ is semisimple because $\mathcat{M}$ is, but it need not be indecomposable. However, since $A$ is connected, the trivial $A$-module object is simple, so there exists an indecomposable summand of $\mathcat{N}$ containing $A$. This summand is a fusion $\mathcat{D}$-module category which still satisfies $\IntHom[\mathcat{D}]{A, A} \cong B$ by \hyperref[lem:hom_isomorphism]{Lemma \ref*{lem:hom_isomorphism}}, whence \hyperref[thm:modules_from_algebras]{Theorem \ref*{thm:modules_from_algebras}} implies that it is equivalent to $\rmodcat[\mathcat{D}]{B}$. That is, $B$ is a simple connected algebra object.
 \newline
 
 \noindent Suppose instead that $B$ is an algebra object in $\mathcat{D}$. It is clear that its lifting to $\mathcat{C}$ is also an algebra object, as the monoidal inclusion functor $\mathcat{D} \to \mathcat{C}$ preserves monoid objects. Thus, let $B$ be simple and connected in $\mathcat{D}$. As before, its lifting will also be connected in $\mathcat{C}$, and in particular $\rmodcat[\mathcat{C}]{B}$ is indecomposable. \textcolor{red}{How do we prove semisimplicity without assuming separability?}
@@ -900,6 +889,13 @@ Let $\mathcat{C}$ be a fusion category and $\mathcat{D}$ a full Abelian monoidal
 
 \subsection{The Bimodule Bicategory}\label{sec:bimodule_bicategory}
 \sectionbar{1}{1pt}{-2}{0}
+
+\subsubsection{Frobenius Algebras and $Q$-Systems}\label{sec:frobenius_algebras}
+
+\noindent \textcolor{red}{What is a Frobenius algebra object? Mention that any connected algebra object is a normalized Frobenius algebra object, and that any simple algebra object is a normalized special Frobenius algebra object. What is a $Q$-system? Mention that a simple normalized Frobenius algebra object is a simple $Q$-system if it is unitarily separable. Check ``FrobeniusAlgebras.txt'' for some stuff on this.}
+\newline\newline
+
+\subsubsection{Rigidity of Bimodule Objects}\label{sec:bimodule_rigidity}
 
 \noindent \textcolor{red}{In the previous section, we saw that fusion module categories can be realized as categories of right $A$-modules for some simple algebra object $A$. Key to this theorem was the internal hom construction, which we concede is somewhat abstract and cumbersome to work with in general. Fortunately, given a module category over a fusion category, its internal hom admits a far nicer description in terms of a rigid structure. We spend some time now to briefly illucidate this description.}
 \newline
@@ -936,9 +932,54 @@ Let $\mathcat{C}$ be a fusion category and $\mathcat{D}$ a full Abelian monoidal
 \sectionbar{1}{1pt}{-2}{0}
 
 \noindent \textcolor{red}{Exposition? We should also define near-group categories and come up with some notation for naming them so that we don't use $\mathcat{C}$ everywhere. Also, THIS SECTION IS SUPER MESSY!! We reeeeally need to clean it up a bit, it's pretty unreadable.}
+\newline\newline
+
+
+\subsection{Near-Group Fusion Categories}\label{sec:near-group_categories}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent Excluding possibly the Extended Haagerups, all currently known fusion categories seem to arise from constructions involving groups, quantum groups at roots of unity or {\em quadratic fusion categories}. Here, by quadratic fusion categories, we refer to those categories whose monoidal product has two orbits under the action of their invertible objects (simple objects $g$ for which $g^{*} \otimes g \cong \mathbbm{1}$). In this work, we are chiefly interested in a special family of fusion categories belonging to this latter class, known as the {\em near-group} fusion categories.
 \newline
 
-\begin{proposition}\label{prop:near-group_trivial_associativity} \cite[Remark 3.2]{Izumi_2015}
+\begin{definition}\label{def:near-group_category}
+A fusion category $\mathcat{C}$ is said to be {\em near-group} if it has exactly one non-invertible simple object $X$ up to isomorphism. Letting $G$ denote its group of invertible simple objects, we have
+\begin{gather*}
+g \otimes X \cong X \cong X \otimes g,\ \forall g \in G, \\
+X \otimes X \cong \bigoplus_{g \in G}{g} \oplus X^{\oplus m},
+\end{gather*}
+for some $m \in \mathbb{Z}_{\geq 0}$. We say that $\mathcat{C}$ is {\em near-group of type $(G, m)$}.
+\end{definition}
+\leavevmode
+
+\noindent It turns out that not any group or multiplicity $m$ can produce a fusion category. It was proven by \cite[Theorem 1.1]{Siehler_2002} in full generality that either $m = 0$ or $m \geq \abs{G} - 1$, with the classification in the case $m = 0$ being completed by \cite{Tambara_1998}. In the unitary setting, it was shown in \cite[Theorem 1.1]{Izumi_2017} that either $G$ is an extra-special 2-group with $m = \sqrt{\abs{G}/2}$, or $G$ is Abelian with $m = \abs{G} - 1$ or $m \in \mathbb{Z}_{>0}\abs{G}$. The former of these cases was classified by Izumi in the same paper, while the case $G$ Abelian and $m = \abs{G} - 1$ was classified by \cite[Proposition 5]{Evans_2014}. The case of $m = \mathbb{Z}_{>0}\abs{G}$ remains somewhat mysterious, with $m = \abs{G}$ naturally being the most understood. As of writing, there exist only a handful of examples when $m = 2\abs{G}$, and to the author's knowledge, no examples for $m > 2\abs{G}$.
+\newline
+
+\noindent Before continuing, we quickly define some notation. Unless otherwise stated, let $G$ be a finite Abelian group and $\mathcat{C}$ a near-group fusion category of type $(G, m\abs{G})$ for some $m \in \mathbb{Z}_{>0}$. As in \hyperref[def:near-group_category]{Definition \ref*{def:near-group_category}}, we will denote the unique non-invertible simple object by $X$. Moreover, if $H$ is a subgroup of $G$, we will also often abuse notation by writing $H$ to denote the object $\bigoplus_{h \in H}{h}$ when the meaning is clear.
+\newline
+
+\noindent Our combinatorial analysis in \hyperref[sec:near-group_combinatorics]{Section \ref*{sec:near-group_combinatorics}} will naturally require knowledge of the Frobenius-Perron dimensions of objects in near-group fusion categories. As we have restricted ourselves to the setting $m = \mathbb{Z}_{>0}\abs{G}$, we can make the following useful observation.
+\newline
+
+\begin{lemma}\label{lem:near-group_non-invertible_irrational}
+The Frobenius-Perron dimension of $X$ is irrational. In particular, $\mathbb{Q}(\FPdim(X))$ is a degree 2 field extension over $\mathbb{Q}$.
+\end{lemma}
+\leavevmode
+
+\begin{proof}
+Recall that in a near-group fusion category, we have $X \otimes X \cong G \oplus X^{\oplus m\abs{G}}$. Therefore, $\FPdim(X) = (m\abs{G} + \sqrt{m^2\abs{G}^2 + 4\abs{G}})/2$. We remark that for this quantity to be rational, we require that $m^2\abs{G}^2 + 4\abs{G}$ be a square integer. Well, note that since $m, n > 0$,
+\begin{align*}
+\begin{split}
+(m\abs{G})^2 < m^2\abs{G}^2 + 4\abs{G} < m^2\abs{G}^2 + 4\abs{G} + 4/m^2 = (m\abs{G} + 2/m)^2 \leq (m\abs{G} + 2)^2.
+\end{split}
+\end{align*}
+Thus, we require that $m^2\abs{G}^2 + 4\abs{G} = (m\abs{G} + 1)^2$, which implies that $4\abs{G} = 2m\abs{G} + 1$. Of course, the left-hand side is always even, while the right-hand side is always odd, so this is impossible. Hence, $\FPdim(X)$ is irrational, and since it is the solution to a quadratic, $\mathbb{Q}(\FPdim(X))$ is degree 2 over $\mathbb{Q}$.
+\end{proof}
+\newline
+
+\noindent Every fusion category contains a pointed fusion subcategory generated by its invertible objects, and this can be a handy source of algebra objects as per \hyperref[prop:algebra_restriction_inclusion]{Proposition \ref*{prop:algebra_restriction_inclusion}}. In general, this subcategory could be twisted by an arbitrary non-trivial 3-cocycle, but things are fortunately not so dire in the near-group setting.
+\newline
+
+\begin{proposition}\label{prop:near-group_trivial_associativity} \cite[Remark 3.2]{Izumi_2017}
 Let $\mathcat{C}$ be a fusion category with group $G$ of invertible objects, and suppose there exists a simple object $X \in \Ob(\mathcat{C})$ such that $g \otimes X \cong X$ for all $g \in G$. Then the full Abelian monoidal subcategory generated by $G$ is $\textcat{Vec}_G$ with trivial associativity.
 \end{proposition}
 \leavevmode\newline
@@ -949,18 +990,18 @@ Let $\mathcat{C}$ be a fusion category with group $G$ of invertible objects, and
 (\mu_{g,h}\omega_{g,h}) \otimes \id_X = \mu_{g,h}(\omega_{g,h} \otimes \id_X) = f_{gh}^{-1} \circ f_g \circ (\id_g \otimes f_h) \circ \alpha_{g,h,X}.
 \end{split}
 \end{align*}
-\noindent Hence, without loss of generality, we may redefine $\omega_{g,h}$ as $\mu_{g,h}\omega_{g,h}$ so that the identity on the right-hand side is equal to $\omega_{g,h} \otimes \id_X$.
+\noindent Hence, without loss of generality, we may redefine $\omega_{g,h}$ as $\mu_{g,h}\omega_{g,h}$ so that the morphism on the right-hand side is equal to $\omega_{g,h} \otimes \id_X$.
 \newline
 
 \noindent Using the definition of $\omega_{g,h}$ above, one obtains the following commutative diagram:
 \begin{equation*}
-\begin{tikzcd}[/tikz/column 1/.style={column sep = -4.0em}, /tikz/column 1/.style={column sep = -4.0em}, /tikz/column 2/.style={column sep = -1.0em}, /tikz/column 3/.style={column sep = 2.0em}, /tikz/column 4/.style={column sep = -2.0em}, /tikz/column 5/.style={column sep = -1.0em}, row sep = 2.0em]
+\begin{tikzcd}[/tikz/column 1/.style={column sep = -4.0em}, /tikz/column 1/.style={column sep = -4.0em}, /tikz/column 2/.style={column sep = 2.0em}, /tikz/column 3/.style={column sep = 2.0em}, /tikz/column 4/.style={column sep = -1.0em}, /tikz/column 5/.style={column sep = -1.0em}, row sep = 2.0em]
 {((g \otimes h) \otimes k) \otimes X} \arrow[dr, "{\alpha_{g \otimes h,k,X}}"] \arrow[rrrr, "{(\omega_{g,h} \otimes \id_k) \otimes \id_X}"] \arrow[dddddd, "{\alpha_{g,h,k} \otimes \id_X}"'] & & & & {(gh \otimes k) \otimes X} \arrow[dl, "{\alpha_{gh,k,X}}"'] \arrow[dddr, "{\omega_{gh,k} \otimes \id_X}"] \\
 & {(g \otimes h) \otimes (k \otimes X)} \arrow[dd, "{\alpha_{g,h,k \otimes X}}"] \arrow[dr, "{\id_{g \otimes h} \otimes f_k}"] \arrow[rr, "{\omega_{g,h} \otimes \id_{k \otimes X}}"] & & {gh \otimes (k \otimes X)} \arrow[d, "{\id_{gh} \otimes f_k}"'] \\
-& & {(g \otimes h) \otimes X} \arrow[dr, "{\alpha_{g,h,X}}"'] \arrow[r, "{\omega_{g,h} \otimes \id_X}"] & {gh \otimes X} \arrow[dr, "{f_{gh}}"] \\
-& {g \otimes (h \otimes (k \otimes X))} \arrow[rr, "{\id_g \otimes (\id_h \otimes f_k)}"'] & & {g \otimes (h \otimes X)} \arrow[d, "{\id_g \otimes f_h}"'] & {X} & {ghk \otimes X} \arrow[l, "{f_{ghk}}"'] \\
-& & & {g \otimes X} \arrow[ur, "{f_g}"'] \\
-& {g \otimes ((h \otimes k) \otimes X)} \arrow[uu, "{\id_g \otimes \alpha_{h,k,X}}"'] \arrow[rr, "{\id_g \otimes (\omega_{h,k} \otimes \id_X)}"] & & {g \otimes (hk \otimes X)} \arrow[u, "{\id_g \otimes f_{hk}}"] \\
+& & {(g \otimes h) \otimes X} \arrow[dd, "{\alpha_{g,h,X}}"] \arrow[r, "{\omega_{g,h} \otimes \id_X}"'] & {gh \otimes X} \arrow[dr, "{f_{gh}}"'] \\
+& {g \otimes (h \otimes (k \otimes X))} \arrow[dr, "{\id_g \otimes (\id_h \otimes f_k)}"] & & & {X} & {ghk \otimes X} \arrow[l, "{f_{ghk}}"'] \\
+& & {g \otimes (h \otimes X)} \arrow[r, "{\id_g \otimes f_h}"] & {g \otimes X} \arrow[ur, "{f_g}"] \\
+& {g \otimes ((h \otimes k) \otimes X)} \arrow[uu, "{\id_g \otimes \alpha_{h,k,X}}"'] \arrow[rr, "{\id_g \otimes (\omega_{h,k} \otimes \id_X)}"'] & & {g \otimes (hk \otimes X)} \arrow[u, "{\id_g \otimes f_{hk}}"] \\
 {(g \otimes (h \otimes k)) \otimes X} \arrow[rrrr, "{(\id_g \otimes \omega_{h,k}) \otimes \id_X}"'] \arrow[ur, "{\alpha_{g,h \otimes k,X}}"'] & & & & {(g \otimes hk) \otimes X} \arrow[uuur, "{\omega_{g,hk} \otimes \id_X}"'] \arrow[ul, "{\alpha_{g,hk,X}}"]
 \end{tikzcd}.
 \end{equation*}
@@ -990,6 +1031,16 @@ Let $\mathcat{C}$ be a fusion category with group $G$ of invertible objects, and
 \end{align*}
 where we define $b_{g,h} \in \Hom[\mathcat{C}]{g \otimes h, gh}$ by $b_{g,h}(u \otimes v) = uv$ for all $g, h \in G$. We first remark that by linearity, there exists a 3-cochain $a : G^2 \to \mathbbm{k}^{\times}$ such that $\alpha_{g,h,k} = a(g, h, k)\alpha_{g,h,k}^{1}$. Further, we can identify the morphisms $\omega_{g,h}$ with a 2-cochain $w : G^2 \to \mathbbm{k}^{\times}$ satisfying $\omega_{g,h} = w(g, h)b_{g,h}$. From here, we observe that $a(g, h, k) = w(h, k)^{-1}w(gh, k)w(g, hk)^{-1}w(g, h)$. In particular, it is clear that $a^{-1} = d^2(w)$, where $d^2$ is the second differential, implying that $a^{-1}$ and hence $a$ are 3-coboundaries. Thus, they are cohomologous to the trivial 3-cocycle, so the classification of monoidal structures on $\textcat{Vec}_G$ (\cite[Proposition 2.6.1]{Etingof_2016}) implies that the $\mathcat{D} \cong \textcat{Vec}_G$ with trivial associativity.
 \end{proof}
+\newline
+
+\noindent Following this proposition, it is now an easy corollary of the classification of simple algebra objects in $\textcat{Vec}_G$ given in \hyperref[ex:algebra_object_graded_vect]{Example \ref*{ex:algebra_object_graded_vect}} that any simple algebra object is of the form $H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{\geq 0}$. In the next section, we analyze combinatorial obstructions to help narrow down the potential values of $a$.
+\newline\newline
+
+
+\subsection{Combinatorial Observations}\label{sec:near-group_combinatorics}
+\sectionbar{1}{1pt}{-2}{0}
+
+\noindent \textcolor{red}{Exposition. Introduce this technology.}
 \newline
 
 \begin{definition}\label{def:fusion_matrix}{\em (Fusion Matrix).} \cite[Definition 3.2]{Grossman_2012}
@@ -1027,32 +1078,7 @@ Let $\{M_i\}_{i=1}^{m}$ and $\{X_i\}_{i=1}^{n}$ denote representatives of the is
 \noindent \textcolor{red}{Maybe give the reduced fusion matrix and the corresponding proposition! Definitely give an example of what the fusion matrix for $\textcat{Vec}_G$ looks like!}
 \newline
 
-\noindent Before continuing, we quickly define some notation. Unless otherwise stated, let $G$ be a finite Abelian group and $\mathcat{C}$ a near-group fusion category of type $(G, m\abs{G})$ for some $m \in \mathbb{Z}_{>0}$ with unique non-invertible simple object $X$. We will also often abuse notation by denoting by $H$ the object $\bigoplus_{h \in H}{h}$.
-\newline
-
-\begin{lemma}\label{lem:near-group_non-invertible_irrational}
-The Frobenius-Perron dimension of $X$ is irrational. In particular, $\mathbb{Q}(\FPdim(X))$ is a degree 2 field extension over $\mathbb{Q}$.
-\end{lemma}
-\leavevmode
-
-\noindent \textcolor{red}{We should probably mention this result when we define near-group fusion categories.}
-\newline
-
-\begin{proof}
-Recall that in a near-group fusion category, we have $X \otimes X \cong G \oplus X^{\oplus m\abs{G}}$. Therefore, $\FPdim(X) = (m\abs{G} + \sqrt{m^2\abs{G}^2 + 4\abs{G}})/2$. We remark that for this quantity to be rational, we require that $m^2\abs{G}^2 + 4\abs{G}$ be a square integer. Well, note that since $m, n > 0$,
-\begin{align*}
-\begin{split}
-(m\abs{G})^2 < m^2\abs{G}^2 + 4\abs{G} < m^2\abs{G}^2 + 4\abs{G} + 4/m^2 = (m\abs{G} + 2/m)^2 \leq (m\abs{G} + 2)^2.
-\end{split}
-\end{align*}
-Thus, we require that $m^2\abs{G}^2 + 4\abs{G} = (m\abs{G} + 1)^2$, which implies that $4\abs{G} = 2m\abs{G} + 1$. Of course, the left-hand side is always even, while the right-hand side is always odd, so this is impossible. Hence, $\FPdim(X)$ is irrational, and since it is the solution to a quadratic, $\mathbb{Q}(\FPdim(X))$ is degree 2 over $\mathbb{Q}$.
-\end{proof}
-\newline
-
-\noindent We would now like to offer some constraints on what sort of objects can admit simple algebra structures in near-group fusion categories. It is easy to observe that any such object $A$ must be of the form $A \cong H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{\geq 0}$: this is because any simple algebra object in $\mathcat{C}$ must restrict to a simple algebra object in the pointed subcategory by \hyperref[prop:algebra_restriction_inclusion]{Proposition \ref*{prop:algebra_restriction_inclusion}}. Because this subcategory has trivial associativity by \hyperref[prop:near-group_trivial_associativity]{Proposition \ref*{prop:near-group_trivial_associativity}}, we may utilize the classification of simple algebra objects given in \hyperref[ex:algebra_object_graded_vect]{Example \ref*{ex:algebra_object_graded_vect}}, which implies that the invertible objects appearing in $A$ must form a subgroup of $G$.
-\newline
-
-\noindent All that remains is to determine which values of the multiplicity $a$ are allowable. We dedicate the next couple of lemmas to providing some constraints in this direction. \hyperref[lem:near-group_algebra_candidates]{Lemma \ref*{lem:near-group_algebra_candidates}} is particularly useful, as we will see later that it provides a tight upper bound on this parameter.
+\noindent Recall that any simple algebra object is of the form $H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{>0}$. As promised, we now offer some constraints on which values of the multiplicity $a$ are allowable. We dedicate the next couple of lemmas to providing some progress in this direction. \hyperref[lem:near-group_algebra_candidates]{Lemma \ref*{lem:near-group_algebra_candidates}} is particularly useful, as we will see later that it provides a tight upper bound on this parameter.
 \newline
 
 \begin{lemma}\label{lem:near-group_algebra_algebraic_integer}
@@ -1153,7 +1179,7 @@ Every fusion $\mathcat{C}$-module category $\mathcat{M}$ is the category of modu
 \noindent \textcolor{red}{Are there only two simple algebra objects up to algebra object isomorphism, or is it only up to regular object isomorphism in $\mathcat{C}$? We don't really use the former, so maybe we don't need it. This doesn't really matter, since we only need to classify them up to inner automorphism under invertibles.}
 \newline
 
-\noindent \textcolor{red}{It might be good to ask Pinhas for advice on how to word this. The question is really whether isomorphic as objects plus Morita equivalent as algebra objects implies isomorphic as algebra objects.}
+\noindent \textcolor{red}{It might be good to ask Pinhas for advice on how to word this. The question is really whether isomorphic as objects plus Morita equivalent as algebra objects implies isomorphic as algebra objects. We could try looking at this under the lens of \cite[Section 3.3]{Grossman_2016}, which says that algebra object isomorphisms come from invertible objects in the dual fusion category.}
 \newline
 
 \begin{proof}
@@ -1227,7 +1253,280 @@ Let $m = 1$ and $G = \mathbb{Z}/p_1\mathbb{Z} \times \mathbb{Z}/p_2\mathbb{Z} \t
 \end{proof}
 \newline
 
-\noindent \textcolor{red}{Maybe talk about the Brauer-Picard group. If $G$ has prime order, then we have exactly two fusion $\mathcat{C}$-module categories, and they're both self-dual (I think). Unfortunately, this doesn't tell us everything. For example, if $G = \mathbb{Z}/3\mathbb{Z}$, then $\abs{\Out(\mathcat{C})} = 1$, so $\abs{\BrPic(\mathcat{C})} = 2$. However, if $G = \mathbb{Z}/5\mathbb{Z}$, then $\abs{\Out(\mathcat{C})} = 2$, so $\abs{\BrPic(\mathcat{C})} = 4$.}
+\noindent \textcolor{red}{Maybe talk about the Brauer-Picard group. If $G$ has prime order, then we have exactly two fusion $\mathcat{C}$-module categories, and they're both self-dual (I think). Unfortunately, this doesn't tell us everything. For example, if $G = \mathbb{Z}/3\mathbb{Z}$, then $\abs{\Out(\mathcat{C})} = 1$, so $\abs{\BrPic(\mathcat{C})} = 2$. However, if $G = \mathbb{Z}/5\mathbb{Z}$, then one of the fusion categories has $\abs{\Out(\mathcat{C})} = 2$, so $\abs{\BrPic(\mathcat{C})} = 4$. See ``BrauerPicardGroupsNearGroup.txt'' for more on this. The last case is interesting too, as it seems to be both the only category with non-trivial outer automorphisms and the only category where the second group appearing in the centre is different.}
+\newline\newline
+
+
+\subsection{Direct Computations}\label{sec:near-group_computations}
+\sectionbar{1}{1pt}{-2}{0}
+
+\subsubsection{The Cuntz Algebra Approach}\label{sec:cuntz_algebra_approach}
+
+\noindent In this section, we derive a set of conditions that determine when an object in a {\em unitary} near-group fusion category admits the structure of a standard $Q$-system. Because we assume unitarity, we are able to use the Cuntz algebra approach developed by Izumi in \cite{Izumi_2001, Izumi_2017}. We begin with a brief introduction to this technology.
+\newline
+
+\noindent \textcolor{red}{Introduce the endomorphism category and the explicit details for the near-groups.}
+\newline\newline
+
+
+\subsubsection{Algebra Object Equations}\label{sec:algebra_object_equations}
+
+\noindent \textcolor{red}{Maybe clean up the notation in this section. It might be good to use bars for scalar complex conjugation rather than stars. Also, I'm not sure which way to do the labels for the constants. The current way means you don't have to use the fact that $H$ is Abelian to say that $\lambda$ and $\rho$ are representations (as opposed to anti-representations). However, it also conflicts with the normal way of ascribing matrices to these morphisms, so the multiplication appears backwards when we do the algebra object isomorphisms.}
+\newline
+
+\noindent Throughout this section, let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and consider the object $A = H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{\geq 0}$. We recall that this object is a standard $Q$-system if there exist morphisms $m_A : A \otimes A \to A$ and $u_A : \mathbbm{1} \to A$ such that
+\begin{enumerate}[start=1, leftmargin=1.5cm, label={(\roman*).}]
+\item Unit: $m_A u_A = 1 = m_A A(u_A)$,
+\item Normalized: $u_A u_A^{*} = \sqrt{\dim(A)}$,
+\item Associativity: $m_A^2 = m_A A(m_A)$,
+\item Unitarily separable: $m_A m_A^{*} = \sqrt{\dim(A)}$.
+\end{enumerate}
+\noindent We begin by fixing isometries  $v_h : h \to A$ for $h \in H$ and $v_{X,i} : X \to A$ for $i \in \{1, 2, \dots, a\}$ satisfying
+\begin{align*}
+\begin{split}
+v_h^{*}v_{h'} = \delta_{h,h'}, \quad v_{X,i}^{*}v_{X,j} = \delta_{i,j}, \quad \sum_{h \in H}{v_h v_h^{*}} + \sum_{i=1}^{a}{v_{X,i}v_{X,i}^{*}} = 1,
+\end{split}
+\end{align*}
+\noindent which exist by additivity. Moreover, we can normalize these morphisms so that $h(v_{h'}) = v_{hh'}$ and $h(v_{X,i}) = v_{X,i}$ for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. Then in terms of this basis, we can write
+\begin{alignat*}{3}
+m_A &= \dim(A)^{-1/4}\biggl(&&\sum_{h,h' \in H}{\psi_{h,h'}v_{hh'}v_{hh'}^{*}v_h^{*}} &&+ \\
+&&&\sum_{h \in H}{\sum_{i,j=1}^{a}{\lambda_{h,i,j}v_{X,i}v_{X,j}^{*}v_h^{*}}} &&+ \sum_{h \in H}{\sum_{i,j=1}^{a}{\rho_{h,i,j}v_{X,i}U(h)^{*}X(v_h^{*})v_{X,j}^{*}}} + \\
+&&&\sum_{h \in H}{\sum_{i,j=1}^{a}{s_{h,i,j}v_h S_h^{*}X(v_{X,i}^{*})v_{X,j}^{*}}} &&+ \sum_{x=1}^{m\abs{G}}{\sum_{i,j,k=1}^{a}{t_{x,i,j,k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}}}\biggr), \\
+u_A &= \dim(A)^{1/4}wv_1,
+\end{alignat*}
+\noindent for some constants $\psi_{h,h'}, \lambda_{h,i,j}, \rho_{h,i,j}, s_{h,i,j}, t_{x,i,j,k}, w \in \mathbb{C}$. Our aim is to construct a set of equations in terms of these constants that, when satisfied, ensure that $(A, m_A, u_A)$ is a standard $Q$-system. Note that the normalization factors of $\dim(A)^{\pm 1/4}$ are arbitrary, but will allow us to state our equations more succinctly.
+\newline\newline
+\noindent With the setup complete, we start with the unit condition. This can be written as
+\begin{alignat*}{2}
+1 &= m_A u_A &&= w\sum_{h \in H}{\psi_{1,h}v_h v_h^{*}} + w\sum_{i,j=1}^{a}{\lambda_{1,i,j}v_{X,i}v_{X,j}^{*}},\\
+1 &= m_A A(u_A) &&= w\sum_{h \in H}{\psi_{h,1}v_h v_h^{*}} + w\sum_{i,j=1}^{a}{\rho_{1,i,j}v_{X,i}v_{X,j}^{*}},
+\end{alignat*}
+\noindent which imply that $\psi_{1,h} = w^{-1} = \psi_{h,1}$ for all $h \in H$ and $\lambda_{1,i,j} = \delta_{i,j}w^{-1} = \rho_{1,i,j}$ for $i, j \in \{1, 2, ..., a\}$. In fact, this dependence on $w$ can be immediately removed using the normalization condition, which we write as $\sqrt{\dim(A)}ww^{*} = u_A u_A^{*} = \sqrt{\dim(A)}$. This implies that $\abs{w} = 1$, but by moving the phase of $w$ into $v_1$ \textcolor{red}{(CHECK: we {\em can} do this, right?)}, we can assume without loss of generality that $w = 1$. Sadly, the pentagon equations are not so straightforward. Here, we have that
+%\begin{align*}
+%\begin{split}
+%A(m_A) = \dim(A)^{-1/4}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'}v_{h''}v_{h''hh'}v_{h''hh'}^{*}v_{h''h}^{*}v_{h''}^{*}} + \\
+%&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\lambda_{h,i,j}v_{h'}v_{X,i}v_{X,j}^{*}v_{h'h}^{*}v_{h'}^{*}}} + \\
+%&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\rho_{h,i,j}v_{h'}v_{X,i}h'(U(h))^{*}X(v_h^{*})v_{X,j}^{*}v_{h'}^{*}}} + \\
+%&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{s_{h,i,j}v_{h'}v_{h'h}S_{h'h}^{*}X(v_{X,i}^{*})v_{X,j}^{*}v_{h'}^{*}}} + \\
+%&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k=1}^{a}{t_{x,i,j,k}v_h v_{X,i}h(T_x)^{*}X(v_{X,j}^{*})v_{X,k}^{*}v_h^{*}}}} + \\
+%&\sum_{h,h' \in H}{\sum_{i=1}^{a}{\psi_{h,h'}v_{X,i}X(v_{hh'}v_{hh'}^{*}v_h^{*})v_{X,i}^{*}}} + \\
+%&\sum_{h \in H}{\sum_{i,j,k=1}^{a}{\lambda_{h,i,j}v_{X,k}X(v_{X,i}v_{X,j}^{*}v_h^{*})v_{X,k}^{*}}} + \\
+%&\sum_{h \in H}{\sum_{i,j,k=1}^{a}{\rho_{h,i,j}v_{X,k}X(v_{X,i}U(h)^{*}X(v_h^{*})v_{X,j}^{*})v_{X,k}^{*}}} + \\
+%&\sum_{h \in H}{\sum_{i,j,k=1}^{a}{s_{h,i,j}v_{X,k}X(v_h S_h^{*}X(v_{X,i}^{*})v_{X,j}^{*})v_{X,k}^{*}}} + \\
+%&\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{t_{x,i,j,k}v_{X,l}X(v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*})v_{X,l}^{*}}}\biggr),
+%\end{split}
+%\end{align*}
+\begin{align*}
+\begin{split}
+m_A^2 = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{hh',h''}\psi_{h,h'}v_{hh'h''}v_{hh'h''}^{*}v_{hh'}^{*}v_h^{*}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\lambda_{hh',i,j}\psi_{h,h'}v_{X,i}v_{X,j}^{*}v_{hh'}^{*}v_h^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{\rho_{h',i,k}\lambda_{h,k,j}v_{X,i}U(h')^{*}X(v_{h'}^{*})v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{\rho_{h',i,k}\rho_{h,k,j}v_{X,i}U(hh')^{*}X(v_{hh'}^{*}v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{s_{hh',i,k}\lambda_{h,k,j}v_{hh'}S_{hh'}^{*}X(v_{X,i}^{*})v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{t_{x,i,j,l}\lambda_{h,l,k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}v_h^{*}}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{s_{h',i,k}\rho_{h,k,j}v_{h'}S_{h'}^{*}U(h)^{*}X(v_{X,i}^{*}v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{t_{x,i,j,l}\rho_{h,l,k}v_{X,i}T_x^{*}U(h)^{*}X(v_{X,j}^{*}v_h^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\psi_{h',h}s_{h',i,j}v_{h'h}S_{h'}^{*}X(X(v_h^{*})v_{X,i}^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{\rho_{h,i,l}t_{x,l,j,k}v_{X,i}U(h)^{*}T_x^{*}X(X(v_h^{*})v_{X,j}^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{s_{h,i,l}t_{x,l,j,k}v_h S_h^{*}T_x^{*}X(X(v_{X,i}^{*})v_{X,j}^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h \in H}{\sum_{i,j,k,l=1}^{a}{\lambda_{h,i,j}s_{h,k,l}v_{X,i}S_h^{*}X(X(v_{X,j}^{*})v_{X,k}^{*})v_{X,l}^{*}}} + \\
+&\sum_{x,y=1}^{m\abs{G}}{\sum_{i,j,k,l,l'=1}^{a}{t_{x,i,j,l'}t_{y,l',k,l}v_{X,i}T_x^{*}T_y^{*}X(X(v_{X,j}^{*})v_{X,k}^{*})v_{X,l}^{*}}}\biggr),
+\end{split}
+\end{align*}
+\newpage
+\begin{align*}
+\begin{split}
+m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',h''}v_{hh'h''}v_{hh'h''}^{*}v_{hh'}^{*}v_h^{*}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{\lambda_{h,i,k}\lambda_{h',k,j}v_{X,i}v_{X,j}^{*}v_{hh'}^{*}v_h^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{\lambda_{h,i,k}\rho_{h',k,j}v_{X,i}h(U(h'))^{*}X(v_{h'}^{*})v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\rho_{hh',i,j}\psi_{h,h'}v_{X,i}U(hh')^{*}X(v_{hh'}^{*}v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j=1}^{a}{\psi_{h,h'}s_{h',i,j}v_{hh'}S_{hh'}^{*}X(v_{X,i}^{*})v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{\lambda_{h,i,l}t_{x,l,j,k}v_{X,i}h(T_x)^{*}X(v_{X,j}^{*})v_{X,k}^{*}v_h^{*}}}} + \\
+&\sum_{h,h' \in H}{\sum_{i,j,k=1}^{a}{s_{h',k,j}\lambda_{h,k,i}v_{h'}S_{h'}^{*}X(v_{X,i}^{*}v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{t_{x,i,l,k}\lambda_{h,l,j}v_{X,i}T_x^{*}X(v_{X,j}^{*}v_h^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h \in H}{\sum_{i,j,k=1}^{a}{s_{h',k,j}\rho_{h,k,i}v_{h'}S_{h'}^{*}X(U(h)^{*})X(X(v_h^{*})v_{X,i}^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{t_{x,i,l,k}\rho_{h,l,j}v_{X,i}T_x^{*}X(U(h)^{*})X(X(v_h^{*})v_{X,j}^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h \in H}{\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,l=1}^{a}{s_{h,l,k}t_{x,l,i,j}v_h S_h^{*}X(T_x^{*})X(X(v_{X,i}^{*})v_{X,j}^{*})v_{X,k}^{*}}}} + \\
+&\sum_{h \in H}{\sum_{i,j,k,l=1}^{a}{\rho_{h,i,l}s_{h,j,k}v_{X,i}U(h)^{*}X(S_h^{*})X(X(v_{X,j}^{*})v_{X,k}^{*})v_{X,l}^{*}}} + \\
+&\sum_{x,y=1}^{m\abs{G}}{\sum_{i,j,k,l,l'=1}^{a}{t_{x,i,l',l}t_{y,l',j,k}v_{X,i}T_x^{*}X(T_y^{*})X(X(v_{X,j}^{*})v_{X,k}^{*})v_{X,l}^{*}}}\biggr).
+\end{split}
+\end{align*}
+\newpage
+\noindent These equations certainly look intimidating. However, because of how we've chosen our basis morphisms $v_h$ and $v_{X,i}$, the terms (except for the last two) in both of these equations are linearly independent. Hence, equating these sums, we obtain the following twelve equations:
+\begin{align}
+\psi_{hh',h''}\psi_{h,h'} &= \psi_{h,h'h''}\psi_{h',h''}, \label{eq:near-group_algebra_cocycle}\\
+\sum_{r=1}^{a}{\lambda_{h,i,r}\lambda_{h',r,j}} &= \lambda_{hh',i,j}\psi_{h,h'}, \label{eq:near-group_algebra_representation_1}\\
+\sum_{r=1}^{a}{\rho_{h',i,r}\rho_{h,r,j}} &= \rho_{hh',i,j}\psi_{h,h'}, \label{eq:near-group_algebra_representation_2}\\
+\sum_{r=1}^{a}{s_{hh',i,r}\lambda_{h,r,j}} &= \psi_{h,h'}s_{h',i,j}, \label{eq:near-group_algebra_s1}\\
+\sum_{r=1}^{a}{s_{h'h,r,j}\rho_{h,r,i}} &= \psi_{h',h}s_{h',i,j}, \label{eq:near-group_algebra_s2}
+\end{align}
+\begin{align}
+\sum_{r=1}^{a}{\rho_{h',i,r}\lambda_{h,r,j}} &= \chi_h(h')\sum_{r=1}^{a}{\lambda_{h,i,r}\rho_{h',r,j}}, \label{eq:near-group_algebra_representation_commutator}\\
+\sum_{r=1}^{a}{s_{h',r,j}\lambda_{h,r,i}} &= \chi_{h'}(h)^{*}\sum_{r=1}^{a}{s_{h',i,r}\rho_{h,r,j}}, \label{eq:near-group_algebra_s3}
+\end{align}
+\begin{align}
+\label{eq:near-group_algebra_ugly_start}
+\sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,j,r}\lambda_{h,r,k}T_x^{*}}} &= \sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{\lambda_{h,i,r}t_{x,r,j,k}T_x^{*}V(h)^{*}}},\\
+\sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,r,k}\lambda_{h,r,j}T_x^{*}}} &= \sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,j,r}\rho_{h,r,k}T_x^{*}U(h)^{*}}},\\
+\sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{\rho_{h,i,r}t_{x,r,j,k}U(h)^{*}T_x^{*}}} &= \sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,r,k}\rho_{h,r,j}T_x^{*}X(U(h)^{*})}},\\
+\sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}S_h^{*}T_x^{*}}} &= \sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{s_{h,r,k}t_{x,r,i,j}S_h^{*}X(T_x^{*})}},
+\end{align}
+\begin{equation}
+\begin{alignedat}{2}
+\label{eq:near-group_algebra_ugly_end}
+&\sum_{h''' \in H}{\lambda_{h''',i,j}s_{h''',k,l}S_{h'''}^{*}} &&+ \sum_{x,y=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,j,r}t_{y,r,k,l}T_x^{*}T_y^{*}}} = \\
+&\sum_{h''' \in H}{\rho_{h''',i,l}s_{h''',j,k}U(h''')^{*}X(S_{h'''}^{*})} &&+ \sum_{x,y=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,r,l}t_{y,r,j,k}T_x^{*}X(T_y^{*})}}.
+\end{alignedat}
+\end{equation}
+\noindent These must be satisfied for all $h, h', h'' \in H$ and $i, j, k, l \in \{1, 2, \dots, a\}$.
+\newpage
+\noindent From these equations, we can make some observations. Well, \hyperref[eq:near-group_algebra_cocycle]{Equation \ref*{eq:near-group_algebra_cocycle}} tells us that we have a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$ given by $\psi(h, h') = \psi_{h,h'}$: this is hopefully not at all surprising, as $H$ is known to be a subalgebra object of $A$. However, suppose we let $V = \mathbb{C}^a$, and fix any orthonormal basis $(e_1, e_2, \dots, e_a)$. Then we can interpret the remaining constants as functions $\lambda, \rho, s : H \to \End[\mathbb{C}]{V}$ and $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ defined by $(\lambda(h))_{i,j} = \lambda_{h,i,j}$, $(\rho(h))_{i,j} = \rho_{h,i,j}$, $(s(h))_{i,j} = s_{h,i,j}$ (as matrices in the basis $(e_1, e_2, \dots, e_a)$) and $([t(x)](e_i))_{j,k} = t_{h,i,j,k}$. Under this identification, the unit property implies that $\lambda(1) = \id_V = \rho(1)$, whence \hyperref[eq:near-group_algebra_representation_1]{Equations \ref*{eq:near-group_algebra_representation_1} and \ref*{eq:near-group_algebra_representation_2}} tell us that $\lambda, \rho : H \to \GL(V)$ are in fact projective representations of $V$ with respect to $\psi$.
+\newline
+
+\noindent Finally, for $(A, m_A, u_A)$ to be unitarily separable, we require
+\begin{gather*}
+\sum_{h' \in H}{\psi_{h(h')^{-1},h'}\psi_{h(h')^{-1},h'}^{*}} + \sum_{k,l=1}^{a}{s_{h,k,l}s_{h,k,l}^{*}} = \dim(A), \\
+\sum_{h' \in H}{\sum_{k=1}^{a}{\lambda_{h',i,k}\lambda_{h',j,k}^{*}}} + \sum_{h' \in H}{\sum_{k=1}^{a}{\rho_{h',i,k}\rho_{h',j,k}^{*}}} + \sum_{x=1}^{m\abs{G}}{\sum_{k,l=1}^{a}{t_{x,i,k,l}t_{x,j,k,l}^{*}}} = \delta_{i,j}\dim(A),
+\end{gather*}
+\noindent for all $h \in H$ and $i, j \in \{1, 2, \dots, a\}$. In light of our previous observations, these can be rewritten as
+\begin{gather}\label{eq:near-group_algebra_unitarily_separable}
+\sum_{h' \in H}{\abs{\psi(h(h')^{-1}, h')}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
+\sum_{h' \in H}{(\lambda(h')\lambda(h')^{*})_{i,j}} + \sum_{h' \in H}{(\rho(h')\rho(h')^{*})_{i,j}} + \sum_{x=1}^{m\abs{G}}{\tr([t(x)](e_i)[t(x)](e_j)^{*})} = \delta_{i,j}\dim(A).
+\end{gather}
+\noindent Here, $s(h)^{*}$ denotes the adjoint of $s$, and similarly for $\lambda$ and $\rho$. \textcolor{red}{Can we interpret the second separability equation stating that $\lambda(h)\lambda(h)^{*} + \rho(h)\rho(h)^{*} + \text{something} = \dim(A)\id_V$? I also feel like $\lambda$ and $\rho$ should be unitary, in which case this is a lot simpler.}
+\newline
+
+\noindent \textcolor{red}{At this stage, it seems like there is more to say about $s$, but our data needs some massaging first. Intuition tells us that $\psi$ is cohomologous to a 2-cocycle satisfying $\psi(h^{-1}, h) = 1 = \psi(h, h^{-1})$ for all $h \in H$. To verify this, we write out precisely what it means for two algebra objects to be isomorphic.}
+\newline
+
+\begin{proposition}\label{prop:near-group_algebra_isomorphism}
+Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ and $f_X \in \GL(V)$ satisfying
+\begin{align*}
+f_H(1) &= 1, \\
+f_H(h)f_H(h')\psi(h, h')' &= f_H(hh')\psi(h, h'), \\
+f_H(h)\lambda'(h)f_X &= f_X\lambda(h), \\
+f_H(h)\rho'(h)f_X &= f_X\rho(h), \\
+f_X^T s'(h)f_X &= f_H(h)s(h), \\
+f_X^T [t'(x)](e_i)f_X &= [t(x)](e_i^T f_X),
+\end{align*}
+\noindent for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. \textcolor{red}{If we write the unprimed functions in terms of the primed ones and plug them back into our equations, do $f_H$ and $f_X$ vanish?}
+\end{proposition}
+\leavevmode\newline
+\begin{proof}
+Let $(A, m_A, u_A)$ and $(A, m_A', u_A')$ denote the algebra objects associated to the solutions, and consider any (unitary) isomorphism of algebra objects \textcolor{red}{(we still need to write down what this means!)}
+\begin{align*}
+\begin{split}
+f = \sum_{h \in H}{f_h v_h v_h^{*}} + \sum_{i,j=1}^{a}{f_{X,i,j}v_{X,i}v_{X,j}^{*}},
+\end{split}
+\end{align*}
+\noindent for $f_h, f_{X,i,j} \in \mathbb{C}$. Because $f$ is an isomorphism of objects, we can identify the $f_h$ with a character $f_H : H \to \mathbb{C}^{\times}$ and the $f_{X,i,j}$ with an invertible matrix $f_X \in \GL(V)$ given by $f_H(h) = f_h$ and $(f_X)_{i,j} = f_{X,i,j}$ respectively. Following the definition of an algebra object isomorphism, we write
+\begin{align*}
+\begin{split}
+\dim(A)^{1/4}v_1 = u_A' = f u_A = \dim(A)^{1/4}f_1 v_1 \iff f_1 = 1;
+\end{split}
+\end{align*}
+\begin{align*}
+\begin{split}
+m_A' f A(f) = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_h f_{h'}\psi_{h,h'}' v_{hh'}v_{hh'}^{*}v_h^{*}} + \\
+&\sum_{h \in H}{\sum_{i,j,r=1}^{a}{\lambda_{h,i,r}' f_h f_{X,r,j}v_{X,i}v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h \in H}{\sum_{i,j,r=1}^{a}{\rho_{h,i,r}' f_h f_{X,r,j}v_{X,i}U(h)^{*}X(v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{i,j,r,r'=1}^{a}{s_{h,r,r'}' f_{X,r,i}f_{X,r',j}v_h S_h^{*}X(v_{X,i}^{*})v_{X,j}^{*}}} + \\
+&\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,r,r'=1}^{a}{t_{x,i,r,r'}' f_{X,r,j}f_{X,r',k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}}}\biggr);
+\end{split}
+\end{align*}
+\begin{align*}
+\begin{split}
+f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}^{*}v_h^{*}} + \\
+&\sum_{h \in H}{\sum_{i,j,r=1}^{a}{f_{X,i,r}\lambda_{h,r,j}v_{X,i}v_{X,j}^{*}v_h^{*}}} + \\
+&\sum_{h \in H}{\sum_{i,j,r=1}^{a}{f_{X,i,r}\rho_{h,r,j}v_{X,i}U(h)^{*}X(v_h^{*})v_{X,j}^{*}}} + \\
+&\sum_{h \in H}{\sum_{i,j=1}^{a}{f_h s_{h,i,j}v_h S_h^{*}X(v_{X,i}^{*})v_{X,j}^{*}}} + \\
+&\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,r=1}^{a}{f_{X,i,r}t_{x,r,j,k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}}}\biggr).
+\end{split}
+\end{align*}
+\noindent As before, the terms in these sums are linearly independent. Thus, equating $m_A' f A(f) = f m_A'$, we obtain the desired results.
+\end{proof}
+\leavevmode\newline
+
+\noindent \textcolor{red}{It might also be worth working on this a bit more to try and rule out $s$. It looks like we can write it in terms of $\lambda$ and $\rho$ using \hyperref[eq:near-group_algebra_s1]{Equations \ref*{eq:near-group_algebra_s1}, \ref*{eq:near-group_algebra_s2} and \ref*{eq:near-group_algebra_s3}}:
+\begin{alignat*}{2}
+\psi(h, h^{-1})^{-1}s(1)\lambda(h^{-1}) &= s(h) &&= \psi(h^{-1}, h)^{-1}\rho(h^{-1})^T s(1).
+\end{alignat*}
+\noindent To assume $\psi(h, h^{-1}) = 1 = \psi(h^{-1}, h)$, can we just use \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}}? If two algebra objects are isomorphic, then so are their module categories. Any standard $Q$-system is going to be isomorphic to an algebra object with a normalized 2-cocycle, so we can maybe just write down the $Q$-system equations in terms of the normalized data.}
+\newline
+
+\noindent Unfortunately, in the general case, \hyperref[eq:near-group_algebra_ugly_start]{Equations \ref*{eq:near-group_algebra_ugly_start} to \ref*{eq:near-group_algebra_ugly_end}} are difficult to reduce. Fortunately, things become much simpler when we assume $m = 1$. Here, the morphisms $T_x$ are indexed by elements of $G$, and we have explicit equations for $X(S_h)$, $X(T_x)$ and $X(U(h))$ in as polynomials in $S_h$ and $T_x$.
+\newline
+
+\noindent \textcolor{red}{Verify the equations for $m = 1$. I may have deleted some of the inner products by falsely assuming they're 1 on elements of $H$.}
+\newline
+
+\begin{proposition}\label{prop:near-group_algebra_equations}
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and let $V = \mathbb{C}^a$ for $a \in \mathbb{Z}_{\geq 0}$ with basis $(e_1, e_2, \dots, e_a)$. Then the object $A = H \oplus X^{\oplus a}$ admits the structure of a standard $Q$-system if there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(V)$ and functions $s : H \to \End[\mathbb{C}]{V}$, $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ satisfying
+\begin{gather*}
+\sum_{h'' \in H}{\abs{\psi(h(h'')^{-1}, h'')}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
+\sum_{h'' \in H}{(\lambda(h'')\lambda(h'')^{*})_{i,j}} + \sum_{h'' \in H}{(\rho(h'')\rho(h'')^{*})_{i,j}} + \sum_{x=1}^{m\abs{G}}{\tr([t(x)](e_i)[t(x)](e_j)^{*})} = \delta_{i,j}\dim(A),
+\end{gather*}
+\begin{align*}
+\lambda(h)\lambda(h') &= \psi(h, h')\lambda(hh'), \\
+\rho(h)\rho(h') &= \psi(h', h)\rho(hh'), \\
+s(hh')\lambda(h) &= \psi(h, h')s(h'), \\
+\rho(h)^T s(hh') &= \psi(h', h)s(h'), \\
+\rho(h')\lambda(h) &= \chi_h(h')\lambda(h)\rho(h'), \\
+\lambda(h)^T s(h') &= \chi_{h'}(h)^{*}s(h')\rho(h),
+\end{align*}
+\begin{align*}
+\sum_{x=1}^{m\abs{G}}{[t(x)](e_i)\lambda(h)T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{[t(x)](e_i^T\lambda(h))T_x^{*}V(h)^{*}}, \\
+\sum_{x=1}^{m\abs{G}}{\lambda(h)^T [t(x)](e_i)T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{[t(x)](e_i)\rho(h)T_x^{*}U(h)^{*}}, \\
+\sum_{x=1}^{m\abs{G}}{[t(x)](e_i^T\rho(h))U(h)^{*}T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{\rho(h)^T [t(x)](e_k)T_x^{*}X(U(h)^{*})}, \\
+\sum_{x=1}^{m\abs{G}}{s_{h,i,r}t_{x,r,j,k}S_h^{*}T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{s_{h,r,k}t_{x,r,i,j}S_h^{*}X(T_x^{*})},
+\end{align*}
+\begin{equation*}
+\begin{alignedat}{2}
+&\sum_{h'' \in H}{\lambda_{h'',i,j}s_{h'',k,l}S_{h''}^{*}} &&+ \sum_{x,y=1}^{m\abs{G}}{t_{x,i,j,r}t_{y,r,k,l}T_x^{*}T_y^{*}} = \\
+&\sum_{h'' \in H}{\rho_{h'',i,l}s_{h'',j,k}U(h'')^{*}X(S_{h''}^{*})} &&+ \sum_{x,y=1}^{m\abs{G}}{t_{x,i,r,l}t_{y,r,j,k}T_x^{*}X(T_y^{*})},
+\end{alignedat}
+\end{equation*}
+for all $h, h' \in H$ and $i, j, k, l \in \{1, 2, ..., a\}$. When $m = 1$, the last five equations reduce to
+\begin{align*}
+[t(x)](e_i)\lambda(h) &= \inprod{h, x}^{*}[t(x)](e_i^T\lambda(h)), \\
+\lambda(h)^T [t(x)](e_i) &= [t(xh)](e_i)\rho(h), \\
+[t(xh)](e_i^T\rho(h)) &= \inprod{h, x}^{*}a(h)^{*}\rho(h)^T [t(x)](e_i).
+\end{align*}
+\begin{gather*}
+\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}} = \frac{c}{\sqrt{\abs{G}}}a(h)\inprod{x, h}^{*}\sum_{z \in G}{\sum_{r=1}^{a}{\inprod{x, z}^{*}s_{h,r,k}t_{z,r,i,j}}}, \\
+d^{1/2}\delta_{x \in H}\lambda_{x,i,j}s_{x,k,l} = d^{-1/2}\sum_{z \in H}{\inprod{x, z}^{*}\rho_{z,i,l}s_{z,j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{w, z}^{*}\inprod{x, w}t_{w,i,r,l}t_{z,r,j,k}}}, \\
+\sum_{r=1}^{a}{t_{x,r,i,j}t_{y,r,k,l}} = d^{-1/2}\delta_{xy \in H}a(x^{-1})^{*}\rho_{(xy)^{-1},i,l}s_{(xy)^{-1},j,k} + \sum_{z \in G}{\sum_{r=1}^{a}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t_{xy,i,r,l}t_{z,r,j,k}}},
+\end{gather*}
+\noindent for all $h \in H$, $x, y \in G$ and $i, j, k, l \in \{1, 2, ..., a\}$. Here, $d \coloneqq \dim(X)$. \textcolor{red}{Can we shorten these so they don't stretch the lines as much?}
+\end{proposition}
+\leavevmode
+
+\begin{corollary}
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, \abs{G})$ for some finite Abelian group $G$, and consider any subgroup $H \leq G$. Then $A = H \oplus X$ admits the structure of a standard $Q$-system if $\inprod{h, h'} = 1$ for all $h, h' \in H$, and there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \mathbb{C}^{\times}$ and a function $t : G \to \mathbb{C}$ satisfying
+\begin{gather*}
+\sum_{h'' \in H}{\abs{\psi(h(h'')^{-1}, h'')}^2} + \abs{s(h)}^2 = \dim(A), \\
+\sum_{h'' \in H}{\abs{\lambda(h'')}^2} + \sum_{h'' \in H}{\abs{\rho(h'')}^2} + \sum_{x \in G}{\abs{t(x)}^2} = \dim(A),
+\end{gather*}
+\begin{align*}
+\lambda(h)\lambda(h') &= \psi(h, h')\lambda(hh'), \\
+\rho(h)\rho(h') &= \psi(h', h)\rho(hh'), \\
+s(hh')\lambda(h) &= \psi(h, h')s(h'), \\
+\rho(h)s(hh') &= \psi(h', h)s(h'), \\
+\lambda(h)s(h') &= s(h')\rho(h),
+\end{align*}
+\begin{align*}
+t(x) &= \inprod{h, x}^{*}t(x), \\
+\lambda(h)t(x) &= t(x)\rho(h), \\
+t(xh)\rho(h) &= \inprod{h, x}^{*}a(h)^{*}\rho(h)t(x),
+\end{align*}
+\begin{gather*}
+t(x) = \frac{c}{\sqrt{\abs{G}}}a(h)\inprod{x, h}^{*}\sum_{z \in G}{\inprod{x, z}^{*}t(z)}, \\
+d^{1/2}\delta_{x \in H}\lambda(x)s(x) = d^{-1/2}\sum_{z \in H}{\inprod{x, z}^{*}\rho(z)s(z)} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\inprod{w, z}^{*}\inprod{x, w}t(w)t(z)}, \\
+t(x)t(y) = d^{-1/2}\delta_{xy \in H}a(x^{-1})^{*}\rho((xy)^{-1})s((xy)^{-1}) + \sum_{z \in G}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t(xy)t(z)},
+\end{gather*}
+\textcolor{red}{Finish this, and double check the last three equations.}
+\end{corollary}
+\leavevmode
 \newpage
 
 
