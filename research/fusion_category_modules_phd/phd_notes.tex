@@ -1400,7 +1400,7 @@ m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_isomorphism}
-Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ \textcolor{red}{(Again, can this be zero? It definitely can't if we want an equivalence of $Q$-systems.)} and $f_X \in \GL(V)$ satisfying
+Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ and $f_X \in \GL(V)$ satisfying
 \begin{align*}
 f_H(1) &= 1, \\
 f_H(h)f_H(h')\psi(h, h')' &= f_H(hh')\psi(h, h'), \\
@@ -1409,11 +1409,11 @@ f_H(h)\rho'(h)f_X &= f_X\rho(h), \\
 f_X^T s'(h)f_X &= f_H(h)s(h), \\
 f_X^T [t'(x)](e_i)f_X &= [t(x)](e_i^T f_X),
 \end{align*}
-\noindent for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. If $(A, m_A, u_A)$ and $(A, m_A', u_A')$ define $Q$-systems, then they are isomorphic (as $Q$-systems) if moreover $f_X$ is unitary.
+for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. If $(A, m_A, u_A)$ and $(A, m_A', u_A')$ define $Q$-systems, then they are isomorphic (as $Q$-systems) if moreover $f_H$ and $f_X$ are unitary.
 \end{proposition}
 \leavevmode\newline
 \begin{proof}
-Let $(A, m_A, u_A)$ and $(A, m_A', u_A')$ denote the algebra objects associated to the solutions, and consider any isomorphism of algebra objects \textcolor{red}{(we still need to write down what this means!)}
+\noindent Let $(A, m_A, u_A)$ and $(A, m_A', u_A')$ denote the algebra objects associated to the solutions, and consider any isomorphism of algebra objects \textcolor{red}{(we still need to write down what this means!)}
 \begin{align*}
 \begin{split}
 f = \sum_{h \in H}{f_h v_h v_h^{*}} + \sum_{i,j=1}^{a}{f_{X,i,j}v_{X,i}v_{X,j}^{*}},
@@ -1443,7 +1443,7 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 &\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,r=1}^{a}{f_{X,i,r}t_{x,r,j,k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}}}\biggr).
 \end{split}
 \end{align*}
-\noindent As before, the terms in these sums are linearly independent. Thus, equating $m_A' f A(f) = f m_A'$, we obtain the desired results. The final claim follows by noting that the morphism $f$ is unitary if and only if $f_h \in \mathbb{C}^{\times}$ for all $h \in H$ and $f_X$ is unitary.
+\noindent As before, the terms in these sums are linearly independent. Thus, equating $m_A' f A(f) = f m_A'$, we obtain the desired results. The final claim follows by noting that the morphism $f$ is unitary if and only if $\abs{f_h} = 1$ for all $h \in H$ and $f_X$ is unitary.
 \end{proof}
 \leavevmode\newline
 
@@ -1451,7 +1451,7 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 \begin{alignat*}{2}
 \psi(h, h^{-1})^{-1}s(1)\lambda(h^{-1}) &= s(h) &&= \psi(h^{-1}, h)^{-1}\rho(h^{-1})^T s(1).
 \end{alignat*}
-\noindent To assume $\psi(h, h^{-1}) = 1 = \psi(h^{-1}, h)$, can we just use \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}}? If two algebra objects are isomorphic, then so are their module categories. Any standard $Q$-system is going to be isomorphic to an algebra object with a normalized 2-cocycle, so we can maybe just write down the $Q$-system equations in terms of the normalized data.}
+\noindent Normalizing the 2-cocycle such that $\psi(h, h^{-1}) = 1 = \psi(h^{-1}, h)$ requires the $f_h$ in \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}} to be non-unitary unless $\abs{\psi(h, h^{-1})} = 1$. Do we expect this to be the case anyway, though? Maybe there's some argument involving the subalgebra object $H$.}
 \newline
 
 \noindent Unfortunately, in the general case, \hyperref[eq:near-group_algebra_ugly_start]{Equations \ref*{eq:near-group_algebra_ugly_start} to \ref*{eq:near-group_algebra_ugly_end}} are difficult to reduce. Fortunately, things become much simpler when we assume $m = 1$. Here, the morphisms $T_x$ are indexed by elements of $G$, $\chi_h(h') = \inprod{h, h'}$ and we have explicit equations for $X(S_h)$, $X(T_x)$ and $X(U(h))$ in as polynomials in $S_h$, $T_x$ and $U(h)$. In particular, we find
