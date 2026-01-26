@@ -22,7 +22,7 @@ const posts = [
 	[
 		POST_TYPE_RESEARCH,
 		["algebras", "categories", "category", "frobenius-perron", "fusion", "grothendieck", "groups", "matrix", "modules", "near-group", "notes", "objects", "ostrik", "phd", "pointed", "rings", "thesis"],
-		"2025/12/09",
+		"2025/01/26",
 		"Some Results on Modules over Near-Groups",
 		"./resource/shared/unsw-crest.png",
 		"Algebra Objects in Near-Group Fusion Categories (Slides)",

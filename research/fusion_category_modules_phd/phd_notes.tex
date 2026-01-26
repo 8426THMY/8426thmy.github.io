@@ -1271,7 +1271,7 @@ Let $m = 1$ and $G = \mathbb{Z}/p_1\mathbb{Z} \times \mathbb{Z}/p_2\mathbb{Z} \t
 
 \subsubsection{Algebra Object Equations}\label{sec:algebra_object_equations}
 
-\noindent \textcolor{red}{Maybe clean up the notation in this section. It might be good to use bars for scalar complex conjugation rather than stars. Also, I'm not sure which way to do the labels for the constants. The current way means you don't have to use the fact that $H$ is Abelian to say that $\lambda$ and $\rho$ are representations (as opposed to anti-representations). However, it also conflicts with the normal way of ascribing matrices to these morphisms, so the multiplication appears backwards when we do the algebra object isomorphisms.}
+\noindent \textcolor{red}{Maybe clean up the notation in this section. It might be good to use bars for scalar complex conjugation rather than stars. The other main problem here is that it seems like there's nothing preventing a lot of these constants from being zero. I feel like $\psi$ and $s(1)$ should both be non-zero for separability reasons. Finally, it'd be nice if we could have $\psi(h, h^{-1}) = 1$.}
 \newline
 
 \noindent Throughout this section, let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and consider the object $A = H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{\geq 0}$. We recall that this object is a standard $Q$-system if there exist morphisms $m_A : A \otimes A \to A$ and $u_A : \mathbbm{1} \to A$ such that
@@ -1380,17 +1380,17 @@ m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',
 \end{equation}
 \noindent These must be satisfied for all $h, h', h'' \in H$ and $i, j, k, l \in \{1, 2, \dots, a\}$.
 \newpage
-\noindent From these equations, we can make some observations. Well, \hyperref[eq:near-group_algebra_cocycle]{Equation \ref*{eq:near-group_algebra_cocycle}} tells us that we have a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$ given by $\psi(h, h') = \psi_{h,h'}$: this is hopefully not at all surprising, as $H$ is known to be a subalgebra object of $A$. However, suppose we let $V = \mathbb{C}^a$, and fix any orthonormal basis $(e_1, e_2, \dots, e_a)$. Then we can interpret the remaining constants as functions $\lambda, \rho, s : H \to \End[\mathbb{C}]{V}$ and $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ defined by $(\lambda(h))_{i,j} = \lambda_{h,i,j}$, $(\rho(h))_{i,j} = \rho_{h,i,j}$, $(s(h))_{i,j} = s_{h,i,j}$ (as matrices in the basis $(e_1, e_2, \dots, e_a)$) and $([t(x)](e_i))_{j,k} = t_{h,i,j,k}$. Under this identification, the unit property implies that $\lambda(1) = \id_V = \rho(1)$, whence \hyperref[eq:near-group_algebra_representation_1]{Equations \ref*{eq:near-group_algebra_representation_1} and \ref*{eq:near-group_algebra_representation_2}} tell us that $\lambda, \rho : H \to \GL(V)$ are in fact projective representations of $V$ with respect to $\psi$.
+\noindent From these equations, we can make some observations. Well, \hyperref[eq:near-group_algebra_cocycle]{Equation \ref*{eq:near-group_algebra_cocycle}} tells us that we have a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$ \textcolor{red}{(There doesn't seem to be anything implying $\psi(h, h') \neq 0$. This is probably needed for separability of the subalgebra object in $\textcat{Vec}_G$.)} given by $\psi(h, h') = \psi_{h,h'}$: this is hopefully not at all surprising, as $H$ is known to be a subalgebra object of $A$. However, suppose we let $V = \mathbb{C}^a$, and fix any orthonormal basis $(e_1, e_2, \dots, e_a)$. Then we can interpret the remaining constants as functions $\lambda, \rho, s : H \to \End[\mathbb{C}]{V}$ and $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ defined by $(\lambda(h))_{i,j} = \lambda_{h,i,j}$, $(\rho(h))_{i,j} = \rho_{h,i,j}$, $(s(h))_{i,j} = s_{h,i,j}$ (as matrices in the basis $(e_1, e_2, \dots, e_a)$) and $([t(x)](e_i))_{j,k} = t_{h,i,j,k}$. Under this identification, the unit property implies that $\lambda(1) = \id_V = \rho(1)$, whence \hyperref[eq:near-group_algebra_representation_1]{Equations \ref*{eq:near-group_algebra_representation_1} and \ref*{eq:near-group_algebra_representation_2}} tell us that $\lambda, \rho : H \to \GL(V)$ are in fact projective representations of $V$ with respect to $\psi$.
 \newline
 
 \noindent Finally, for $(A, m_A, u_A)$ to be unitarily separable, we require
 \begin{gather*}
-\sum_{h' \in H}{\psi_{h(h')^{-1},h'}\psi_{h(h')^{-1},h'}^{*}} + \sum_{k,l=1}^{a}{s_{h,k,l}s_{h,k,l}^{*}} = \dim(A), \\
+\sum_{h' \in H}{\psi_{hh',(h')^{-1}}\psi_{hh',(h')^{-1}}^{*}} + \sum_{k,l=1}^{a}{s_{h,k,l}s_{h,k,l}^{*}} = \dim(A), \\
 \sum_{h' \in H}{\sum_{k=1}^{a}{\lambda_{h',i,k}\lambda_{h',j,k}^{*}}} + \sum_{h' \in H}{\sum_{k=1}^{a}{\rho_{h',i,k}\rho_{h',j,k}^{*}}} + \sum_{x=1}^{m\abs{G}}{\sum_{k,l=1}^{a}{t_{x,i,k,l}t_{x,j,k,l}^{*}}} = \delta_{i,j}\dim(A),
 \end{gather*}
 \noindent for all $h \in H$ and $i, j \in \{1, 2, \dots, a\}$. In light of our previous observations, these can be rewritten as
 \begin{gather}\label{eq:near-group_algebra_unitarily_separable}
-\sum_{h' \in H}{\abs{\psi(h(h')^{-1}, h')}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
+\sum_{h' \in H}{\abs{\psi(hh', (h')^{-1})}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
 \sum_{h' \in H}{(\lambda(h')\lambda(h')^{*})_{i,j}} + \sum_{h' \in H}{(\rho(h')\rho(h')^{*})_{i,j}} + \sum_{x=1}^{m\abs{G}}{\tr([t(x)](e_i)[t(x)](e_j)^{*})} = \delta_{i,j}\dim(A).
 \end{gather}
 \noindent Here, $s(h)^{*}$ denotes the adjoint of $s$, and similarly for $\lambda$ and $\rho$. \textcolor{red}{Can we interpret the second separability equation stating that $\lambda(h)\lambda(h)^{*} + \rho(h)\rho(h)^{*} + \text{something} = \dim(A)\id_V$? I also feel like $\lambda$ and $\rho$ should be unitary, in which case this is a lot simpler.}
@@ -1400,7 +1400,7 @@ m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_isomorphism}
-Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ and $f_X \in \GL(V)$ satisfying
+Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ \textcolor{red}{(Again, can this be zero? It definitely can't if we want an equivalence of $Q$-systems.)} and $f_X \in \GL(V)$ satisfying
 \begin{align*}
 f_H(1) &= 1, \\
 f_H(h)f_H(h')\psi(h, h')' &= f_H(hh')\psi(h, h'), \\
@@ -1409,11 +1409,11 @@ f_H(h)\rho'(h)f_X &= f_X\rho(h), \\
 f_X^T s'(h)f_X &= f_H(h)s(h), \\
 f_X^T [t'(x)](e_i)f_X &= [t(x)](e_i^T f_X),
 \end{align*}
-\noindent for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. \textcolor{red}{If we write the unprimed functions in terms of the primed ones and plug them back into our equations, do $f_H$ and $f_X$ vanish?}
+\noindent for all $h, h' \in H$ and $i \in \{1, 2, \dots, a\}$. If $(A, m_A, u_A)$ and $(A, m_A', u_A')$ define $Q$-systems, then they are isomorphic (as $Q$-systems) if moreover $f_X$ is unitary.
 \end{proposition}
 \leavevmode\newline
 \begin{proof}
-Let $(A, m_A, u_A)$ and $(A, m_A', u_A')$ denote the algebra objects associated to the solutions, and consider any (unitary) isomorphism of algebra objects \textcolor{red}{(we still need to write down what this means!)}
+Let $(A, m_A, u_A)$ and $(A, m_A', u_A')$ denote the algebra objects associated to the solutions, and consider any isomorphism of algebra objects \textcolor{red}{(we still need to write down what this means!)}
 \begin{align*}
 \begin{split}
 f = \sum_{h \in H}{f_h v_h v_h^{*}} + \sum_{i,j=1}^{a}{f_{X,i,j}v_{X,i}v_{X,j}^{*}},
@@ -1443,7 +1443,7 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 &\sum_{x=1}^{m\abs{G}}{\sum_{i,j,k,r=1}^{a}{f_{X,i,r}t_{x,r,j,k}v_{X,i}T_x^{*}X(v_{X,j}^{*})v_{X,k}^{*}}}\biggr).
 \end{split}
 \end{align*}
-\noindent As before, the terms in these sums are linearly independent. Thus, equating $m_A' f A(f) = f m_A'$, we obtain the desired results.
+\noindent As before, the terms in these sums are linearly independent. Thus, equating $m_A' f A(f) = f m_A'$, we obtain the desired results. The final claim follows by noting that the morphism $f$ is unitary if and only if $f_h \in \mathbb{C}^{\times}$ for all $h \in H$ and $f_X$ is unitary.
 \end{proof}
 \leavevmode\newline
 
@@ -1454,16 +1454,24 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 \noindent To assume $\psi(h, h^{-1}) = 1 = \psi(h^{-1}, h)$, can we just use \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}}? If two algebra objects are isomorphic, then so are their module categories. Any standard $Q$-system is going to be isomorphic to an algebra object with a normalized 2-cocycle, so we can maybe just write down the $Q$-system equations in terms of the normalized data.}
 \newline
 
-\noindent Unfortunately, in the general case, \hyperref[eq:near-group_algebra_ugly_start]{Equations \ref*{eq:near-group_algebra_ugly_start} to \ref*{eq:near-group_algebra_ugly_end}} are difficult to reduce. Fortunately, things become much simpler when we assume $m = 1$. Here, the morphisms $T_x$ are indexed by elements of $G$, and we have explicit equations for $X(S_h)$, $X(T_x)$ and $X(U(h))$ in as polynomials in $S_h$ and $T_x$.
-\newline
-
-\noindent \textcolor{red}{Verify the equations for $m = 1$. I may have deleted some of the inner products by falsely assuming they're 1 on elements of $H$.}
+\noindent Unfortunately, in the general case, \hyperref[eq:near-group_algebra_ugly_start]{Equations \ref*{eq:near-group_algebra_ugly_start} to \ref*{eq:near-group_algebra_ugly_end}} are difficult to reduce. Fortunately, things become much simpler when we assume $m = 1$. Here, the morphisms $T_x$ are indexed by elements of $G$, $\chi_h(h') = \inprod{h, h'}$ and we have explicit equations for $X(S_h)$, $X(T_x)$ and $X(U(h))$ in as polynomials in $S_h$, $T_x$ and $U(h)$. In particular, we find
+\begin{align*}
+[t(x)](e_i)\lambda(h) &= \inprod{h, x}^{*}[t(x)](e_i^T\lambda(h)), \\
+\lambda(h)^T [t(x)](e_i) &= [t(xh)](e_i)\rho(h), \\
+[t(xh)](e_i^T\rho(h)) &= a(h)^{*}\inprod{x, h}\rho(h)^T [t(x)](e_i),
+\end{align*}
+\begin{gather*}
+\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}} = \frac{c}{\sqrt{\abs{G}}}\sum_{z \in G}{\sum_{r=1}^{a}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}s_{h,r,k}t_{z,r,i,j}}}, \\
+\delta_{x \in H}\sqrt{d}\lambda_{x,i,j}s_{x,k,l} = \frac{1}{\sqrt{d}}\sum_{h' \in H}{\inprod{h', x}^{*}\rho_{h',i,l}s_{h',j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{z, w}^{*}\inprod{x, z}t_{z,i,r,l}t_{w,r,j,k}}} \\
+\sum_{r=1}^{a}{t_{x,i,j,r}t_{y,r,k,l}} = \delta_{xy \in H}\frac{1}{\sqrt{d}}a(x^{-1})^{*}\rho_{(xy)^{-1},i,l}s_{(xy)^{-1},j,k} + \sum_{z \in G}{\sum_{r=1}^{a}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t_{xy,i,r,l}t_{z,r,j,k}}},
+\end{gather*}
+\noindent where we denote $d \coloneqq \dim(X)$. While these equations are rather complicated, we will see soon that they are in principle solvable in simple cases. First, though, we briefly summarize our findings with the following proposition.
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_equations}
 Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and let $V = \mathbb{C}^a$ for $a \in \mathbb{Z}_{\geq 0}$ with basis $(e_1, e_2, \dots, e_a)$. Then the object $A = H \oplus X^{\oplus a}$ admits the structure of a standard $Q$-system if there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(V)$ and functions $s : H \to \End[\mathbb{C}]{V}$, $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ satisfying
 \begin{gather*}
-\sum_{h'' \in H}{\abs{\psi(h(h'')^{-1}, h'')}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
+\sum_{h'' \in H}{\abs{\psi(hh'', (h'')^{-1})}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
 \sum_{h'' \in H}{(\lambda(h'')\lambda(h'')^{*})_{i,j}} + \sum_{h'' \in H}{(\rho(h'')\rho(h'')^{*})_{i,j}} + \sum_{x=1}^{m\abs{G}}{\tr([t(x)](e_i)[t(x)](e_j)^{*})} = \delta_{i,j}\dim(A),
 \end{gather*}
 \begin{align*}
@@ -1478,55 +1486,56 @@ s(hh')\lambda(h) &= \psi(h, h')s(h'), \\
 \sum_{x=1}^{m\abs{G}}{[t(x)](e_i)\lambda(h)T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{[t(x)](e_i^T\lambda(h))T_x^{*}V(h)^{*}}, \\
 \sum_{x=1}^{m\abs{G}}{\lambda(h)^T [t(x)](e_i)T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{[t(x)](e_i)\rho(h)T_x^{*}U(h)^{*}}, \\
 \sum_{x=1}^{m\abs{G}}{[t(x)](e_i^T\rho(h))U(h)^{*}T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{\rho(h)^T [t(x)](e_k)T_x^{*}X(U(h)^{*})}, \\
-\sum_{x=1}^{m\abs{G}}{s_{h,i,r}t_{x,r,j,k}S_h^{*}T_x^{*}} &= \sum_{x=1}^{m\abs{G}}{s_{h,r,k}t_{x,r,i,j}S_h^{*}X(T_x^{*})},
+\sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}S_h^{*}T_x^{*}}} &= \sum_{x=1}^{m\abs{G}}{\sum_{r=1}^{a}{s_{h,r,k}t_{x,r,i,j}S_h^{*}X(T_x^{*})}},
 \end{align*}
 \begin{equation*}
 \begin{alignedat}{2}
-&\sum_{h'' \in H}{\lambda_{h'',i,j}s_{h'',k,l}S_{h''}^{*}} &&+ \sum_{x,y=1}^{m\abs{G}}{t_{x,i,j,r}t_{y,r,k,l}T_x^{*}T_y^{*}} = \\
-&\sum_{h'' \in H}{\rho_{h'',i,l}s_{h'',j,k}U(h'')^{*}X(S_{h''}^{*})} &&+ \sum_{x,y=1}^{m\abs{G}}{t_{x,i,r,l}t_{y,r,j,k}T_x^{*}X(T_y^{*})},
+&\sum_{h'' \in H}{\lambda_{h'',i,j}s_{h'',k,l}S_{h''}^{*}} &&+ \sum_{x,y=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,j,r}t_{y,r,k,l}T_x^{*}T_y^{*}}} = \\
+&\sum_{h'' \in H}{\rho_{h'',i,l}s_{h'',j,k}U(h'')^{*}X(S_{h''}^{*})} &&+ \sum_{x,y=1}^{m\abs{G}}{\sum_{r=1}^{a}{t_{x,i,r,l}t_{y,r,j,k}T_x^{*}X(T_y^{*})}},
 \end{alignedat}
 \end{equation*}
 for all $h, h' \in H$ and $i, j, k, l \in \{1, 2, ..., a\}$. When $m = 1$, the last five equations reduce to
 \begin{align*}
 [t(x)](e_i)\lambda(h) &= \inprod{h, x}^{*}[t(x)](e_i^T\lambda(h)), \\
 \lambda(h)^T [t(x)](e_i) &= [t(xh)](e_i)\rho(h), \\
-[t(xh)](e_i^T\rho(h)) &= \inprod{h, x}^{*}a(h)^{*}\rho(h)^T [t(x)](e_i).
+[t(xh)](e_i^T\rho(h)) &= a(h)^{*}\inprod{h, x}\rho(h)^T [t(x)](e_i),
 \end{align*}
 \begin{gather*}
-\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}} = \frac{c}{\sqrt{\abs{G}}}a(h)\inprod{x, h}^{*}\sum_{z \in G}{\sum_{r=1}^{a}{\inprod{x, z}^{*}s_{h,r,k}t_{z,r,i,j}}}, \\
-d^{1/2}\delta_{x \in H}\lambda_{x,i,j}s_{x,k,l} = d^{-1/2}\sum_{z \in H}{\inprod{x, z}^{*}\rho_{z,i,l}s_{z,j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{w, z}^{*}\inprod{x, w}t_{w,i,r,l}t_{z,r,j,k}}}, \\
-\sum_{r=1}^{a}{t_{x,r,i,j}t_{y,r,k,l}} = d^{-1/2}\delta_{xy \in H}a(x^{-1})^{*}\rho_{(xy)^{-1},i,l}s_{(xy)^{-1},j,k} + \sum_{z \in G}{\sum_{r=1}^{a}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t_{xy,i,r,l}t_{z,r,j,k}}},
+\sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}} = \frac{c}{\sqrt{\abs{G}}}\sum_{z \in G}{\sum_{r=1}^{a}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}s_{h,r,k}t_{z,r,i,j}}}, \\
+\delta_{x \in H}\sqrt{d}\lambda_{x,i,j}s_{x,k,l} = \frac{1}{\sqrt{d}}\sum_{h' \in H}{\inprod{h', x}^{*}\rho_{h',i,l}s_{h',j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{z, w}^{*}\inprod{x, z}t_{z,i,r,l}t_{w,r,j,k}}} \\
+\sum_{r=1}^{a}{t_{x,i,j,r}t_{y,r,k,l}} = \delta_{xy \in H}\frac{1}{\sqrt{d}}a(x^{-1})^{*}\rho_{(xy)^{-1},i,l}s_{(xy)^{-1},j,k} + \sum_{z \in G}{\sum_{r=1}^{a}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t_{xy,i,r,l}t_{z,r,j,k}}}.
 \end{gather*}
 \noindent for all $h \in H$, $x, y \in G$ and $i, j, k, l \in \{1, 2, ..., a\}$. Here, $d \coloneqq \dim(X)$. \textcolor{red}{Can we shorten these so they don't stretch the lines as much?}
 \end{proposition}
 \leavevmode
 
 \begin{corollary}
-Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, \abs{G})$ for some finite Abelian group $G$, and consider any subgroup $H \leq G$. Then $A = H \oplus X$ admits the structure of a standard $Q$-system if $\inprod{h, h'} = 1$ for all $h, h' \in H$, and there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \mathbb{C}^{\times}$ and a function $t : G \to \mathbb{C}$ satisfying
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, \abs{G})$ for some finite Abelian group $G$, and consider any subgroup $H \leq G$. Then $A = H \oplus X$ admits the structure of a standard $Q$-system if $\inprod{h, h'} = 1$ for all $h, h' \in H$, and there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(\mathbb{C})$, a scalar $s_1 \in \mathbb{C}$ and a function $t : G \to \mathbb{C}$ satisfying
 \begin{gather*}
-\sum_{h'' \in H}{\abs{\psi(h(h'')^{-1}, h'')}^2} + \abs{s(h)}^2 = \dim(A), \\
+\sum_{h'' \in H}{\abs{\psi(hh'', (h'')^{-1})}^2} + \abs{\psi(h^{-1}, h)^{-1}\lambda(h^{-1})s_1}^2 = \dim(A), \\
 \sum_{h'' \in H}{\abs{\lambda(h'')}^2} + \sum_{h'' \in H}{\abs{\rho(h'')}^2} + \sum_{x \in G}{\abs{t(x)}^2} = \dim(A),
 \end{gather*}
 \begin{align*}
 \lambda(h)\lambda(h') &= \psi(h, h')\lambda(hh'), \\
 \rho(h)\rho(h') &= \psi(h', h)\rho(hh'), \\
-s(hh')\lambda(h) &= \psi(h, h')s(h'), \\
-\rho(h)s(hh') &= \psi(h', h)s(h'), \\
-\lambda(h)s(h') &= s(h')\rho(h),
+s_1\lambda(h) &= \rho(h)s_1,
 \end{align*}
 \begin{align*}
 t(x) &= \inprod{h, x}^{*}t(x), \\
-\lambda(h)t(x) &= t(x)\rho(h), \\
-t(xh)\rho(h) &= \inprod{h, x}^{*}a(h)^{*}\rho(h)t(x),
+t(xh)\rho(h) &= \lambda(h)t(x), \\
+t(xh) &= a(h)^{*}t(x),
 \end{align*}
 \begin{gather*}
-t(x) = \frac{c}{\sqrt{\abs{G}}}a(h)\inprod{x, h}^{*}\sum_{z \in G}{\inprod{x, z}^{*}t(z)}, \\
-d^{1/2}\delta_{x \in H}\lambda(x)s(x) = d^{-1/2}\sum_{z \in H}{\inprod{x, z}^{*}\rho(z)s(z)} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\inprod{w, z}^{*}\inprod{x, w}t(w)t(z)}, \\
-t(x)t(y) = d^{-1/2}\delta_{xy \in H}a(x^{-1})^{*}\rho((xy)^{-1})s((xy)^{-1}) + \sum_{z \in G}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t(xy)t(z)},
+s_1 t(x) = \frac{cs_1}{\sqrt{\abs{G}}}\sum_{z \in G}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}t(z)}, \\
+\delta_{x \in H}\sqrt{d}s_1 = \frac{s_1}{\sqrt{d}}\sum_{h'' \in H}{\inprod{h'', x}^{*}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\inprod{z, w}^{*}\inprod{x, z}t(z)t(w)} \\
+t(x)t(y) = \delta_{xy \in H}\frac{s_1}{\sqrt{d}}a(x^{-1})^{*} + \sum_{z \in G}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t(xy)t(z)}.
 \end{gather*}
-\textcolor{red}{Finish this, and double check the last three equations.}
+\textcolor{red}{Finish this, and maybe give a proof. There's nothing to it, really, but it might at least be worth stating why $\inprod{h, h'} = 1$. If $s_1 \neq 0$, then we get $\lambda = \rho$, so $t(x) = t(xh)$.}
 \end{corollary}
 \leavevmode
+
+\noindent \textcolor{red}{Give the proof for existence of $\mathbb{Z}/2\mathbb{Z} \oplus X$ in the $\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ near-group.}
+\newline
 \newpage
 
 
