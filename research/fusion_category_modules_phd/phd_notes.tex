@@ -782,6 +782,9 @@ Let $(A, m, u)$ be an algebra object in a (multi)fusion category $\mathcat{C}$. 
 \end{definition}
 \leavevmode
 
+\noindent \textcolor{red}{We may want to change our definition of a simple algebra object. Under this definition, we can have simple algebra objects that aren't simple objects in their module categories. I think we want our simple algebra objects to be connected too.}
+\newline
+
 \noindent In light of these definitions, \hyperref[thm:modules_from_algebras]{Theorem \ref*{thm:modules_from_algebras}} tells us that to classify the (multi)fusion module categories over a (multi)fusion category $\mathcat{C}$, it is equivalent to classify the connected (semi)simple algebra objects. In fact, this only needs to be done up to Morita equivalence of algebra objects.
 \newline
 
@@ -817,7 +820,7 @@ As a closing remark, it is important to mention that all of the constructions in
 \newline
 
 \begin{proposition}\label{prop:algebra_multiplicity_bound} \cite[Lemma 3.8]{Grossman_2012}
-Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a fusion $\mathcat{C}$-module category. Then there exists a simple algebra object $A \in \Ob(\mathcat{C})$ such that $\mathcat{M} \cong \rmodcat[\mathcat{C}]{A}$ and, for all $X \in \Ob(\mathcat{C})$, $\dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{A, X}) \leq \FPdim(X)$. In particular, $A$ is connected.
+Let $\mathcat{C}$ be a fusion category and $\mathcat{M}$ a fusion $\mathcat{C}$-module category. Then there exists a simple algebra object $A \in \Ob(\mathcat{C})$ such that $\mathcat{M} \cong \rmodcat[\mathcat{C}]{A}$ and, for all $X \in \Ob(\mathcat{C})$, $\dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, A}) \leq \FPdim(X)$. In particular, $A$ is connected.
 \end{proposition}
 \leavevmode\newline
 \begin{proof}
@@ -1040,7 +1043,7 @@ where we define $b_{g,h} \in \Hom[\mathcat{C}]{g \otimes h, gh}$ by $b_{g,h}(u \
 \subsection{Combinatorial Observations}\label{sec:near-group_combinatorics}
 \sectionbar{1}{1pt}{-2}{0}
 
-\noindent \textcolor{red}{Exposition. Introduce this technology.}
+\noindent \textcolor{red}{Exposition. Introduce this technology. Also, I don't know how much this counts as combinatorics, I guess it's more ``dimensional analysis'' or something?}
 \newline
 
 \begin{definition}\label{def:fusion_matrix}{\em (Fusion Matrix).} \cite[Definition 3.2]{Grossman_2012}
@@ -1111,7 +1114,7 @@ Note that \cite[Corollary 8.54]{Etingof_2005} actually tells us that the Frobeni
 \leavevmode
 
 \begin{lemma}\label{lem:near-group_algebra_candidates}
-Any simple algebra object in $\mathcat{C}$ is of the form $H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and integer $a \in \{0, 1, \dots, m\abs{H}\}$.
+Any connected simple algebra object in $\mathcat{C}$ is of the form $H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and integer $a \in \{0, 1, \dots, m\abs{H}\}$.
 \end{lemma}
 \leavevmode\newline
 \begin{proof}
@@ -1147,7 +1150,7 @@ a & x_1 & \dots & x_s
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_orbits}
-Every fusion $\mathcat{C}$-module category $\mathcat{M}$ has exactly two $G$-orbits.
+Every fusion $\mathcat{C}$-module category $\mathcat{M}$ has exactly two $G$-orbits of simple objects.
 \end{proposition}
 \leavevmode\newline
 \begin{proof}
@@ -1168,11 +1171,11 @@ Every fusion $\mathcat{C}$-module category $\mathcat{M}$ has exactly two $G$-orb
 \end{proof}
 \newline
 
-\noindent If $M, N \in \Ob(\mathcat{M})$ are simple objects that live in the same $G$-orbit, then \cite[Lemma 3.3]{Ostrik_2003} tells us that the algebra objects $\IntHom{M, M}$ and $\IntHom{N, N}$ are related by an inner automorphism of invertible objects. Of course, since the fusion ring of $\mathcat{C}$ is commutative, it follows that these internal homs are isomorphic \textcolor{red}{(as objects)}. It turns out that if $M$ and $N$ live in distinct $G$-orbits, then their internal homs are also distinct.
+\noindent If $M, N \in \Ob(\mathcat{M})$ are simple objects that live in the same $G$-orbit, then \cite[Lemma 3.3]{Ostrik_2003} tells us that the algebra objects $\IntHom{M, M}$ and $\IntHom{N, N}$ are related by an inner automorphism of invertible objects. Of course, since the fusion ring of $\mathcat{C}$ is commutative, it follows that these internal homs are isomorphic as objects in $\mathcat{C}$. Conversely, it turns out that if $M$ and $N$ live in distinct $G$-orbits, then their internal homs are also distinct. From this observation, we can learn a great deal about the structure of these module categories.
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_equivalence_classes}
-Every fusion $\mathcat{C}$-module category $\mathcat{M}$ is the category of module objects over exactly two simple algebra objects up to isomorphism \textcolor{red}{of objects in $\mathcat{C}$}.
+Every fusion $\mathcat{C}$-module category $\mathcat{M}$ is the category of module objects over exactly two connected simple algebra objects up to isomorphism of objects in $\mathcat{C}$. Denoting these algebra objects by $A \cong H \oplus X^{\oplus a}$ and $A' \cong H' \oplus X^{\oplus a'}$, $\rmodcat[\mathcat{C}]{A} \cong \mathcat{M}$ has exactly $\abs{G/H}$ simple $A$-module objects of the form $gH \oplus X^{\oplus a}$ for each coset $gH \in G/H$ and exactly $\abs{G/H'}$ $A$-module object structures on $X^{\oplus x}$ for some fixed $x \in \mathbb{Z}_{>0}$.
 \end{proposition}
 \leavevmode
 
@@ -1183,20 +1186,43 @@ Every fusion $\mathcat{C}$-module category $\mathcat{M}$ is the category of modu
 \newline
 
 \begin{proof}
-\noindent Let $A = H \oplus X^{\oplus a}$ and $A' = H \oplus X^{\oplus a'}$ be algebra objects corresponding to the two orbits of $\mathcat{M}$, as in \hyperref[prop:near-group_algebra_orbits]{Proposition \ref*{prop:near-group_algebra_orbits}}. We would like to show that $A \ncong A'$. Using the notation of \hyperref[lem:near-group_algebra_candidates]{Lemma \ref*{lem:near-group_algebra_candidates}}, define $g_{i,j}$ by $g_{i,j} \otimes M_i' \cong M_j'$. Since $g \otimes X \cong X$ for all $g \in G$, rigidity of $\mathcat{C}$ implies that
+\noindent We first show that there are exactly two connected simple algebra objects up to isomorphism of objects in $\mathcat{C}$. By \hyperref[prop:algebra_multiplicity_bound]{Proposition \ref*{prop:algebra_multiplicity_bound}}, we know that a simple algebra object is connected if and only if $A \cong \IntHom{M, M}$ for some simple $M \in \Ob(\mathcat{M})$, whence the previous remark implies that we have at most two connected simple algebra objects, one for each $G$-orbit. Denoting these objects by $A \cong H \oplus X^{\oplus a}$ and $A' \cong H' \oplus X^{\oplus a'}$, it remains to show that $A \ncong A'$. Well, borrowing the notation of \hyperref[lem:near-group_algebra_candidates]{Lemma \ref*{lem:near-group_algebra_candidates}}, let $A \cong \IntHom{M, M}$ for some simple $M \in \Ob(\mathcat{M}$), and denote by $M_1', M_2', \dots, M_{\abs{G/H'}}'$ the simple $A$-module objects in the other $G$-orbit. Choosing any $g_{i,j}$ such that $g_{i,j} \otimes M_i' \cong M_j'$, rigidity of $\mathcat{C}$ implies that
 \begin{align*}
 \begin{split}
 x_i &= \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X \otimes M, M_i'}) \\
-&= \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{g_{i,j}^{-1} \otimes (X \otimes M), M_i'}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, \IntHom{M, M_i'}}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, \IntHom{M, g_{i,j} \otimes M_j'}}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, g_{i,j} \otimes \IntHom{M, M_j'}}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{g_{i,j}^{-1} \otimes X, \IntHom{M, M_j'}}) \\
+&= \dim_{\mathbbm{k}}(\Hom[\mathcat{C}]{X, \IntHom{M, M_j'}}) \\
 &= \dim_{\mathbbm{k}}(\Hom[\mathcat{M}]{X \otimes M, M_j'}) \\
 &= x_j.
 \end{split}
 \end{align*}
-\noindent Denote $x \coloneqq x_1 = x_2 = \dots = x_s$. By equating $F_{\mathcat{C}}^M(F_{\mathcat{C}}^M)^T = F_{\mathcat{C}}^A$ and looking at the bottom-right entry of $F_{\mathcat{C}}^A$, we find that $\abs{G/H}a^2 + \abs{G/H'}x^2 = m\abs{G}a + \abs{H}$. If $H = H'$ and $a = a'$, then \hyperref[eq:near-group_module_dimension]{Equation \ref*{eq:near-group_module_dimension}} shows that $a = m\abs{H}/2$, whence we require that $x = \sqrt{m^2\abs{H}^2/4 + \abs{H}^2/\abs{G}} \in \mathbb{Z}_{>0}$. In other words, $x = (\abs{H}/2\abs{G})\FPdim(X)$, which is irrational by \hyperref[lem:near-group_non-invertible_irrational]{Lemma \ref*{lem:near-group_non-invertible_irrational}}. Hence $A \ncong A'$, completing the proof.
+\noindent Define $x \coloneqq x_1 = x_2 = \dots = x_{\abs{G/H'}}$. By equating $F_{\mathcat{C}}^M(F_{\mathcat{C}}^M)^T = F_{\mathcat{C}}^A$ and looking at the bottom-right entry of $F_{\mathcat{C}}^A$, we find that $\abs{G/H}a^2 + \abs{G/H'}x^2 = m\abs{G}a + \abs{H}$. If $H = H'$ and $a = a'$, then \hyperref[eq:near-group_module_dimension]{Equation \ref*{eq:near-group_module_dimension}} shows that $a = m\abs{H}/2$, whence $x = \sqrt{m^2\abs{H}^2/4 + \abs{H}^2/\abs{G}} = (\abs{H}/2\abs{G})\FPdim(X)$. This is irrational by \hyperref[lem:near-group_non-invertible_irrational]{Lemma \ref*{lem:near-group_non-invertible_irrational}}, contradicting the fact that $x \in \mathbb{Z}_{>0}$. Thus, $A \ncong A'$.
+\newline
+
+\noindent We now determine explicitly which objects admit $A$-module object structures. We start by remarking that every simple $A$-module object in the same $G$-orbit as $A$ is of the form $g \otimes M$ for some $g \in G$. From the fusion matrix, it is clear that we have a unique simple $A$-module object for each coset $gH \in G/H$, and if $g$ is any representative of the coset $gH$, then
+\begin{align*}
+\begin{split}
+\IntHom{M, g \otimes M} \cong g \otimes \IntHom{M, M} \cong g \otimes A \cong gH \oplus X^{\oplus a}.
+\end{split}
+\end{align*}
+\noindent Now, the remaining simple $A$-module objects live in the second $G$-orbit, and hence all have the same Frobenius-Perron dimension. In particular, we find that for any such simple $A$-module object $M'$,
+\begin{align*}
+\FPdim(\IntHom{M, M'}) &= \FPdim(M)\FPdim(M') \\
+&= \frac{(\FPdim(X) - a\abs{G/H})(\abs{H} + a\FPdim(X))}{x\abs{G/H'}} \\
+&= \frac{(\abs{H} + m\abs{G}a - a^2\abs{G/H})\FPdim(X)}{x\abs{G/H'}} \\
+&= x\FPdim(X).
+\end{align*}
+\noindent Note that the last equality uses the identity for $\abs{G/H'}x^2$ obtained in the previous part of the proof. Therefore, $\IntHom{M, M'} \cong X^{\oplus x}$, as required.
 \end{proof}
 \newline
 
-\begin{corollary}\label{cor:near-group_algebra_properties}
+\noindent We quickly comment that during the proof of the previous proposition, we have implicitly proven the following very handy corollary. This was previously proven by \cite[Proposition 3.15]{Hannah_2024} using linear algebraic techniques, whereas our proof is completely combinatoric in nature.
+\newline
+
+\begin{corollary}\label{cor:near-group_algebra_properties} \cite[Proposition 3.15]{Hannah_2024}
 Every simple algebra object $A = H \oplus X^{\oplus a}$ is Morita equivalent to another simple algebra object $A' = H' \oplus X^{\oplus a'}$ satisfying
 \begin{enumerate}[start=1, leftmargin=1.5cm, label={(\arabic*).}]
 \item $a/\abs{H} + a'/\abs{H'} = m$,
@@ -1205,11 +1231,8 @@ Every simple algebra object $A = H \oplus X^{\oplus a}$ is Morita equivalent to 
 \end{corollary}
 \leavevmode\newline
 \begin{proof}
-\noindent The first property is an immediate consequence of \hyperref[eq:near-group_module_dimension]{Equation \ref*{eq:near-group_module_dimension}}, while the second arises from the equation $\abs{G/H}a^2 + \abs{G/H'}x^2 = m\abs{G}a + \abs{H}$ derived in \hyperref[prop:near-group_algebra_equivalence_classes]{Proposition \ref*{prop:near-group_algebra_equivalence_classes}}.
+\noindent The first property is an immediate consequence of \hyperref[eq:near-group_module_dimension]{Equation \ref*{eq:near-group_module_dimension}}, while the second arises from the equation $\abs{G/H}a^2 + \abs{G/H'}x^2 = m\abs{G}a + \abs{H}$ derived in \hyperref[prop:near-group_algebra_equivalence_classes]{Proposition \ref*{prop:near-group_algebra_equivalence_classes}}, and uses $x \in \mathbb{Z}_{>0}$.
 \end{proof}
-\newline
-
-\noindent \textcolor{red}{It looks like this has already been proven by Samuel Hannah in their Ph.D. thesis. Probably mention this somewhere.}
 \newline
 
 \noindent From the first condition in this corollary, we can make a few important observations. First, we see that any simple algebra object $H$ lifting directly from $\textcat{Vec}_G$ is Morita equivalent to one the form $H' \oplus X^{\oplus m\abs{H'}}$ for some subgroup $H' \leq G$, and conversely. It is in this sense that the bound given in \hyperref[lem:near-group_algebra_candidates]{Lemma \ref*{lem:near-group_algebra_candidates}} is tight. We also comment that if $H$ and $H'$ are two distinct subgroups of $G$, then their corresponding algebra objects cannot be Morita equivalent (as we have assumed $m > 0$).
@@ -1272,6 +1295,9 @@ Let $m = 1$ and $G = \mathbb{Z}/p_1\mathbb{Z} \times \mathbb{Z}/p_2\mathbb{Z} \t
 \subsubsection{Algebra Object Equations}\label{sec:algebra_object_equations}
 
 \noindent \textcolor{red}{Maybe clean up the notation in this section. It might be good to use bars for scalar complex conjugation rather than stars. The other main problem here is that it seems like there's nothing preventing a lot of these constants from being zero. I feel like $\psi$ and $s(1)$ should both be non-zero for separability reasons. Finally, it'd be nice if we could have $\psi(h, h^{-1}) = 1$.}
+\newline
+
+\noindent \textcolor{red}{Maybe swap the 2-cocycle indices when you have the time.}
 \newline
 
 \noindent Throughout this section, let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and consider the object $A = H \oplus X^{\oplus a}$ for some subgroup $H \leq G$ and $a \in \mathbb{Z}_{\geq 0}$. We recall that this object is a standard $Q$-system if there exist morphisms $m_A : A \otimes A \to A$ and $u_A : \mathbbm{1} \to A$ such that
@@ -1380,7 +1406,7 @@ m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',
 \end{equation}
 \noindent These must be satisfied for all $h, h', h'' \in H$ and $i, j, k, l \in \{1, 2, \dots, a\}$.
 \newpage
-\noindent From these equations, we can make some observations. Well, \hyperref[eq:near-group_algebra_cocycle]{Equation \ref*{eq:near-group_algebra_cocycle}} tells us that we have a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$ \textcolor{red}{(There doesn't seem to be anything implying $\psi(h, h') \neq 0$. This is probably needed for separability of the subalgebra object in $\textcat{Vec}_G$.)} given by $\psi(h, h') = \psi_{h,h'}$: this is hopefully not at all surprising, as $H$ is known to be a subalgebra object of $A$. However, suppose we let $V = \mathbb{C}^a$, and fix any orthonormal basis $(e_1, e_2, \dots, e_a)$. Then we can interpret the remaining constants as functions $\lambda, \rho, s : H \to \End[\mathbb{C}]{V}$ and $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ defined by $(\lambda(h))_{i,j} = \lambda_{h,i,j}$, $(\rho(h))_{i,j} = \rho_{h,i,j}$, $(s(h))_{i,j} = s_{h,i,j}$ (as matrices in the basis $(e_1, e_2, \dots, e_a)$) and $([t(x)](e_i))_{j,k} = t_{h,i,j,k}$. Under this identification, the unit property implies that $\lambda(1) = \id_V = \rho(1)$, whence \hyperref[eq:near-group_algebra_representation_1]{Equations \ref*{eq:near-group_algebra_representation_1} and \ref*{eq:near-group_algebra_representation_2}} tell us that $\lambda, \rho : H \to \GL(V)$ are in fact projective representations of $V$ with respect to $\psi$.
+\noindent From these equations, we can make some observations. Well, \hyperref[eq:near-group_algebra_cocycle]{Equation \ref*{eq:near-group_algebra_cocycle}} tells us that we have a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$ given by $\psi(h, h') = \psi_{h,h'}$: \textcolor{red}{the fact that $\psi(h, h') \neq 0$ follows from semisimplicity of the subalgebra object $H$ in $\textcat{Vec}_G$ (can we also show that it has to be normalized in the sense $\psi(h, h^{-1}) = 1$?)}. However, suppose we let $V = \mathbb{C}^a$, and fix any orthonormal basis $(e_1, e_2, \dots, e_a)$. Then we can interpret the remaining constants as functions $\lambda, \rho, s : H \to \End[\mathbb{C}]{V}$ and $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ defined by $(\lambda(h))_{i,j} = \lambda_{h,i,j}$, $(\rho(h))_{i,j} = \rho_{h,i,j}$, $(s(h))_{i,j} = s_{h,i,j}$ (as matrices in the basis $(e_1, e_2, \dots, e_a)$) and $([t(x)](e_i))_{j,k} = t_{h,i,j,k}$. Under this identification, the unit property implies that $\lambda(1) = \id_V = \rho(1)$, whence \hyperref[eq:near-group_algebra_representation_1]{Equations \ref*{eq:near-group_algebra_representation_1} and \ref*{eq:near-group_algebra_representation_2}} tell us that $\lambda, \rho : H \to \GL(V)$ are in fact projective representations of $V$ with respect to $\psi$.
 \newline
 
 \noindent Finally, for $(A, m_A, u_A)$ to be unitarily separable, we require
@@ -1403,7 +1429,7 @@ m_A A(m_A) = \dim(A)^{-1/2}\biggl(&\sum_{h,h',h'' \in H}{\psi_{h,h'h''}\psi_{h',
 Two algebra objects $(A, m_A, u_A)$ and $(A, m_A', u_A')$ corresponding to the data $(\psi, \lambda, \rho, s, t)$ and $(\psi', \lambda', \rho', s', t')$ respectively are isomorphic (as algebra objects) if and only if there exists $f_H : H \to \mathbb{C}^{\times}$ and $f_X \in \GL(V)$ satisfying
 \begin{align*}
 f_H(1) &= 1, \\
-f_H(h)f_H(h')\psi(h, h')' &= f_H(hh')\psi(h, h'), \\
+f_H(h)f_H(h')\psi'(h, h') &= f_H(hh')\psi(h, h'), \\
 f_H(h)\lambda'(h)f_X &= f_X\lambda(h), \\
 f_H(h)\rho'(h)f_X &= f_X\rho(h), \\
 f_X^T s'(h)f_X &= f_H(h)s(h), \\
@@ -1454,6 +1480,9 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 \noindent Normalizing the 2-cocycle such that $\psi(h, h^{-1}) = 1 = \psi(h^{-1}, h)$ requires the $f_h$ in \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}} to be non-unitary unless $\abs{\psi(h, h^{-1})} = 1$. Do we expect this to be the case anyway, though? Maybe there's some argument involving the subalgebra object $H$.}
 \newline
 
+\noindent \textcolor{red}{Currently, we haven't really used semisimplicity directly. This might tell us that $\psi(h, h') \neq 0$ and potentially even $s(1) \neq 0$.}
+\newline
+
 \noindent Unfortunately, in the general case, \hyperref[eq:near-group_algebra_ugly_start]{Equations \ref*{eq:near-group_algebra_ugly_start} to \ref*{eq:near-group_algebra_ugly_end}} are difficult to reduce. Fortunately, things become much simpler when we assume $m = 1$. Here, the morphisms $T_x$ are indexed by elements of $G$, $\chi_h(h') = \inprod{h, h'}$ and we have explicit equations for $X(S_h)$, $X(T_x)$ and $X(U(h))$ in as polynomials in $S_h$, $T_x$ and $U(h)$. In particular, we find
 \begin{align*}
 [t(x)](e_i)\lambda(h) &= \inprod{h, x}^{*}[t(x)](e_i^T\lambda(h)), \\
@@ -1469,7 +1498,7 @@ f m_A = \dim(A)^{-1/4}\biggl(&\sum_{h,h' \in H}{f_{hh'}\psi_{h,h'}v_{hh'}v_{hh'}
 \newline
 
 \begin{proposition}\label{prop:near-group_algebra_equations}
-Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and let $V = \mathbb{C}^a$ for $a \in \mathbb{Z}_{\geq 0}$ with basis $(e_1, e_2, \dots, e_a)$. Then the object $A = H \oplus X^{\oplus a}$ admits the structure of a standard $Q$-system if there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(V)$ and functions $s : H \to \End[\mathbb{C}]{V}$, $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ satisfying
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, m\abs{G})$ for some finite Abelian group $G$ and $m \in \mathbb{Z}_{>0}$, and let $V = \mathbb{C}^a$ for $a \in \mathbb{Z}_{\geq 0}$ with basis $(e_1, e_2, \dots, e_a)$. Then the object $A = H \oplus X^{\oplus a}$ admits the structure of a standard $Q$-system if there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(V)$ and functions $s : H \to \End[\mathbb{C}]{V}$ \textcolor{red}{(we really only need $s(1)$, but we should try and learn more about it first)}, $t : G \to \Hom[\mathbb{C}]{V, \End[\mathbb{C}]{V}}$ satisfying
 \begin{gather*}
 \sum_{h'' \in H}{\abs{\psi(hh'', (h'')^{-1})}^2} + \tr(s(h)s(h)^{*}) = \dim(A), \\
 \sum_{h'' \in H}{(\lambda(h'')\lambda(h'')^{*})_{i,j}} + \sum_{h'' \in H}{(\rho(h'')\rho(h'')^{*})_{i,j}} + \sum_{x=1}^{m\abs{G}}{\tr([t(x)](e_i)[t(x)](e_j)^{*})} = \delta_{i,j}\dim(A),
@@ -1502,23 +1531,23 @@ for all $h, h' \in H$ and $i, j, k, l \in \{1, 2, ..., a\}$. When $m = 1$, the l
 \end{align*}
 \begin{gather*}
 \sum_{r=1}^{a}{s_{h,i,r}t_{x,r,j,k}} = \frac{c}{\sqrt{\abs{G}}}\sum_{z \in G}{\sum_{r=1}^{a}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}s_{h,r,k}t_{z,r,i,j}}}, \\
-\delta_{x \in H}\sqrt{d}\lambda_{x,i,j}s_{x,k,l} = \frac{1}{\sqrt{d}}\sum_{h' \in H}{\inprod{h', x}^{*}\rho_{h',i,l}s_{h',j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{z, w}^{*}\inprod{x, z}t_{z,i,r,l}t_{w,r,j,k}}} \\
+\delta_{x \in H}\sqrt{d}\lambda_{x,i,j}s_{x,k,l} = \frac{1}{\sqrt{d}}\sum_{h' \in H}{\inprod{h', x}^{*}\rho_{h',i,l}s_{h',j,k}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\sum_{r=1}^{a}{\inprod{z, w}^{*}\inprod{x, z}t_{z,i,r,l}t_{w,r,j,k}}}, \\
 \sum_{r=1}^{a}{t_{x,i,j,r}t_{y,r,k,l}} = \delta_{xy \in H}\frac{1}{\sqrt{d}}a(x^{-1})^{*}\rho_{(xy)^{-1},i,l}s_{(xy)^{-1},j,k} + \sum_{z \in G}{\sum_{r=1}^{a}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t_{xy,i,r,l}t_{z,r,j,k}}}.
 \end{gather*}
 \noindent for all $h \in H$, $x, y \in G$ and $i, j, k, l \in \{1, 2, ..., a\}$. Here, $d \coloneqq \dim(X)$. \textcolor{red}{Can we shorten these so they don't stretch the lines as much?}
 \end{proposition}
 \leavevmode
 
-\begin{corollary}
-Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, \abs{G})$ for some finite Abelian group $G$, and consider any subgroup $H \leq G$. Then $A = H \oplus X$ admits the structure of a standard $Q$-system if $\inprod{h, h'} = 1$ for all $h, h' \in H$, and there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(\mathbb{C})$, a scalar $s_1 \in \mathbb{C}$ and a function $t : G \to \mathbb{C}$ satisfying
+\begin{corollary}\label{cor:near-group_algebra_H+X_equations}
+Let $\mathcat{C}$ be a unitary near-group fusion category of type $(G, \abs{G})$ for some finite Abelian group $G$, and consider any subgroup $H \leq G$. Then $A = H \oplus X$ admits the structure of a standard $Q$-system if $\inprod{h, h'} = 1$ for all $h, h' \in H$, and there exists a 2-cocycle $\psi : H^2 \to \mathbb{C}^{\times}$, projective representations $\lambda, \rho : H \to \GL(\mathbb{C})$, a scalar $s(\mathbbm{1}) \in \mathbb{C}$ and a function $t : G \to \mathbb{C}$ satisfying
 \begin{gather*}
-\sum_{h'' \in H}{\abs{\psi(hh'', (h'')^{-1})}^2} + \abs{\psi(h^{-1}, h)^{-1}\lambda(h^{-1})s_1}^2 = \dim(A), \\
+\sum_{h'' \in H}{\abs{\psi(hh'', (h'')^{-1})}^2} + \abs{\psi(h^{-1}, h)^{-1}\lambda(h^{-1})s(\mathbbm{1})}^2 = \dim(A), \\
 \sum_{h'' \in H}{\abs{\lambda(h'')}^2} + \sum_{h'' \in H}{\abs{\rho(h'')}^2} + \sum_{x \in G}{\abs{t(x)}^2} = \dim(A),
 \end{gather*}
 \begin{align*}
 \lambda(h)\lambda(h') &= \psi(h, h')\lambda(hh'), \\
 \rho(h)\rho(h') &= \psi(h', h)\rho(hh'), \\
-s_1\lambda(h) &= \rho(h)s_1,
+s(\mathbbm{1})\lambda(h) &= \rho(h)s(\mathbbm{1}),
 \end{align*}
 \begin{align*}
 t(x) &= \inprod{h, x}^{*}t(x), \\
@@ -1526,16 +1555,41 @@ t(xh)\rho(h) &= \lambda(h)t(x), \\
 t(xh) &= a(h)^{*}t(x),
 \end{align*}
 \begin{gather*}
-s_1 t(x) = \frac{cs_1}{\sqrt{\abs{G}}}\sum_{z \in G}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}t(z)}, \\
-\delta_{x \in H}\sqrt{d}s_1 = \frac{s_1}{\sqrt{d}}\sum_{h'' \in H}{\inprod{h'', x}^{*}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\inprod{z, w}^{*}\inprod{x, z}t(z)t(w)} \\
-t(x)t(y) = \delta_{xy \in H}\frac{s_1}{\sqrt{d}}a(x^{-1})^{*} + \sum_{z \in G}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t(xy)t(z)}.
+s(\mathbbm{1})t(x) = \frac{cs(\mathbbm{1})}{\sqrt{\abs{G}}}\sum_{z \in G}{a(z)\inprod{x, z}^{*}\inprod{x, h}^{*}t(z)}, \\
+\delta_{x \in H}\sqrt{d}s(\mathbbm{1}) = \frac{s(\mathbbm{1})}{\sqrt{d}}\sum_{h'' \in H}{\inprod{h'', x}^{*}} + \frac{c^{*}}{\sqrt{\abs{G}}}\sum_{z,w \in G}{\inprod{z, w}^{*}\inprod{x, z}t(z)t(w)}, \\
+t(x)t(y) = \delta_{xy \in H}\frac{s(\mathbbm{1})}{\sqrt{d}}a(x^{-1})^{*} + \sum_{z \in G}{a(x^{-1})^{*}b(zx^{-1})^{*}\inprod{xy, z}^{*}t(xy)t(z)}.
 \end{gather*}
-\textcolor{red}{Finish this, and maybe give a proof. There's nothing to it, really, but it might at least be worth stating why $\inprod{h, h'} = 1$. If $s_1 \neq 0$, then we get $\lambda = \rho$, so $t(x) = t(xh)$.}
+\textcolor{red}{Finish this, and maybe give a proof. There's nothing to it, really, but it might at least be worth stating why $\inprod{h, h'} = 1$. If $s(\mathbbm{1}) \neq 0$, then we get $\lambda = \rho$, so $t(x) = t(xh)$.}
 \end{corollary}
 \leavevmode
 
 \noindent \textcolor{red}{Give the proof for existence of $\mathbb{Z}/2\mathbb{Z} \oplus X$ in the $\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ near-group.}
 \newline
+
+\begin{example}
+Denote $G = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} = \{\mathbbm{1}, (g, 1), (1, g), (g, g)\}$, and consider the unique unitary near-group fusion category $\mathcat{C}$ of type $(G, 4)$. This category is defined by the data
+\begin{gather*}
+a(\mathbbm{1}) = 1 = a(g, g), \quad a(g, 1) = i = a(1, g)^{*}; \\
+b(\mathbbm{1}) = -\frac{1}{d}, \quad b(g, 1) = \frac{i - 1}{d - 2} = b(1, g)^{*}, \quad b(g, g) = \frac{1}{2}; \\
+c = 1.
+\end{gather*}
+Suppose we define $H = \{\mathbbm{1}, (g, g)\}$, so that $a(h) = 1$ and $\inprod{h, h'} = 1$ for all $h, h' \in H$. We claim that $A = H \oplus X$ admits a unique standard $Q$-system structure. We first remark that $H$ has no non-trivial 2-cocycles, so $\psi$ is determined up to $\psi((g, g), (g, g))$. Similarly, we have $\lambda(\mathbbm{1}) = 1 = \rho(\mathbbm{1})$ and $\lambda(g, g) = \psi((g, g), (g, g)) = \rho(g, g)$. Looking to the first separability condition, we can then write
+\begin{gather*}
+\abs{s(\mathbbm{1})}^2 = d\abs{\psi((g, g), (g, g))}^3 = d + 1 - \abs{\psi((g, g), (g, g))}^2, \\
+\implies \abs{\psi((g, g), (g, g))} = 1, \quad \abs{s(\mathbbm{1})} = \sqrt{d}.
+\end{gather*}
+Because $\inprod{h, x}^{*} \neq 1$ for all $h \in H$ unless $x \in H$, the equation $t(x) = \inprod{h, x}^{*}t(x)$ shows that $t(x) = 0$ for all $x \notin H$, while $t(xh)\rho(h) = \lambda(h)t(x)$ and $t(xh) = a(h)^{*}t(x)$ now show $t(g, g) = t(\mathbbm{1})$. Then the second separability condition gives $\abs{t(\mathbbm{1})} = \sqrt{d - 2}$. It remains to solve the last three equations of \hyperref[cor:near-group_algebra_H+X_equations]{Corollary \ref*{cor:near-group_algebra_H+X_equations}}. The first of these trivially holds, since $\sum_{z \in H}{a(z)\inprod{x, z}^{*}} = 0$ if $x \notin H$ and $\sum_{z \in H}{a(z)\inprod{x, z}^{*}} = 2$ if $x \in H$. The second also trivially holds when $x \notin H$ for the same reason, though when $x \in H$, it reduces to $t(\mathbbm{1})^2 = (s(\mathbbm{1})/\sqrt{d})((d - 2)/2)$. The last equation is trivially satisfied when $xy \notin H$, so assume $xy \in H$. In $\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$, this implies that either $x = y \notin H$ or $x, y \in H$. These two cases result in the following expressions:
+\begin{alignat*}{2}
+t(\mathbbm{1})^2 &= \left(\frac{s(\mathbbm{1})}{\sqrt{d}}\right)(-b(g, 1)^{*} - b(1, g)^{*})^{-1} &&= \left(\frac{s(\mathbbm{1})}{\sqrt{d}}\right)\left(\frac{d - 2}{2}\right), \\
+t(\mathbbm{1})^2 &= \left(\frac{s(\mathbbm{1})}{\sqrt{d}}\right)(1 - b(\mathbbm{1})^{*} - b(g, g)^{*})^{-1} &&= \left(\frac{s(\mathbbm{1})}{\sqrt{d}}\right)\left(\frac{2d}{d + 2}\right).
+\end{alignat*}
+Of course, these expressions are both equal (since $d^2 = 4d + 4$) and agree with the one obtained previously. Hence, $H \oplus X$ does indeed admit the structure of a standard $Q$-system. Technically, we have constructed a family of solutions that depend on $\psi((g, g), (g, g))$, $s(\mathbbm{1})$ and $t(\mathbbm{1})$, but we may apply \hyperref[prop:near-group_algebra_isomorphism]{Proposition \ref*{prop:near-group_algebra_isomorphism}} to show that our solutions are isomorphic. Letting $f_H(g, g) = (\psi((g, g), (g, g)))^{1/2}$ and $f_X = \pm (s(\mathbbm{1})/\sqrt{d})^{1/2}$, with the sign depending on which root of $t(\mathbbm{1})^2 = (s(\mathbbm{1})/\sqrt{d})((d - 2)/2)$ was chosen, we find that every solution derived above is isomorphic to the one where $\psi((g, g), (g, g)) = 1$, $s(\mathbbm{1}) = \sqrt{d}$ and $t(\mathbbm{1}) = \sqrt{(d - 2)/2}$. Thus, the standard $Q$-system structure is unique. For completeness, $m_A$ and $u_A$ are given by
+\begin{alignat*}{2}
+m_A &= (d + 2)^{-1/4}\biggl(&&\sum_{h,h' \in H}{v_{hh'}v_{hh'}^{*}v_h^{*}} + \sum_{h \in H}{v_X v_X^{*}v_h^{*}} + \sum_{h \in H}{v_X U(h)^{*}X(v_h^{*})v_X^{*}} + \\
+&&\sqrt{d}&\sum_{h \in H}{v_h S_h^{*}X(v_X^{*})v_X^{*}} + \sqrt{\frac{d - 2}{2}}\sum_{h \in H}{v_X T_h^{*}X(v_X^{*})v_X^{*}}\biggr), \\
+u_A &= (d + 2)^{1/4}v_1.
+\end{alignat*}
+\end{example}
 \newpage
 
 
